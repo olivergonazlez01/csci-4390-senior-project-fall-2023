@@ -8,6 +8,14 @@ public class Player : MonoBehaviour
     private const float SPEED = 5.0f;
     private Vector2 _velocity = Vector2.zero;
 
+    // PLayer has 3 chances of getting hit by the zombies before dying
+    public byte health = 3;
+    public float autoRegenTimer = 0.0f;
+    public bool autoRegen = false;
+    public float safeTimer = 0.0f;
+    public bool safeTime = false;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,6 +25,50 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Checks if the player has ran out of health, and ends the game if it has (FOR NOW)
+        if (health == 0)
+        {
+            // quit either from the editor or from a built application
+            #if UNITY_EDITOR
+                // Display how long the player was alive
+                UnityEditor.EditorApplication.isPlaying = false;
+            #else
+                Application.Quit();
+            #endif
+        }
+
+        // safeTime makes sure the player a downtime to the zombies' hits
+        if(safeTime)
+            safeTimer += Time.deltaTime;
+
+        // Checks if the safetimer is out of time, and turns of the safeTime
+        if (safeTimer >= 1.5f)
+        {
+            safeTime = false;
+            safeTimer = 0.0f;
+        }
+
+        // Checks if autoRegen can be started
+        if (health < 3)
+        {
+            autoRegen = true;
+        }
+
+        // Begins autoRegenTimer
+        if (autoRegen)
+        {
+            autoRegenTimer += Time.deltaTime;
+        }
+
+        // Increments health by one
+        if (autoRegenTimer >= 5.0f)
+        {
+            health++;
+            autoRegen = false;
+            autoRegenTimer = 0.0f;
+        }
+
+
         // convert user input into a movement direction (could use Unity axis for this)
         Vector2 dir = Vector2.zero;
         if (Input.GetKey(KeyCode.D)) dir += Vector2.right;
@@ -29,5 +81,16 @@ public class Player : MonoBehaviour
 
         // integrate velocity to update position
         transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
+    }
+
+    // Check if the player has hit by the zombie
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.tag == "Zombie" && !safeTime)
+        {
+            health--;
+            safeTime = true;
+            Debug.Log("hurts");
+        }
     }
 }
