@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
-    public int HP = 3;
+    public Player pawl;
     public int HeartCount;
     public Image[] hearts;
     public Sprite FullHeart;
@@ -19,7 +19,7 @@ public class Health : MonoBehaviour
     void Update()
     {
         for (int i = 0; i < hearts.Length; i++) {
-            if (i < HP) {
+            if (i < pawl.health) {
                 hearts[i].sprite = FullHeart;
             } else {
                 hearts[i].sprite = EmptyHeart;

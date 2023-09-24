@@ -97,7 +97,6 @@ public class Player : MonoBehaviour
         if (collision.collider.tag == "Zombie" && !safeTime)
         {
             health--;
-            GUI.HP = health;
             safeTime = true;
             Debug.Log("hurts");
         }
