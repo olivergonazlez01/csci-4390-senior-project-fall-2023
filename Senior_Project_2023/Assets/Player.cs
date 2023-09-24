@@ -7,6 +7,9 @@ public class Player : MonoBehaviour
 {
     private const float SPEED = 5.0f;
     private Vector2 _velocity = Vector2.zero;
+    public Animator animator;
+    public SpriteRenderer pawl;
+    public Health GUI;
 
     // PLayer has 3 chances of getting hit by the zombies before dying
     public byte health = 3;
@@ -78,7 +81,12 @@ public class Player : MonoBehaviour
 
         // set velocity based on movement direction
         _velocity = dir.normalized * SPEED;
-
+        animator.SetFloat("speed", dir.magnitude);
+        if (Input.GetAxisRaw("Horizontal") > 0) {
+            pawl.flipX = true;
+        } else if (Input.GetAxisRaw("Horizontal") < 0) {
+            pawl.flipX = false;
+        }
         // integrate velocity to update position
         transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
     }
@@ -89,6 +97,7 @@ public class Player : MonoBehaviour
         if (collision.collider.tag == "Zombie" && !safeTime)
         {
             health--;
+            GUI.HP = health;
             safeTime = true;
             Debug.Log("hurts");
         }
