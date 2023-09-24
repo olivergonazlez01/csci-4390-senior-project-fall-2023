@@ -90,7 +90,6 @@ public class Player : MonoBehaviour
         {
             health--;
             safeTime = true;
-            Debug.Log("hurts");
         }
     }
 }
