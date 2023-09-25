@@ -10,7 +10,8 @@ public class Zombie : MonoBehaviour
     public byte health = 100;
 
     public GameObject Player;
-
+    public SpriteRenderer zombie;
+    public Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -27,6 +28,12 @@ public class Zombie : MonoBehaviour
         // Follow player around the map no matter the distance
         Vector2 dir = Player.transform.position - transform.position;
         _velocity = dir.normalized * SPEED;
+        animator.SetFloat("speed", dir.magnitude);
+        if (dir.x > 0) {
+            zombie.flipX = true;
+        } else if (dir.x < 0) {
+            zombie.flipX = false;
+        }
         transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
     }
 
