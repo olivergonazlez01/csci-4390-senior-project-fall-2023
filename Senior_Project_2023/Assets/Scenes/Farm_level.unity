@@ -1757,7 +1757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36813da56b031450ab10aeb747f2bd44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HP: 3
+  pawl: {fileID: 670035358}
   HeartCount: 3
   hearts:
   - {fileID: 1708432285}
