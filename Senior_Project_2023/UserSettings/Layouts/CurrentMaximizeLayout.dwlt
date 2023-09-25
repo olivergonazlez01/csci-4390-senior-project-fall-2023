@@ -34,6 +34,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 1
+
   m_Script: {fileID: 12014, guid: 0000000000000000e000000000000000, type: 0}
   m_Name: 
   m_EditorClassIdentifier: 
@@ -49,11 +50,15 @@ MonoBehaviour:
     y: 634
     width: 1465
     height: 365
+  m_SerializedDataModeController:
+    m_DataMode: 0
+    m_PreferredDataMode: 0
+    m_SupportedDataModes: 
+    isAutomatic: 1
   m_ViewDataDictionary: {fileID: 0}
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
-=======
     m_OverlaysVisible: 1
   m_SearchFilter:
     m_NameFilter: 
@@ -277,13 +282,14 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
-  m_OverlaysVisible: 1
+    m_OverlaysVisible: 1
   m_SceneHierarchy:
     m_TreeViewState:
       scrollPos: {x: 0, y: 0}
       m_SelectedIDs: 
       m_LastClickedID: 0
       m_ExpandedIDs: 6476feff9ea0feffe0abfeff5eccfeff6eccfeffb2ccfeff5ad1feff
+>>>>>>> main
       m_RenameOverlay:
         m_UserAcceptedRename: 0
         m_Name: 
@@ -322,7 +328,6 @@ MonoBehaviour:
   m_Children: []
   m_Position:
     serializedVersion: 2
-    x: 361
     y: 0
     width: 1105
     height: 561
@@ -379,7 +384,7 @@ MonoBehaviour:
       index: 0
       layout: 1
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 0
       containerId: overlay-toolbar__top
       floating: 0
@@ -392,7 +397,7 @@ MonoBehaviour:
       index: 1
       layout: 1
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-toolbar__top
       floating: 0
@@ -405,7 +410,7 @@ MonoBehaviour:
       index: 0
       layout: 1
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-toolbar__top
       floating: 0
@@ -418,7 +423,7 @@ MonoBehaviour:
       index: 1
       layout: 1
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 0
       containerId: overlay-container--left
       floating: 0
@@ -431,7 +436,7 @@ MonoBehaviour:
       index: 0
       layout: 2
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 0
       containerId: overlay-container--left
       floating: 0
@@ -444,7 +449,7 @@ MonoBehaviour:
       index: 1
       layout: 2
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 0
       containerId: overlay-container--right
       floating: 0
@@ -457,7 +462,7 @@ MonoBehaviour:
       index: 0
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -470,7 +475,7 @@ MonoBehaviour:
       index: 0
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -483,7 +488,7 @@ MonoBehaviour:
       index: 1
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -496,7 +501,7 @@ MonoBehaviour:
       index: 2
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -509,7 +514,7 @@ MonoBehaviour:
       index: 3
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -522,7 +527,7 @@ MonoBehaviour:
       index: 4
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -535,7 +540,7 @@ MonoBehaviour:
       index: 5
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -548,7 +553,7 @@ MonoBehaviour:
       index: 6
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -561,7 +566,7 @@ MonoBehaviour:
       index: 4
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -574,7 +579,7 @@ MonoBehaviour:
       index: 5
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -587,7 +592,7 @@ MonoBehaviour:
       index: 6
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -600,7 +605,7 @@ MonoBehaviour:
       index: 7
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -613,7 +618,7 @@ MonoBehaviour:
       index: 11
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
       floating: 0
@@ -626,7 +631,7 @@ MonoBehaviour:
       index: 12
       layout: 4
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 0
       containerId: overlay-toolbar__left
       floating: 0
@@ -639,7 +644,7 @@ MonoBehaviour:
       index: 0
       layout: 0
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 0
       containerId: overlay-toolbar__left
       floating: 0
@@ -652,7 +657,7 @@ MonoBehaviour:
       index: 1
       layout: 0
       size: {x: 0, y: 0}
-      sizeOverridden: 0
+      sizeOverriden: 0
     - dockPosition: 0
       containerId: overlay-toolbar__left
       floating: 0
@@ -664,7 +669,7 @@ MonoBehaviour:
       id: Scene View/Tilemap Focus
       index: 2
       layout: 0
-size: {x: 0, y: 0}
+      size: {x: 0, y: 0}
       sizeOverriden: 0
     - dockPosition: 1
       containerId: overlay-container--right
@@ -692,7 +697,7 @@ size: {x: 0, y: 0}
       layout: 4
       size: {x: 0, y: 0}
       sizeOverriden: 0
-  m_OverlaysVisible: 1
+    m_OverlaysVisible: 1
   m_WindowGUID: cc27987af1a868c49b0894db9c0f5429
   m_Gizmos: 1
   m_OverrideSceneCullingMask: 6917529027641081856
@@ -907,7 +912,6 @@ MonoBehaviour:
   - {fileID: 11}
   m_Selected: 0
   m_LastSelected: 1
---- !u!114 &11
 MonoBehaviour:
   m_ObjectHideFlags: 52
   m_CorrespondingSourceObject: {fileID: 0}
@@ -940,7 +944,7 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
-  m_OverlaysVisible: 1
+    m_OverlaysVisible: 1
 --- !u!114 &12
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -1000,7 +1004,7 @@ MonoBehaviour:
   m_OverlayCanvas:
     m_LastAppliedPresetName: Default
     m_SaveData: []
-  m_OverlaysVisible: 1
+    m_OverlaysVisible: 1
   m_ObjectsLockedBeforeSerialization: []
   m_InstanceIDsLockedBeforeSerialization: 
   m_PreviewResizer:
