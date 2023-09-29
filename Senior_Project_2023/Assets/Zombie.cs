@@ -13,15 +13,32 @@ public class Zombie : MonoBehaviour
     public SpriteRenderer zombie;
     public Animator animator;
 
+
+    public GameObject gameController;
+    MainController controller;
+    public GameObject spawner;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Player = GameObject.Find("pawl");
+        gameController = GameObject.Find("Game Controller");
+        controller = gameController.GetComponentInChildren<MainController>();
+        //spawner = transform.parent.gameObject;
     }
 
     // Update is called once per frame
     void Update()
     {
+        health--;
+        if (health <= 0)
+        {
+            controller.zombiesLeft--;
+            spawner = GameObject.Find("Zombie Spawner");
+            transform.SetParent(spawner.transform);
+            transform.localPosition = new Vector2(0, 0);
+            transform.gameObject.SetActive(false);
+        }
         // Check if the zombie has touched the player
         //if (Player.health)
 

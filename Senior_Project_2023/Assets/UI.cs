@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor.UI;
 using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class UI : MonoBehaviour
 {
+    GameObject canvas;
     public GameObject panel;
 
     public Text round;
@@ -27,6 +29,19 @@ public class UI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        canvas = GameObject.Find("Canvas Full UI");
+        
+        // panel = canvas.transform.Find("Item Tab").gameObject;
+        // round = canvas.transform.Find("Round").GetComponentInChildren<Text>();
+        // level = canvas.transform.Find("Level").GetComponentInChildren<Text>();
+        // zombCount = canvas.transform.Find("Zombie Count").GetComponentInChildren<Text>();
+        // points = canvas.transform.Find("Points").GetComponentInChildren<Text>();
+        // bulletInClip = canvas.transform.Find("Bullets (Clip)").GetComponentInChildren<Text>();
+        // bulletTotal = canvas.transform.Find("Bullets (Total)").GetComponentInChildren<Text>();
+        // controller = transform.Find("Game Controller").GetComponentInChildren<MainController>();
+        // playerInfo = transform.Find("pawl").GetComponentInChildren<Player>();
+
+
         panel.SetActive(false);
 
         round.text = roundCount.ToString();
@@ -46,6 +61,7 @@ public class UI : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        zombCount.text = controller.zombiesLeft.ToString();
         if (controller.zombiesLeft == 0)
         {
             roundCount++;
