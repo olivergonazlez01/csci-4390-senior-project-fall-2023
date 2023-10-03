@@ -100,4 +100,11 @@ public class Player : MonoBehaviour
             safeTime = true;
         }
     }
+
+    // Check if player is close enough to upgrade bench and presses 'E'
+    void OnTriggerStay2D(Collider2D collider) {
+        if (collider.gameObject.CompareTag("Interactable") && Input.GetKey(KeyCode.E)) {
+            Debug.Log("opened");
+        }
+    }
 }
