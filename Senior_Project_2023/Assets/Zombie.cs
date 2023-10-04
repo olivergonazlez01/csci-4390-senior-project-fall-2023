@@ -30,7 +30,6 @@ public class Zombie : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        health--;
         if (health <= 0)
         {
             controller.zombiesLeft--;

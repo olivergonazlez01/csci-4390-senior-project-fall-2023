@@ -25,11 +25,15 @@ public class UI : MonoBehaviour
 
     public MainController controller;
     public Player playerInfo;
+    GunController gun;
 
     // Start is called before the first frame update
     void Start()
     {
         canvas = GameObject.Find("Canvas Full UI");
+        gun = GameObject.Find("/pawl/center").GetComponentInChildren<GunController>();
+        bulletClipCount = gun.bulletCount;
+        bulletTotalCount = gun.bulletCountTotal;
         
         // panel = canvas.transform.Find("Item Tab").gameObject;
         // round = canvas.transform.Find("Round").GetComponentInChildren<Text>();
@@ -74,5 +78,18 @@ public class UI : MonoBehaviour
             panel.SetActive(false);
     }
 
+    // public static void Change()
+    // {
+    //     bulletClipCount = gun.bulletCount;
+    //     bulletTotalCount = gun.bulletCountTotal;
+    // }
+    public void Change()
+    {
+        bulletClipCount = gun.bulletCount;
+        bulletTotalCount = gun.bulletCountTotal;
+
+        bulletInClip.text = bulletClipCount.ToString();
+        bulletTotal.text = bulletTotalCount.ToString();
+    }
 
 }
