@@ -14,7 +14,14 @@ public class Pickup : MonoBehaviour
         if (Input.GetKey(KeyCode.E)) {
             if (collider.gameObject.CompareTag("Player")) {
                 this.transform.parent = player.transform;
-                this.transform.position = new Vector3(player.transform.position.x - 0.4f, player.transform.position.y, player.transform.position.z);
+                if (player.transform.localScale.x > 0) {
+                    this.transform.position = new Vector3(player.transform.position.x - 0.4f, player.transform.position.y, player.transform.position.z);
+                } else {
+                    Vector3 flip = this.transform.localScale;
+                    flip.x *= -1;
+                    this.transform.localScale = flip;
+                    this.transform.position = new Vector3(player.transform.position.x + 0.4f, player.transform.position.y, player.transform.position.z);
+                }
                 for (int i = 0; i < 2; i++) {
                     if (slots[i].sprite == null) {
                         slots[i].sprite = icon;
