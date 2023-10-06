@@ -9,7 +9,7 @@ public class GunController : MonoBehaviour
     Camera cam;
     Vector2 mousePos;
     UI ui;
-    BoxCollider2D box;
+    Transform gunPoint;
 
     public string gunName = "";
     public byte perRound = 0;
@@ -17,6 +17,7 @@ public class GunController : MonoBehaviour
     public ushort bulletCountTotal = 0;
 
     bool rotated = false;
+    int layerMask;
 
     // Start is called before the first frame update
     void Start()
@@ -27,7 +28,9 @@ public class GunController : MonoBehaviour
         cam = transform.parent.parent.GetComponentInChildren<Camera>();
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         ui = GameObject.Find("/UI Controller").GetComponent<UI>();
-        box = GetComponent<BoxCollider2D>();
+        gunPoint = transform.Find("GunPoint");
+        //layerMask = LayerMask.GetMask("Zombie");
+        layerMask = ~(LayerMask.GetMask("Zombie"));
 
 
         if (gunName == "pistol")
@@ -75,13 +78,15 @@ public class GunController : MonoBehaviour
         bulletCount--;
 
         RaycastHit2D info = Physics2D.Raycast(
-            transform.position + new Vector3(0.0f, -box.bounds.extents.x, 0.0f),
-            transform.right,
-            Mathf.Infinity,
-            1 << 5
+            gunPoint.position,
+            -transform.right,
+            // layerMask
+            LayerMask.GetMask("Zombie")
+            //1 << 7
         );
 
-        Debug.Log(info.collider.transform.name);
+        if (info.transform != null)
+            Debug.Log(info.transform.name);
 
 
         if (bulletCount == 0)
