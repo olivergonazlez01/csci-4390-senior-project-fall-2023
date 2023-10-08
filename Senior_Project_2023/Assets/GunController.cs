@@ -10,6 +10,7 @@ public class GunController : MonoBehaviour
     Vector2 mousePos;
     UI ui;
     Transform gunPoint;
+    [SerializeField] Transform bulletTrail;
 
     public string gunName = "";
     public byte perRound = 0;
@@ -77,7 +78,8 @@ public class GunController : MonoBehaviour
     {
         bulletCount--;
 
-        RaycastHit2D info = Physics2D.Raycast(
+        RaycastHit2D hit = Physics2D.Raycast
+        (
             gunPoint.position,
             -transform.right,
             // layerMask
@@ -85,8 +87,28 @@ public class GunController : MonoBehaviour
             //1 << 7
         );
 
-        if (info.transform != null)
-            Debug.Log(info.transform.name);
+        var trail = Instantiate
+        (
+            bulletTrail,
+            gunPoint.position,
+            transform.rotation
+        );
+
+        var trailScript = trail.GetComponent<BulletTrail>();
+
+        if (hit.collider != null)
+        {
+            trailScript.SetTargetPosition(hit.point);
+            //var hittable = hit.collider.GetComponent<IGraphDataWithVariables>();
+            //hittable?.Hit();
+            if (hit.transform != null)
+                Damage(hit.transform);
+        }
+        else
+        {
+            var endPosition = gunPoint.position + -transform.right * 1000;
+            trailScript.SetTargetPosition(endPosition);
+        }
 
 
         if (bulletCount == 0)
@@ -113,5 +135,19 @@ public class GunController : MonoBehaviour
         }
 
         ui.Change();
+    }
+
+    void Damage(Transform zombie)
+    {
+        Zombie zombieScipt = zombie.GetComponent<Zombie>();
+
+        if (zombieScipt != null)
+        {
+            if (gunName == "pistol")
+            {
+                zombieScipt.health -= 20;
+                Debug.Log(zombie.name + " " + zombieScipt.health);
+            }
+        }
     }
 }
