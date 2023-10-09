@@ -11,14 +11,12 @@ public class Player : MonoBehaviour
     public SpriteRenderer pawl;
     public Health GUI;
     GameObject center;
-
     // PLayer has 3 chances of getting hit by the zombies before dying
     public byte health = 3;
     public float autoRegenTimer = 0.0f;
     public bool autoRegen = false;
     public float safeTimer = 0.0f;
     public bool safeTime = false;
-
 
     // Start is called before the first frame update
     void Start()
@@ -87,9 +85,9 @@ public class Player : MonoBehaviour
         _velocity = dir.normalized * SPEED;
         animator.SetFloat("speed", dir.magnitude);
         if (Input.GetAxisRaw("Horizontal") > 0) {
-            pawl.flipX = true;
+            pawl.transform.localScale = new Vector3(-1, 1, 1);
         } else if (Input.GetAxisRaw("Horizontal") < 0) {
-            pawl.flipX = false;
+            pawl.transform.localScale = new Vector3(1, 1, 1);
         }
         // integrate velocity to update position
         transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
@@ -102,13 +100,6 @@ public class Player : MonoBehaviour
         {
             health--;
             safeTime = true;
-        }
-    }
-
-    // Check if player is close enough to upgrade bench and presses 'E'
-    void OnTriggerStay2D(Collider2D collider) {
-        if (collider.gameObject.CompareTag("Interactable") && Input.GetKey(KeyCode.E)) {
-            Debug.Log("opened");
         }
     }
 }
