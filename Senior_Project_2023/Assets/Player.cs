@@ -10,6 +10,7 @@ public class Player : MonoBehaviour
     public Animator animator;
     public SpriteRenderer pawl;
     public Health GUI;
+    GameObject center;
     
     // PLayer has 3 chances of getting hit by the zombies before dying
     public byte health = 3;
