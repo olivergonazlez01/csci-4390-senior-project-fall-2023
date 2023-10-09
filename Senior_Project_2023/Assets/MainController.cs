@@ -5,8 +5,9 @@ using UnityEngine;
 public class MainController : MonoBehaviour
 {
     byte roundZomCount = 7;
-    byte zomSpawned = 0;
+    byte zomSpawned = 1;
     public byte zombiesLeft;
+    byte round = 0;
 
     public bool storyMode = false;
 
@@ -38,6 +39,8 @@ public class MainController : MonoBehaviour
         if (_spawnTimer <= 0 && spawner.transform.childCount > 0 && zomSpawned < roundZomCount)
         {
             Transform childZombie = spawner.transform.GetChild(0);
+            Zombie zombieScript = childZombie.GetComponent<Zombie>();
+            zombieScript.health = (ushort)(100 + (round - 1) * 20);
             childZombie.SetParent(null);
 
             int rand = Random.Range(0, 3);
@@ -50,6 +53,7 @@ public class MainController : MonoBehaviour
 
         if (zombiesLeft == 0)
         {
+            round++;
             roundZomCount += 3;
             zombiesLeft = roundZomCount;
             zomSpawned = 0;
