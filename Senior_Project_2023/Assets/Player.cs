@@ -100,6 +100,7 @@ public class Player : MonoBehaviour
     {
         if (collision.collider.tag == "Zombie" && !safeTime)
         {
+            Debug.Log("huh");
             health--;
             safeTime = true;
         }
