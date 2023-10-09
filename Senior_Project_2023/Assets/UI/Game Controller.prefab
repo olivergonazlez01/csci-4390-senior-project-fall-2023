@@ -46,3 +46,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombiesLeft: 10
   storyMode: 0
+  spawner: {fileID: 0}

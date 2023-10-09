@@ -11,7 +11,6 @@ public class Player : MonoBehaviour
     public SpriteRenderer pawl;
     public Health GUI;
     GameObject center;
-    
     // PLayer has 3 chances of getting hit by the zombies before dying
     public byte health = 3;
     public float autoRegenTimer = 0.0f;
@@ -22,12 +21,15 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        center = transform.Find("center").gameObject;
+        Debug.Log(center.transform.localPosition);
     }
 
     // Update is called once per frame
     void Update()
     {
+        center.transform.localPosition = new Vector2(-0.01f, -0.15f);
+        
         // Checks if the player has ran out of health, and ends the game if it has (FOR NOW)
         if (health == 0)
         {
