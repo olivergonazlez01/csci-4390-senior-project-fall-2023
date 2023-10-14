@@ -5,19 +5,21 @@ TagManager:
   serializedVersion: 2
   tags:
   - Zombie
-  - Item_Inv
   - UI
   - Interactable
+  - Item
+  - Weapon
+  - Item_Inv
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
   - Interactable
-  - 
-  - 
+  - Zombie
+  - Player
   - 
   - 
   - 
