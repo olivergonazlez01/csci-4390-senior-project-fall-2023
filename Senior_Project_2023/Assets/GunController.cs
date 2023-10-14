@@ -11,17 +11,18 @@ public class GunController : MonoBehaviour
     UI ui;
     Transform gunPoint;
     [SerializeField] Transform bulletTrail;
+    public Pickup pickedUp;
 
-    public string gunName = "";
-    public byte perRound = 0;
-    public byte bulletCount = 0;
-    public ushort bulletCountTotal = 0;
+    string gunName;
+    public byte magazine;
+    public byte bulletCount;
+    public ushort bulletCountTotal;
 
     bool rotated = false;
     int layerMask;
 
     // Start is called before the first frame update
-    void Start()
+    public void PickedUp()
     {
         gunName = transform.name;
 
@@ -34,43 +35,45 @@ public class GunController : MonoBehaviour
         layerMask = ~(LayerMask.GetMask("Zombie"));
 
 
-        if (gunName == "pistol")
+        /*if (gunName == "pistol")
         {
             perRound = 7;
             bulletCount = perRound;
             bulletCountTotal = (ushort)(perRound * 7);
-        }
+        }*/
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Reload();
-        }
+        if (pickedUp.Equipped()) {
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                Reload();
+            }
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            if (bulletCount > 0)
-                Shoot();
-        }
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (bulletCount > 0)
+                    Shoot();
+            }
 
-        // Rotation
-        mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
-        Vector2 pointDir = mousePos - rb.position;
-        float angle = Mathf.Atan2(pointDir.y, pointDir.x) * Mathf.Rad2Deg + 180f;
-        rb.rotation = angle;
+            // Rotation
+            mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 pointDir = mousePos - rb.position;
+            float angle = Mathf.Atan2(pointDir.y, pointDir.x) * Mathf.Rad2Deg + 180f;
+            rb.rotation = angle;
 
-        if (!rotated && transform.rotation.eulerAngles.z < 270 && transform.rotation.eulerAngles.z > 90)
-        {
-            rotated = true;
-            transform.localRotation = Quaternion.Euler(180,transform.localEulerAngles.y,transform.localEulerAngles.z);
-        }
-        else
-        {
-            transform.localRotation = Quaternion.Euler(0,transform.localEulerAngles.y,transform.localEulerAngles.z);
-            rotated = false;
+            if (!rotated && transform.rotation.eulerAngles.z < 270 && transform.rotation.eulerAngles.z > 90)
+            {
+                rotated = true;
+                transform.localRotation = Quaternion.Euler(180,transform.localEulerAngles.y,transform.localEulerAngles.z);
+            }
+            else
+            {
+                transform.localRotation = Quaternion.Euler(0,transform.localEulerAngles.y,transform.localEulerAngles.z);
+                rotated = false;
+            }
         }
     }
 
@@ -121,17 +124,15 @@ public class GunController : MonoBehaviour
 
     void Reload()
     {
-        byte temp = (byte)(perRound - bulletCount);
-
-        if (bulletCountTotal < temp)
+        if (bulletCountTotal > 0)
         {
-            bulletCount += (byte)bulletCountTotal;
-            bulletCountTotal -= bulletCountTotal;
+            bulletCount += magazine;
+            bulletCountTotal -= magazine;
         }
         else
         {
-            bulletCountTotal -= temp;
-            bulletCount += temp;
+            bulletCountTotal -= 0;
+            bulletCount += 0;
         }
 
         ui.Change();
@@ -143,7 +144,7 @@ public class GunController : MonoBehaviour
 
         if (zombieScipt != null)
         {
-            if (gunName == "pistol")
+            if (gunName == "Pistol")
             {
                 zombieScipt.health -= 20;
                 Debug.Log(zombie.name + " " + zombieScipt.health);

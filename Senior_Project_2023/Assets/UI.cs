@@ -31,9 +31,7 @@ public class UI : MonoBehaviour
     void Start()
     {
         canvas = GameObject.Find("Canvas Full UI");
-        gun = GameObject.Find("/pawl/center").GetComponentInChildren<GunController>();
-        bulletClipCount = gun.bulletCount;
-        bulletTotalCount = gun.bulletCountTotal;
+        
         
         // panel = canvas.transform.Find("Item Tab").gameObject;
         // round = canvas.transform.Find("Round").GetComponentInChildren<Text>();
@@ -85,6 +83,7 @@ public class UI : MonoBehaviour
     // }
     public void Change()
     {
+        gun = GameObject.Find("/pawl/center").GetComponentInChildren<GunController>();
         bulletClipCount = gun.bulletCount;
         bulletTotalCount = gun.bulletCountTotal;
 

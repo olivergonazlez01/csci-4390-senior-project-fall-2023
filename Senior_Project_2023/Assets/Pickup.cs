@@ -8,12 +8,17 @@ public class Pickup : MonoBehaviour
     [SerializeField]
     public Image[] icon; public GameObject[] buttons;
     public GameObject player;
+    public GunController gc;
+    public UI ui;
+
+    bool equipped = false;
     Sprite newestItemIcon;
     SpriteRenderer sr;
+    
 
     private void OnTriggerStay2D(Collider2D collider) {
         if (Input.GetKey(KeyCode.E)) {
-            Transform t = player.transform;
+            Transform t = player.transform.Find("center");
             if (collider.gameObject.CompareTag("Player")) {
                 if (icon[0].gameObject.activeSelf == false) {
                     icon[0].gameObject.SetActive(true);
@@ -51,16 +56,22 @@ public class Pickup : MonoBehaviour
                     }
                 }
                 this.transform.parent = t;
-                if (t.localScale.x > 0) {
+                equipped = true;
+                gc.PickedUp();
+                ui.Change();
+                /*if (t.localScale.x > 0) {
                     this.transform.position = new Vector3(t.position.x - 0.4f, t.position.y, t.position.z);
                 } else {
                     Vector3 flip = this.transform.localScale;
                     flip.x *= -1;
                     this.transform.localScale = flip;
                     this.transform.position = new Vector3(t.position.x + 0.4f, t.position.y, t.position.z);
-                }
+                }*/
             }
         }
+    }
+    public bool Equipped() {
+        return equipped;
     }
 }
 
