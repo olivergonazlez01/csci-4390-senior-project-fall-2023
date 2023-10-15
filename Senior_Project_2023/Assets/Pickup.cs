@@ -130,6 +130,27 @@ public class Pickup : MonoBehaviour
             this.transform.parent = t;
             equipped = true;
             standing = false;
+            if (this.transform.name == "Pistol")
+            {
+                this.transform.localPosition = new Vector3(-0.268f, -0.077f, 0);
+                this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 180);
+                if (t.parent.localScale.x > 0)
+                    this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+            }
+            if (this.transform.name == "Sniper")
+            {
+                this.transform.localPosition = new Vector3(-0.18f, 0, 0);
+                this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, 180, transform.localEulerAngles.z);
+                if (t.parent.localScale.x > 0)
+                    this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+            }
+            if (this.transform.name == "Rifle")
+            {
+                this.transform.localPosition = new Vector3(-0.1f, -0.05f, 0f);
+                this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 180);
+                if (t.parent.localScale.x > 0)
+                    this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+            }
             gc.PickedUp();
             ui.Change(gc.bulletCount, gc.bulletCountTotal);
             /*if (icon[0].gameObject.activeSelf == false) {

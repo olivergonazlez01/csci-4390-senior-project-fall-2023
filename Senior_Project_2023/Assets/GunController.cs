@@ -19,6 +19,7 @@ public class GunController : MonoBehaviour
     public ushort bulletCountTotal;
 
     bool rotated = false;
+    bool flipped = false;
     int layerMask;
 
     // Start is called before the first frame update
@@ -33,7 +34,6 @@ public class GunController : MonoBehaviour
         gunPoint = transform.Find("GunPoint");
         //layerMask = LayerMask.GetMask("Zombie");
         layerMask = ~(LayerMask.GetMask("Zombie"));
-
 
         /*if (gunName == "pistol")
         {
@@ -61,7 +61,7 @@ public class GunController : MonoBehaviour
             // Rotation
             mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
             Vector2 pointDir = mousePos - rb.position;
-            float angle = Mathf.Atan2(pointDir.y, pointDir.x) * Mathf.Rad2Deg + 180f;
+            float angle = Mathf.Atan2(pointDir.y, pointDir.x) * Mathf.Rad2Deg;
             rb.rotation = angle;
 
             if (!rotated && transform.rotation.eulerAngles.z < 270 && transform.rotation.eulerAngles.z > 90)
@@ -74,6 +74,20 @@ public class GunController : MonoBehaviour
                 transform.localRotation = Quaternion.Euler(0,transform.localEulerAngles.y,transform.localEulerAngles.z);
                 rotated = false;
             }
+
+            // if (!flipped && transform.parent.parent.localScale.x > 0) 
+            // {
+            //     transform.parent.localScale = new Vector3 (-transform.parent.localScale.x, 1, 1);
+            //     flipped = true;
+            // }
+            // if (flipped && transform.parent.localScale.x < 0) 
+            // {
+            //     transform.parent.localScale = new Vector3 (-transform.parent.localScale.x, 1, 1);
+            //     flipped = false;
+            // }
+
+            if (transform.parent.parent.localScale.x > 0)   transform.parent.localScale = new Vector3 (-1, 1, 1);
+            else    transform.parent.localScale = new Vector3 (1, 1, 1);
         }
     }
 
@@ -124,16 +138,31 @@ public class GunController : MonoBehaviour
 
     void Reload()
     {
-        if (bulletCountTotal > 0)
+
+        byte temp = (byte)(magazine - bulletCount);
+
+        if (bulletCountTotal < temp)
         {
-            bulletCount += magazine;
-            bulletCountTotal -= magazine;
+            bulletCount += (byte)bulletCountTotal;
+            bulletCountTotal -= bulletCountTotal;
         }
         else
         {
-            bulletCountTotal -= 0;
-            bulletCount += 0;
+            bulletCountTotal -= temp;
+            bulletCount += temp;
         }
+
+
+        // if (bulletCountTotal > 0)
+        // {
+        //     bulletCount += magazine;
+        //     bulletCountTotal -= magazine;
+        // }
+        // else
+        // {
+        //     bulletCountTotal -= 0;
+        //     bulletCount += 0;
+        // }
 
         ui.Change(bulletCount, bulletCountTotal);
     }
