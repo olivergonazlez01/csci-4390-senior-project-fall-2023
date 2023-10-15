@@ -25,7 +25,6 @@ public class UI : MonoBehaviour
 
     public MainController controller;
     public Player playerInfo;
-    GunController gun;
 
     // Start is called before the first frame update
     void Start()
@@ -81,14 +80,13 @@ public class UI : MonoBehaviour
     //     bulletClipCount = gun.bulletCount;
     //     bulletTotalCount = gun.bulletCountTotal;
     // }
-    public void Change()
+    public void Change(byte clipSize, ushort totalBullets)
     {
-        gun = GameObject.Find("/pawl/center").GetComponentInChildren<GunController>();
-        bulletClipCount = gun.bulletCount;
-        bulletTotalCount = gun.bulletCountTotal;
+        bulletClipCount = clipSize;
+        bulletTotalCount = totalBullets;
 
-        bulletInClip.text = bulletClipCount.ToString();
-        bulletTotal.text = bulletTotalCount.ToString();
+        bulletInClip.text = clipSize.ToString();
+        bulletTotal.text = totalBullets.ToString();
     }
 
 }

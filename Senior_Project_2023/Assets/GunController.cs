@@ -119,7 +119,7 @@ public class GunController : MonoBehaviour
             Reload();
         }
 
-        ui.Change();
+        ui.Change(bulletCount, bulletCountTotal);
     }
 
     void Reload()
@@ -135,7 +135,7 @@ public class GunController : MonoBehaviour
             bulletCount += 0;
         }
 
-        ui.Change();
+        ui.Change(bulletCount, bulletCountTotal);
     }
 
     void Damage(Transform zombie)
@@ -147,6 +147,16 @@ public class GunController : MonoBehaviour
             if (gunName == "Pistol")
             {
                 zombieScipt.health -= 20;
+                Debug.Log(zombie.name + " " + zombieScipt.health);
+            }
+            else if (gunName == "Rifle")
+            {
+                zombieScipt.health -= 40;
+                Debug.Log(zombie.name + " " + zombieScipt.health);
+            }
+            else if (gunName == "Sniper")
+            {
+                zombieScipt.health -= 80;
                 Debug.Log(zombie.name + " " + zombieScipt.health);
             }
         }
