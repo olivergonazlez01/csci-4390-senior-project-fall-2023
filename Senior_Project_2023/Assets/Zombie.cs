@@ -7,7 +7,7 @@ public class Zombie : MonoBehaviour
     private const float SPEED = 3.0f;
     private Vector2 _velocity = Vector2.zero;
 
-    public ushort health = 100;
+    public short health = 100;
 
     public GameObject Player;
     public SpriteRenderer zombie;

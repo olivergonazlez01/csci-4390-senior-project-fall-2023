@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class GunController : MonoBehaviour
 {
     Rigidbody2D rb;
@@ -15,6 +15,7 @@ public class GunController : MonoBehaviour
     [SerializeField] AudioSource gunClick;
     [SerializeField] AudioSource emptyGun;
     [SerializeField] AudioSource hit;
+    [SerializeField] public ButtonController[] buttons;
     public Pickup pickedUp;
 
     string gunName;
@@ -26,6 +27,10 @@ public class GunController : MonoBehaviour
     bool flipped = false;
     int layerMask;
     private bool isReloading = false;
+    public bool Get_isReloading() {
+        Debug.Log("got it");
+        return isReloading;
+    }
 
     // Start is called before the first frame update
     public void PickedUp()
@@ -150,6 +155,8 @@ public class GunController : MonoBehaviour
         if (bulletCountTotal == 0 || bulletCount == magazine) yield break;
         isReloading = true;
         gunClick.PlayOneShot(gunClick.clip);
+        buttons[0].enabled = false;
+        buttons[1].enabled = false;
         yield return new WaitForSeconds(2);
         while (bulletCount < magazine && bulletCountTotal > 0) {
             bulletCount += 1;
@@ -157,6 +164,8 @@ public class GunController : MonoBehaviour
         }
         gunClick.PlayOneShot(gunClick.clip);
         ui.Change(bulletCount, bulletCountTotal);
+        buttons[0].enabled = true;
+        buttons[1].enabled = true;
         isReloading = false;
     }
 
@@ -169,7 +178,11 @@ public class GunController : MonoBehaviour
             hit.PlayOneShot(hit.clip);
             if (gunName == "Pistol")
             {
-                zombieScipt.health -= 20;
+                if(zombieScipt.health - 20 < 0) {
+                    zombieScipt.health = 0; 
+                } else {
+                    zombieScipt.health -= 20;
+                }
                 Debug.Log(zombie.name + " " + zombieScipt.health);
             }
             else if (gunName == "Rifle")

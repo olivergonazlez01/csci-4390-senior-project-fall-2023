@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -14,7 +15,7 @@ public class Player : MonoBehaviour
     GameObject center;
     GameObject gun;
     // PLayer has 3 chances of getting hit by the zombies before dying
-    public byte health = 3;
+    public byte health = 2;
     public float autoRegenTimer = 0.0f;
     public bool autoRegen = false;
     public float safeTimer = 0.0f;
@@ -34,13 +35,15 @@ public class Player : MonoBehaviour
         // Checks if the player has ran out of health, and ends the game if it has (FOR NOW)
         if (health == 0)
         {
-            // quit either from the editor or from a built application
-            #if UNITY_EDITOR
-                // Display how long the player was alive
-                UnityEditor.EditorApplication.isPlaying = false;
-            #else
-                Application.Quit();
-            #endif
+            // // quit either from the editor or from a built application
+            // #if UNITY_EDITOR
+            //     // Display how long the player was alive
+            //     UnityEditor.EditorApplication.isPlaying = false;
+            // #else
+            //     //Application.Quit();
+            //     SceneManager.LoadScene("Menu");
+            // #endif
+            SceneManager.LoadScene("Menu");
         }
 
         // safeTime makes sure the player a downtime to the zombies' hits
@@ -55,7 +58,7 @@ public class Player : MonoBehaviour
         }
 
         // Checks if autoRegen can be started
-        if (health < 3)
+        if (health < 2)
         {
             autoRegen = true;
         }
@@ -105,7 +108,7 @@ public class Player : MonoBehaviour
         if (collision.collider.tag == "Zombie" && !safeTime)
         {
             hit.PlayOneShot(hit.clip);
-            Debug.Log("huh");
+            Debug.Log(health);
             health--;
             safeTime = true;
         }
