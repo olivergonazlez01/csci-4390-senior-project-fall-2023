@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
     private Vector2 _velocity = Vector2.zero;
     public Animator animator;
     public SpriteRenderer pawl;
+    [SerializeField] AudioSource hit;
     public Health GUI;
     GameObject center;
     // PLayer has 3 chances of getting hit by the zombies before dying
@@ -98,6 +99,7 @@ public class Player : MonoBehaviour
     {
         if (collision.collider.tag == "Zombie" && !safeTime)
         {
+            hit.PlayOneShot(hit.clip);
             Debug.Log("huh");
             health--;
             safeTime = true;
