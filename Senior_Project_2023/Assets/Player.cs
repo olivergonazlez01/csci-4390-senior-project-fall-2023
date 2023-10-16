@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] AudioSource hit;
     public Health GUI;
     GameObject center;
+    GameObject gun;
     // PLayer has 3 chances of getting hit by the zombies before dying
     public byte health = 3;
     public float autoRegenTimer = 0.0f;
@@ -23,7 +24,6 @@ public class Player : MonoBehaviour
     void Start()
     {
         center = transform.Find("center").gameObject;
-        Debug.Log(center.transform.localPosition);
     }
 
     // Update is called once per frame
