@@ -11,6 +11,10 @@ public class GunController : MonoBehaviour
     UI ui;
     Transform gunPoint;
     [SerializeField] Transform bulletTrail;
+    [SerializeField] AudioSource gunshot;
+    [SerializeField] AudioSource gunClick;
+    [SerializeField] AudioSource emptyGun;
+    [SerializeField] AudioSource hit;
     public Pickup pickedUp;
 
     string gunName;
@@ -21,6 +25,7 @@ public class GunController : MonoBehaviour
     bool rotated = false;
     bool flipped = false;
     int layerMask;
+    private bool isReloading = false;
 
     // Start is called before the first frame update
     public void PickedUp()
@@ -47,15 +52,19 @@ public class GunController : MonoBehaviour
     void Update()
     {
         if (pickedUp.Equipped()) {
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.R) && !isReloading)
             {
-                Reload();
+                StartCoroutine(Reload());
             }
 
-            if (Input.GetMouseButtonDown(0))
+            if (Input.GetMouseButtonDown(0) && !isReloading)
             {
-                if (bulletCount > 0)
+                if (bulletCount > 0) {
+                    gunshot.PlayOneShot(gunshot.clip);
                     Shoot();
+                } else {
+                    emptyGun.PlayOneShot(emptyGun.clip);
+                }
             }
 
             // Rotation
@@ -130,41 +139,25 @@ public class GunController : MonoBehaviour
 
         if (bulletCount == 0)
         {
-            Reload();
+            StartCoroutine(Reload());
         }
 
         ui.Change(bulletCount, bulletCountTotal);
     }
 
-    void Reload()
+    IEnumerator Reload()
     {
-
-        byte temp = (byte)(magazine - bulletCount);
-
-        if (bulletCountTotal < temp)
-        {
-            bulletCount += (byte)bulletCountTotal;
-            bulletCountTotal -= bulletCountTotal;
+        if (bulletCountTotal == 0 || bulletCount == magazine) yield break;
+        isReloading = true;
+        gunClick.PlayOneShot(gunClick.clip);
+        yield return new WaitForSeconds(2);
+        while (bulletCount < magazine && bulletCountTotal > 0) {
+            bulletCount += 1;
+            bulletCountTotal -= 1;
         }
-        else
-        {
-            bulletCountTotal -= temp;
-            bulletCount += temp;
-        }
-
-
-        // if (bulletCountTotal > 0)
-        // {
-        //     bulletCount += magazine;
-        //     bulletCountTotal -= magazine;
-        // }
-        // else
-        // {
-        //     bulletCountTotal -= 0;
-        //     bulletCount += 0;
-        // }
-
+        gunClick.PlayOneShot(gunClick.clip);
         ui.Change(bulletCount, bulletCountTotal);
+        isReloading = false;
     }
 
     void Damage(Transform zombie)
@@ -173,6 +166,7 @@ public class GunController : MonoBehaviour
 
         if (zombieScipt != null)
         {
+            hit.PlayOneShot(hit.clip);
             if (gunName == "Pistol")
             {
                 zombieScipt.health -= 20;
