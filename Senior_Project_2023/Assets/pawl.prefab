@@ -244,7 +244,7 @@ MonoBehaviour:
   pawl: {fileID: 8608839697936356334}
   hit: {fileID: 670035364}
   GUI: {fileID: 0}
-  health: 3
+  health: 2
   autoRegenTimer: 0
   autoRegen: 0
   safeTimer: 0

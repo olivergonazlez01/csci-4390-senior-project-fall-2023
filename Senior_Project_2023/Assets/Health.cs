@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class Health : MonoBehaviour
 {
     public Player pawl;
-    public int HeartCount;
+    public int HeartCount = 2;
     public Image[] hearts;
     public Sprite FullHeart;
     public Sprite EmptyHeart;
