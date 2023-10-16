@@ -73,6 +73,11 @@ public class Player : MonoBehaviour
             autoRegenTimer = 0.0f;
         }
 
+        // if (transform.parent.parent.localScale.x > 0)   transform.parent.localScale = new Vector3 (-1, 1, 1);
+            // else    transform.parent.localScale = new Vector3 (1, 1, 1);
+        if (transform.localScale.x > 0) center.transform.localScale = new Vector3 (-1, 1, 1);
+        else center.transform.localScale = new Vector3 (1, 1, 1);
+
 
         // convert user input into a movement direction (could use Unity axis for this)
         Vector2 dir = Vector2.zero;
