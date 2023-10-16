@@ -86,8 +86,8 @@ public class GunController : MonoBehaviour
             //     flipped = false;
             // }
 
-            if (transform.parent.parent.localScale.x > 0)   transform.parent.localScale = new Vector3 (-1, 1, 1);
-            else    transform.parent.localScale = new Vector3 (1, 1, 1);
+            // if (transform.parent.parent.localScale.x > 0)   transform.parent.localScale = new Vector3 (-1, 1, 1);
+            // else    transform.parent.localScale = new Vector3 (1, 1, 1);
         }
     }
 

@@ -134,22 +134,28 @@ public class Pickup : MonoBehaviour
             {
                 this.transform.localPosition = new Vector3(-0.268f, -0.077f, 0);
                 this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 180);
-                if (t.parent.localScale.x > 0)
-                    this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+                
+                // if (t.localScale.x < 0)
+                //     this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+                // else
+                //     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
             }
-            if (this.transform.name == "Sniper")
+            else if (this.transform.name == "Sniper")
             {
-                this.transform.localPosition = new Vector3(-0.18f, 0, 0);
+                this.transform.localPosition = new Vector3(-0.18f, 0, 0);    
                 this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, 180, transform.localEulerAngles.z);
-                if (t.parent.localScale.x > 0)
-                    this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+
+                if (t.childCount > 1)
+                    this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y + 180, 180);
+                // if (t.localScale.x > 0)
+                //     this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
             }
-            if (this.transform.name == "Rifle")
+            else if (this.transform.name == "Rifle")
             {
                 this.transform.localPosition = new Vector3(-0.1f, -0.05f, 0f);
                 this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 180);
-                if (t.parent.localScale.x > 0)
-                    this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
+                // if (t.localScale.x > 0)
+                //     this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
             }
             gc.PickedUp();
             ui.Change(gc.bulletCount, gc.bulletCountTotal);
