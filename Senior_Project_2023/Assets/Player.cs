@@ -35,7 +35,7 @@ public class Player : MonoBehaviour
         // Checks if the player has ran out of health, and ends the game if it has (FOR NOW)
         if (health == 0)
         {
-            // // quit either from the editor or from a built application
+            // quit either from the editor or from a built application
             // #if UNITY_EDITOR
             //     // Display how long the player was alive
             //     UnityEditor.EditorApplication.isPlaying = false;
