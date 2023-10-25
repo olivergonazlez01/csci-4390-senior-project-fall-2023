@@ -10,4 +10,8 @@ public class MainMenu : MonoBehaviour
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadScene("Farm_Demo");
     }
+
+    public void QuitGame() {
+        Application.Quit();
+    }
 }
