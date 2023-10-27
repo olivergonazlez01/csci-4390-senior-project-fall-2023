@@ -10,6 +10,10 @@ public class UI : MonoBehaviour
     GameObject canvas;
     public GameObject panel;
 
+    GameObject powerupTab;
+    GameObject ik_powerup;
+    GameObject dp_powerup;
+
     public Text round;
     public Text level;
     public Text zombCount;
@@ -41,6 +45,15 @@ public class UI : MonoBehaviour
         // bulletTotal = canvas.transform.Find("Bullets (Total)").GetComponentInChildren<Text>();
         // controller = transform.Find("Game Controller").GetComponentInChildren<MainController>();
         // playerInfo = transform.Find("pawl").GetComponentInChildren<Player>();
+
+        powerupTab = canvas.transform.Find("Perk Tab").gameObject;
+
+        ik_powerup = powerupTab.transform.Find("ik_powerup").gameObject;
+        dp_powerup = powerupTab.transform.Find("dp_powerup").gameObject;
+
+        ik_powerup.SetActive(false);
+        dp_powerup.SetActive(false);
+
 
 
         panel.SetActive(false);
@@ -87,6 +100,16 @@ public class UI : MonoBehaviour
 
         bulletInClip.text = clipSize.ToString();
         bulletTotal.text = totalBullets.ToString();
+    }
+
+    public void instaKillActive(bool set)
+    {
+        ik_powerup.SetActive(set);
+    }
+
+    public void douPoiActive(bool set)
+    {
+        dp_powerup.SetActive(set);
     }
 
 }
