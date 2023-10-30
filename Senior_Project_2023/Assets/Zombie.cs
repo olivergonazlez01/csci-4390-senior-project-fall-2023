@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Zombie : MonoBehaviour
+public class Zombie : Pathfinding_entity
 {
     private const float SPEED = 3.0f;
     private Vector2 _velocity = Vector2.zero;
@@ -19,8 +19,11 @@ public class Zombie : MonoBehaviour
     public GameObject spawner;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        // call Pathfinding-entity start method
+        base.Start();
+
         Player = GameObject.Find("pawl");
         gameController = GameObject.Find("Game Controller");
         controller = gameController.GetComponentInChildren<MainController>();
@@ -42,15 +45,21 @@ public class Zombie : MonoBehaviour
         //if (Player.health)
 
         // Follow player around the map no matter the distance
-        Vector2 dir = Player.transform.position - transform.position;
-        _velocity = dir.normalized * SPEED;
-        animator.SetFloat("speed", dir.magnitude);
-        if (dir.x > 0) {
-            zombie.flipX = true;
-        } else if (dir.x < 0) {
-            zombie.flipX = false;
+        setTarget(Player.transform);
+        setEntitySpeed(SPEED);
+        if (isMoving()) {
+            //Debug.Log("true");
         }
-        transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
+
+        // Vector2 dir = Player.transform.position - transform.position;
+        // _velocity = dir.normalized * SPEED;
+        // animator.SetFloat("speed", dir.magnitude);
+        // if (dir.x > 0) {
+        //     zombie.flipX = true;
+        // } else if (dir.x < 0) {
+        //     zombie.flipX = false;
+        // }
+        // transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
