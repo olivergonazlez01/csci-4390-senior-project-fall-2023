@@ -29,7 +29,7 @@ public class Zombie : MonoBehaviour
     {
         health = (short) Math.Ceiling((double) (100 * healthMultiplier));
 
-        Player = GameObject.Find("pawl");
+        //Player = GameObject.Find("pawl");
         gameController = GameObject.Find("Game Controller");
         controller = gameController.GetComponentInChildren<MainController>();
         //spawner = transform.parent.gameObject;
@@ -121,7 +121,9 @@ public class Zombie : MonoBehaviour
         // Check if the zombie has touched the player
         //if (Player.health)
 
-        // Follow player around the map no matter the distance
+        // Follow object with player tag around the map no matter the distance
+        GameObject playerTag = GameObject.FindGameObjectWithTag("Player");
+        Player = playerTag;
         Vector2 dir = Player.transform.position - transform.position;
         _velocity = dir.normalized * SPEED;
         animator.SetFloat("speed", dir.magnitude);

@@ -19,6 +19,7 @@ public class Powerup : MonoBehaviour
     public GameObject gameController;
     MainController controller;
     UI ui;
+    GameObject references;
 
 
     // Start is called before the first frame update
@@ -27,6 +28,7 @@ public class Powerup : MonoBehaviour
         gameController = GameObject.Find("Game Controller");
         controller = gameController.GetComponentInChildren<MainController>();
         ui = GameObject.Find("/UI Controller").GetComponent<UI>();
+        references = GameObject.Find("References to Bombs").gameObject;
     }
 
     // Update is called once per frame
@@ -82,8 +84,7 @@ public class Powerup : MonoBehaviour
                     break;
 
                 case "Max Ammo":
-                    GameObject center = col.transform.GetChild(1).gameObject;
-                    Debug.Log(center.transform.name);
+                    Transform center = col.transform.GetChild(1);
                     for (int i = 0; i < center.transform.childCount; i++)
                     {
                         GunController gun = center.transform.GetChild(i).GetComponent<GunController>();
@@ -107,6 +108,23 @@ public class Powerup : MonoBehaviour
                             }
                         }
                     }
+                    Transform bombs = col.transform.GetChild(2);
+                    Transform grenades = bombs.transform.Find("Grenades");
+                    Transform yarns = bombs.transform.Find("Yarns");
+
+                    for (int i = grenades.childCount; i < 2; i++)
+                    {
+                        GameObject tempGrenade = references.transform.Find("Grenade").gameObject;
+                        tempGrenade.transform.parent = grenades;
+                        ui.grenadeUI(true);
+                    }
+                    for (int i = yarns.childCount; i < 2; i++)
+                    {
+                        GameObject tempYarn = references.transform.Find("Yarn").gameObject;
+                        tempYarn.transform.parent = yarns;
+                        ui.yarnUI(true);
+                    }
+
                     Debug.Log("Max Ammo");
                     break;
 
