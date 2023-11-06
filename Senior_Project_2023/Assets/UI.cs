@@ -10,6 +10,16 @@ public class UI : MonoBehaviour
     GameObject canvas;
     public GameObject panel;
 
+    GameObject powerupTab;
+    GameObject ik_powerup;
+    GameObject dp_powerup;
+
+    GameObject BombTab;
+    GameObject grenade1;
+    GameObject grenade2;
+    GameObject yarn1;
+    GameObject yarn2;
+
     public Text round;
     public Text level;
     public Text zombCount;
@@ -30,17 +40,20 @@ public class UI : MonoBehaviour
     void Start()
     {
         canvas = GameObject.Find("Canvas Full UI");
-        
-        
-        // panel = canvas.transform.Find("Item Tab").gameObject;
-        // round = canvas.transform.Find("Round").GetComponentInChildren<Text>();
-        // level = canvas.transform.Find("Level").GetComponentInChildren<Text>();
-        // zombCount = canvas.transform.Find("Zombie Count").GetComponentInChildren<Text>();
-        // points = canvas.transform.Find("Points").GetComponentInChildren<Text>();
-        // bulletInClip = canvas.transform.Find("Bullets (Clip)").GetComponentInChildren<Text>();
-        // bulletTotal = canvas.transform.Find("Bullets (Total)").GetComponentInChildren<Text>();
-        // controller = transform.Find("Game Controller").GetComponentInChildren<MainController>();
-        // playerInfo = transform.Find("pawl").GetComponentInChildren<Player>();
+
+        powerupTab = canvas.transform.Find("Perk Tab").gameObject;
+        BombTab = canvas.transform.Find("Item Tab").gameObject;
+
+        ik_powerup = powerupTab.transform.Find("ik_powerup").gameObject;
+        dp_powerup = powerupTab.transform.Find("dp_powerup").gameObject;
+
+        ik_powerup.SetActive(false);
+        dp_powerup.SetActive(false);
+
+        grenade1 = BombTab.transform.Find("Grenade1").gameObject;
+        grenade2 = BombTab.transform.Find("Grenade2").gameObject;
+        yarn1 = BombTab.transform.Find("Yarn1").gameObject;
+        yarn2 = BombTab.transform.Find("Yarn2").gameObject;
 
 
         panel.SetActive(false);
@@ -89,4 +102,41 @@ public class UI : MonoBehaviour
         bulletTotal.text = totalBullets.ToString();
     }
 
+    public void instaKillActive(bool set)
+    {
+        ik_powerup.SetActive(set);
+    }
+
+    public void douPoiActive(bool set)
+    {
+        dp_powerup.SetActive(set);
+    }
+
+    public void grenadeUI(bool add = false)
+    {
+        if (add)
+        {
+            if (!grenade1.activeSelf)   grenade1.SetActive(true);
+            else    grenade2.SetActive(true);
+        }
+        else
+        {
+            if (grenade2.activeSelf)    grenade2.SetActive(false);
+            else    grenade1.SetActive(false);
+        }
+    }
+
+    public void yarnUI(bool add = false)
+    {
+        if (add)
+        {
+            if (!yarn1.activeSelf)  yarn1.SetActive(true);
+            else    yarn2.SetActive(true);
+        }
+        else
+        {
+            if(yarn2.activeSelf)    yarn2.SetActive(false);
+            else    yarn1.SetActive(false);
+        }
+    }
 }

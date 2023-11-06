@@ -22,22 +22,35 @@ public void OnPointerExit(PointerEventData pointerEventData) {
             this.gameObject.GetComponent<Image>().color = Color.grey;
         }
     }
-
     public void OnPointerUp(PointerEventData pointerEventData) {
+        if (this.gameObject.GetComponent<Image>() == buttons[0]) {
+            SwitchGun(0);
+        } else {
+            SwitchGun(1);
+        }
+    }
+
+    public void SwitchGun(int data) {
+        if (data == 0 && buttons[0].gameObject.GetComponent<Image>().color == Color.green) {
+            return;
+        }
+        if (data == 1 && buttons[1].gameObject.GetComponent<Image>().color == Color.green) {
+            return;
+        }
         Transform t = player.transform.Find("center");
         // for (int i = 0; i < t.childCount; i++) {
         //     t.GetChild(i).GetComponent<
         // }
         if (t.childCount == 0) return;
-        if (!this.gameObject.transform.GetChild(0).gameObject.activeSelf) {
+        if (!buttons[data].gameObject.transform.GetChild(0).gameObject.activeSelf) {
             return;
         }
-        if (this.gameObject == buttons[0].gameObject) {
+        if (data == 0) {
             buttons[1].gameObject.GetComponent<Image>().color = Color.white;
         } else {
             buttons[0].gameObject.GetComponent<Image>().color = Color.white;
         }
-        this.gameObject.GetComponent<Image>().color = Color.green;
+        buttons[data].gameObject.GetComponent<Image>().color = Color.green;
         //Transform t = player.transform.Find("center");
         for (int i = 0; i < t.childCount; i++) {
             if (!t.GetChild(i).gameObject.activeSelf) {
@@ -46,6 +59,22 @@ public void OnPointerExit(PointerEventData pointerEventData) {
                 ui.Change(temp.bulletCount, temp.bulletCountTotal);
             } else if (t.GetChild(i).gameObject.tag == "Weapon" && t.GetChild(i).gameObject.activeSelf) {
                 t.GetChild(i).gameObject.SetActive(false);
+            }
+        }
+    }
+    void Update() {
+        if (Input.GetKeyUp("1")) {
+            if (this.gameObject.GetComponent<Image>() == buttons[0]) {
+                SwitchGun(0);
+            } else {
+                return;
+            }
+        }
+        if (Input.GetKeyUp("2")) {
+            if (this.gameObject.GetComponent<Image>() == buttons[1]) {
+                SwitchGun(1);
+            } else {
+                return;
             }
         }
     }

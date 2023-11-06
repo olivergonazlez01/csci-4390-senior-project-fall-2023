@@ -21,6 +21,8 @@ public class MainController : MonoBehaviour
 
     public GameObject spawner;
 
+    public List<GameObject> activeZombies = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
@@ -42,6 +44,7 @@ public class MainController : MonoBehaviour
             Zombie zombieScript = childZombie.GetComponent<Zombie>();
             zombieScript.health = (short)(100 + (round - 1) * 20);
             childZombie.SetParent(null);
+            activeZombies.Add(childZombie.gameObject);
 
             int rand = Random.Range(0, 3);
             childZombie.transform.position = new Vector2(spawnAreas[rand, 0], spawnAreas[rand, 1]);

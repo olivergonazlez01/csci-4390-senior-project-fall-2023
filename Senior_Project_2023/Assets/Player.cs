@@ -14,6 +14,10 @@ public class Player : MonoBehaviour
     public Health GUI;
     GameObject center;
     GameObject gun;
+    Transform availableGrenades;
+    Transform availableYarn;
+    UI ui;
+
     // PLayer has 3 chances of getting hit by the zombies before dying
     public byte health = 2;
     public float autoRegenTimer = 0.0f;
@@ -24,7 +28,11 @@ public class Player : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ui = GameObject.Find("/UI Controller").GetComponent<UI>();
+
         center = transform.Find("center").gameObject;
+        availableGrenades = transform.Find("Bombs/Grenades");
+        availableYarn = transform.Find("Bombs/Yarns");
     }
 
     // Update is called once per frame
@@ -75,6 +83,32 @@ public class Player : MonoBehaviour
             health++;
             autoRegen = false;
             autoRegenTimer = 0.0f;
+        }
+
+        // Checks if the player has grenades and balls of yarn to throw
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            if (availableGrenades.childCount > 0)
+            {
+                Transform temp = availableGrenades.GetChild(0);
+                temp.gameObject.SetActive(true);
+                temp.parent = null;
+                ui.grenadeUI();
+                temp.transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.C))
+        {
+            if (availableYarn.childCount > 0)
+            {
+                Transform temp = availableYarn.GetChild(0);
+                temp.gameObject.SetActive(true);
+                temp.parent = null;
+                temp.transform.tag = "Player";
+                transform.tag = "Hidden Player";
+                ui.yarnUI();
+                temp.transform.position = new Vector3(transform.position.x, transform.position.y, -1f);
+            }
         }
 
         // if (transform.parent.parent.localScale.x > 0)   transform.parent.localScale = new Vector3 (-1, 1, 1);

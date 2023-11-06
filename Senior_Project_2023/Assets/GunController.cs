@@ -26,6 +26,9 @@ public class GunController : MonoBehaviour
     bool rotated = false;
     bool flipped = false;
     int layerMask;
+
+     Powerup ikpu_Controller;
+
     private bool isReloading = false;
     public bool Get_isReloading() {
         Debug.Log("got it");
@@ -42,6 +45,7 @@ public class GunController : MonoBehaviour
         mousePos = cam.ScreenToWorldPoint(Input.mousePosition);
         ui = GameObject.Find("/UI Controller").GetComponent<UI>();
         gunPoint = transform.Find("GunPoint");
+        ikpu_Controller = GameObject.Find("/Insta-Kill").GetComponent<Powerup>();
         //layerMask = LayerMask.GetMask("Zombie");
         layerMask = ~(LayerMask.GetMask("Zombie"));
 
@@ -176,25 +180,51 @@ public class GunController : MonoBehaviour
         if (zombieScipt != null)
         {
             hit.PlayOneShot(hit.clip);
-            if (gunName == "Pistol")
+            if (ikpu_Controller.ik_Active)
             {
-                if(zombieScipt.health - 20 < 0) {
-                    zombieScipt.health = 0; 
-                } else {
-                    zombieScipt.health -= 20;
+                zombieScipt.health = 0;
+            }
+            else
+            {
+                if (gunName == "Pistol")
+                {
+                    if(zombieScipt.health - 20 < 0) {
+                        zombieScipt.health = 0; 
+                    } else {
+                        zombieScipt.health -= 20;
+                    }
+                    Debug.Log(zombie.name + " " + zombieScipt.health);
                 }
-                Debug.Log(zombie.name + " " + zombieScipt.health);
+                else if (gunName == "Rifle")
+                {
+                    zombieScipt.health -= 40;
+                    Debug.Log(zombie.name + " " + zombieScipt.health);
+                }
+                else if (gunName == "Sniper")
+                {
+                    zombieScipt.health -= 80;
+                    Debug.Log(zombie.name + " " + zombieScipt.health);
+                } 
             }
-            else if (gunName == "Rifle")
-            {
-                zombieScipt.health -= 40;
-                Debug.Log(zombie.name + " " + zombieScipt.health);
-            }
-            else if (gunName == "Sniper")
-            {
-                zombieScipt.health -= 80;
-                Debug.Log(zombie.name + " " + zombieScipt.health);
-            }
+            // if (gunName == "Pistol")
+            // {
+            //     if(zombieScipt.health - 20 < 0) {
+            //         zombieScipt.health = 0; 
+            //     } else {
+            //         zombieScipt.health -= 20;
+            //     }
+            //     Debug.Log(zombie.name + " " + zombieScipt.health);
+            // }
+            // else if (gunName == "Rifle")
+            // {
+            //     zombieScipt.health -= 40;
+            //     Debug.Log(zombie.name + " " + zombieScipt.health);
+            // }
+            // else if (gunName == "Sniper")
+            // {
+            //     zombieScipt.health -= 80;
+            //     Debug.Log(zombie.name + " " + zombieScipt.health);
+            // }
         }
     }
 }
