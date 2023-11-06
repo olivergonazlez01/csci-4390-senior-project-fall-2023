@@ -49,6 +49,12 @@ public class Zombie : Pathfinding_entity
         setEntitySpeed(SPEED);
         if (isMoving()) {
             //Debug.Log("true");
+            animator.SetFloat("speed", getDirection().magnitude);
+            if (getDirection().x > 0) {
+                zombie.flipX = true;
+            } else {
+                zombie.flipX = false;
+            }
         }
 
         // Vector2 dir = Player.transform.position - transform.position;

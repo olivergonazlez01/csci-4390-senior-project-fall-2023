@@ -8,9 +8,9 @@ public class Pathfinding_entity : MonoBehaviour
 
     private Transform _target = null;
     private float _speed = 0.0f;
+    private Vector2 _dir = Vector2.zero;
     // path iterator
     private int i = 0;
-    // if target changed
 
     // call this method to set location to go to
     // set to null if the entity should not be moving
@@ -26,6 +26,10 @@ public class Pathfinding_entity : MonoBehaviour
     protected virtual void Start()
     {
         path = new UnityEngine.AI.NavMeshPath();
+    }
+
+    public Vector2 getDirection() {
+        return _dir;
     }
 
     // returns true if the entity is moving, false otherwise
@@ -45,6 +49,9 @@ public class Pathfinding_entity : MonoBehaviour
 
         // calculate the next path direction
         Vector2 nextStep = path.corners[i] - transform.position;
+
+        // set what direction the entity is facing for animation
+        _dir = nextStep;
 
         // if current location is close enough to the corner, set location to corner and move to next point
         // if not, keep moving towards the current point
