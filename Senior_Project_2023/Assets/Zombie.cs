@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Zombie : MonoBehaviour
+public class Zombie : Pathfinding_entity
 {
     private const float SPEED = 3.0f;
     private Vector2 _velocity = Vector2.zero;
@@ -25,8 +25,12 @@ public class Zombie : MonoBehaviour
     Vector3 dropPosition;
 
     // Start is called before the first frame update
-    void Start()
+    protected override void Start()
     {
+        // call Pathfinding-entity start method
+        base.Start();
+
+        Player = GameObject.Find("pawl");
         health = (short) Math.Ceiling((double) (100 * healthMultiplier));
 
         //Player = GameObject.Find("pawl");
@@ -121,18 +125,28 @@ public class Zombie : MonoBehaviour
         // Check if the zombie has touched the player
         //if (Player.health)
 
-        // Follow object with player tag around the map no matter the distance
-        GameObject playerTag = GameObject.FindGameObjectWithTag("Player");
-        Player = playerTag;
-        Vector2 dir = Player.transform.position - transform.position;
-        _velocity = dir.normalized * SPEED;
-        animator.SetFloat("speed", dir.magnitude);
-        if (dir.x > 0) {
-            zombie.flipX = true;
-        } else if (dir.x < 0) {
-            zombie.flipX = false;
+        // Follow player around the map no matter the distance
+        setTarget(Player.transform);
+        setEntitySpeed(SPEED);
+        if (isMoving()) {
+            //Debug.Log("true");
+            animator.SetFloat("speed", getDirection().magnitude);
+            if (getDirection().x > 0) {
+                zombie.flipX = true;
+            } else {
+                zombie.flipX = false;
+            }
         }
-        transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
+
+        // Vector2 dir = Player.transform.position - transform.position;
+        // _velocity = dir.normalized * SPEED;
+        // animator.SetFloat("speed", dir.magnitude);
+        // if (dir.x > 0) {
+        //     zombie.flipX = true;
+        // } else if (dir.x < 0) {
+        //     zombie.flipX = false;
+        // }
+        // transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
