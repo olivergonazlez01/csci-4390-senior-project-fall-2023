@@ -145,6 +145,13 @@ public class Player : MonoBehaviour
             Debug.Log(health);
             health--;
             safeTime = true;
+            StartCoroutine(Damage());
         }
+    }
+
+    IEnumerator Damage() {
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(0.05f);
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }

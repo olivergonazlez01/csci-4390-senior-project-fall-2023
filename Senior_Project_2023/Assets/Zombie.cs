@@ -128,7 +128,7 @@ public class Zombie : Pathfinding_entity
         // Follow player around the map no matter the distance
         setTarget(Player.transform);
         setEntitySpeed(SPEED);
-        if (isMoving()) {
+        /*if (isMoving()) {
             //Debug.Log("true");
             animator.SetFloat("speed", getDirection().magnitude);
             if (getDirection().x > 0) {
@@ -136,17 +136,19 @@ public class Zombie : Pathfinding_entity
             } else {
                 zombie.flipX = false;
             }
-        }
-
-        // Vector2 dir = Player.transform.position - transform.position;
-        // _velocity = dir.normalized * SPEED;
-        // animator.SetFloat("speed", dir.magnitude);
-        // if (dir.x > 0) {
-        //     zombie.flipX = true;
-        // } else if (dir.x < 0) {
-        //     zombie.flipX = false;
-        // }
-        // transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
+        }*/
+        GameObject playerTag = GameObject.FindGameObjectWithTag("Player");
+        Player = playerTag;
+        
+         Vector2 dir = Player.transform.position - transform.position;
+         _velocity = dir.normalized * SPEED;
+         animator.SetFloat("speed", dir.magnitude);
+         if (dir.x > 0) {
+             zombie.flipX = true;
+         } else if (dir.x < 0) {
+             zombie.flipX = false;
+         }
+         transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
     }
 
     void OnCollisionEnter2D(Collision2D collision)
