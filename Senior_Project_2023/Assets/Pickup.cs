@@ -18,12 +18,19 @@ public class Pickup : MonoBehaviour
     // Visual representation of the guns in inverntory
     SpriteRenderer sr;
 
+    // ONLY for weapons that can be bought from the wall
+    WallGun wallGun;
+
+    void Start() {
+        if (transform.parent)   wallGun = transform.GetComponentInParent<WallGun>();
+    }
+
     public void Update() {
         // if the gun is already in the player's inventory, do nothing
         if (this.gameObject.transform.parent == player.transform)   return;
 
         // Else if the player presses the e key and the gun is able to be picked up
-        else if (Input.GetKey(KeyCode.E) && standing) {
+        else if ((Input.GetKey(KeyCode.E) && standing) || (wallGun && Input.GetKeyUp(KeyCode.E) && wallGun.buy)) {
             // Grab the center game object and the sprite of the gun
             Transform t = player.transform.Find("center");
             sr = this.gameObject.GetComponent<SpriteRenderer>();
