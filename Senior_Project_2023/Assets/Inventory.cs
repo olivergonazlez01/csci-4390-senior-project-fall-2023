@@ -7,16 +7,16 @@ public class Inventory : MonoBehaviour
     public List<Item> inv = new List<Item>();
     public ItemMono items;
 
+    private void Start() {
+        GiveItem(0);
+        RemoveItem(0);
+    }
+
     public void GiveItem(int id)
     {
         Item newitem = items.GetItem(id);
         inv.Add(newitem);
         Debug.Log("added item " + newitem.name);
-    }
-
-    private void Start() {
-        GiveItem(0);
-        RemoveItem(0);
     }
 
     public Item FindItem(int id) {

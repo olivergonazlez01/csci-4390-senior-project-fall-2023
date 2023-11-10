@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Hinder : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Start()
     {
         
@@ -12,6 +11,6 @@ public class Hinder : MonoBehaviour
 
     // Check if player is touching this tile
     void OnTriggerEnter2D(Collider2D collider) {
-        Debug.Log("touched");
+        
     }
 }
