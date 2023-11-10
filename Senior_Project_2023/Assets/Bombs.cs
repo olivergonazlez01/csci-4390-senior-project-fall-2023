@@ -6,41 +6,55 @@ using UnityEngine;
 
 public class Bombs : MonoBehaviour
 {
+    // Countdown till explosion
     float countdown = 3.0f;
 
+    // Keeps track of zombies inside the range of a bomb
     List<Transform> zombies = new List<Transform>();
+
+    // Reference to player so that the ball of yarn can set the player's tag
     Player player;
+
+    // Reference to UI to visually keep track of the bombs the player has left
     UI ui;
+
+    // Once bombs explode, they are put inside this game object for easy access in max ammo powerup
     GameObject bombCollection;
  
-    // Start is called before the first frame update
     void Start()
     {
+        // Instantiating to game objects inside the scene
         player = GameObject.Find("pawl").GetComponent<Player>();
         ui = GameObject.Find("/UI Controller").GetComponent<UI>();
         bombCollection = GameObject.Find("References to Bombs");
 
+        // After instantiating, turn off game object so that countdown does not start
         transform.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Countdown the timer
         if (countdown > 0)
-        {
             countdown -= Time.deltaTime;
-        }
 
+        // When countdown reaches 0, for each zombie in the list, deal them damage
         if (countdown < 0)
         {
             foreach (Transform zombie in zombies)
                 Damage(zombie);
 
+            // Clear list 
             zombies.Clear();
+            // Move grenade off the map like how we do with the zombies and powerups
             transform.position = new Vector3(-0.38f, -30.08f, 0);
+            // Move grenade game object to be inside the bomb collection game object
             transform.parent = bombCollection.transform;
+            // Reset countdown for multiple usage
             countdown = 3.0f;
+            // Turn off game object
             transform.gameObject.SetActive(false);
+            // Reset player's tag back to player because the ball of yarn messes with it
             player.transform.tag = "Player";
         }
         
@@ -48,25 +62,23 @@ public class Bombs : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D col)
     {
+        // If a zombie walks in range of the grenade, add it to the list
         if (col.transform.tag == "Zombie")
             zombies.Add(col.transform);
     }
 
     void OnTriggerExit2D(Collider2D col)
     {
+        // If a zombie leaves the range of the grenade, delete it from the list
         if (col.transform.tag == "Zombie" && zombies.Contains(col.transform))
-        {
             zombies.Remove(col.transform);
-        }
     }
 
     void Damage(Transform zombie)
     {
-        Zombie zombieScipt = zombie.GetComponent<Zombie>();
-
-        if (zombieScipt != null)
-        {
-            zombieScipt.health -= 100;
-        }
+        // Make sure each the parameter variable has the zombiescript, and decrease its health
+        Zombie zombieScript = zombie.GetComponent<Zombie>();
+        if (zombieScript != null)
+            zombieScript.health -= 100;
     }
 }
