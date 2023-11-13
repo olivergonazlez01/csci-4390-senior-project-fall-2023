@@ -24,6 +24,11 @@ public class Zombie : Pathfinding_entity
     public Transform PUTemp;
     Vector3 dropPosition;
 
+    public void attack() {
+        Debug.Log("here");
+        setTarget(null);
+    }
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -31,6 +36,7 @@ public class Zombie : Pathfinding_entity
         base.Start();
 
         Player = GameObject.Find("pawl");
+        setTarget(Player.transform);
         health = (short) Math.Ceiling((double) (100 * healthMultiplier));
 
         //Player = GameObject.Find("pawl");
@@ -126,7 +132,6 @@ public class Zombie : Pathfinding_entity
         //if (Player.health)
 
         // Follow player around the map no matter the distance
-        setTarget(Player.transform);
         setEntitySpeed(SPEED);
         if (isMoving()) {
             //Debug.Log("true");

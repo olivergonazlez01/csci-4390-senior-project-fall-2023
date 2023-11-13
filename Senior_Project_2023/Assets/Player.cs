@@ -142,9 +142,10 @@ public class Player : MonoBehaviour
         if (collision.collider.tag == "Zombie" && !safeTime)
         {
             hit.PlayOneShot(hit.clip);
-            Debug.Log(health);
             health--;
             safeTime = true;
+
+            collision.collider.GetComponent<Zombie>().attack();
         }
     }
 }
