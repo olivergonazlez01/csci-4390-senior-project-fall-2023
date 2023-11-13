@@ -7,12 +7,12 @@ public class MainMenu : MonoBehaviour
 {
    public void PlayGame()
     {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-        //SceneManager.LoadScene("Farm_Demo");
+        // Load  the scene with the given name
         SceneManager.LoadScene("Zombie_AI");
     }
 
     public void QuitGame() {
+        // Quit game
         Application.Quit();
     }
 }

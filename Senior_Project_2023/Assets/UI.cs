@@ -1,52 +1,56 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEditor.UI;
 using UnityEngine.UI;
 using Unity.VisualScripting;
 
+// TO UPDATE THE VALUES OF THE TEXT OBJECTS IN THE UI IN ANOTHER SCRIPT, CREATE A FUNCTION THAT CHANGES THE VALUES
+// AND CALL THE FUNCTION IN THAT OTHER SCRIPT
+
 public class UI : MonoBehaviour
 {
+    // Reference to the canvas
     GameObject canvas;
-    public GameObject panel;
 
+    // References the powerup and bomb tab, the pictures for the instakill and double points
+    // Powerups, as well as the pictures for the 2 grenades and 2 yarns
     GameObject powerupTab;
     GameObject ik_powerup;
     GameObject dp_powerup;
-
     GameObject BombTab;
     GameObject grenade1;
     GameObject grenade2;
     GameObject yarn1;
     GameObject yarn2;
 
+    // References to the round, zombie count, points, and bullets text objects
     public Text round;
-    public Text level;
     public Text zombCount;
     public Text points;
     public Text bulletInClip;
     public Text bulletTotal;
 
+    // Initializes the round, points and bullets
     byte roundCount = 1;
-    byte levelCount = 1;
     ushort pointsCount = 500;
     byte bulletClipCount = 0;
     ushort bulletTotalCount = 0;
 
+    // References to the game controller and player
     public MainController controller;
     public Player playerInfo;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Initialize variables
         canvas = GameObject.Find("Canvas Full UI");
 
         powerupTab = canvas.transform.Find("Perk Tab").gameObject;
         BombTab = canvas.transform.Find("Item Tab").gameObject;
+        BombTab.SetActive(false);
 
         ik_powerup = powerupTab.transform.Find("ik_powerup").gameObject;
         dp_powerup = powerupTab.transform.Find("dp_powerup").gameObject;
-
         ik_powerup.SetActive(false);
         dp_powerup.SetActive(false);
 
@@ -55,44 +59,32 @@ public class UI : MonoBehaviour
         yarn1 = BombTab.transform.Find("Yarn1").gameObject;
         yarn2 = BombTab.transform.Find("Yarn2").gameObject;
 
-
-        panel.SetActive(false);
-
         round.text = roundCount.ToString();
-        if (controller.storyMode)
-        {
-            level.text = levelCount.ToString();
-            level.gameObject.SetActive(true);
-        }
-        else
-            level.gameObject.SetActive(false);
         zombCount.text = controller.zombiesLeft.ToString();
         points.text = pointsCount.ToString();
         bulletInClip.text = bulletClipCount.ToString();
         bulletTotal.text = bulletTotalCount.ToString();
     }
 
-    // Update is called once per frame
     void Update()
     {
+        // Always check for a change in the zombiesLeft variable in the game controller
         zombCount.text = controller.zombiesLeft.ToString();
+        // If there are no more zombies in the round, increase the round in the ui
         if (controller.zombiesLeft == 0)
         {
             roundCount++;
             round.text =  roundCount.ToString();
         }
+        // Control for the tab to see the amount of grenades and yarns the player has left to use
         if (Input.GetKeyDown(KeyCode.Tab))
-            panel.SetActive(true);
+            BombTab.SetActive(true);
 
         if (Input.GetKeyUp(KeyCode.Tab))
-            panel.SetActive(false);
+            BombTab.SetActive(false);
     }
 
-    // public static void Change()
-    // {
-    //     bulletClipCount = gun.bulletCount;
-    //     bulletTotalCount = gun.bulletCountTotal;
-    // }
+    // USE THIS FUNCTION WHEN WANTING TO UPDATE THE BULLETS IN THE UI
     public void Change(byte clipSize, ushort totalBullets)
     {
         bulletClipCount = clipSize;
@@ -101,17 +93,18 @@ public class UI : MonoBehaviour
         bulletInClip.text = clipSize.ToString();
         bulletTotal.text = totalBullets.ToString();
     }
-
+    // USE THIS FUNCTION WHEN WANTING TO UPDATE THE INSTAKILL POWERUP VISUAL
     public void instaKillActive(bool set)
     {
         ik_powerup.SetActive(set);
     }
-
+    // USE THIS FUNCTION WHEN WANTING TO UPDATE THE DOUBLE POINTS POWERUP VISUAL
     public void douPoiActive(bool set)
     {
         dp_powerup.SetActive(set);
     }
 
+    // USE THIS FUNCTION WHEN WANTING TO UPDATE THE GRENADES
     public void grenadeUI(bool add = false)
     {
         if (add)
@@ -125,7 +118,7 @@ public class UI : MonoBehaviour
             else    grenade1.SetActive(false);
         }
     }
-
+    // USE THIS FUNCTION WHEN WANTING TO UPDATE THE YARNS
     public void yarnUI(bool add = false)
     {
         if (add)

@@ -5,118 +5,61 @@ using UnityEngine.UI;
 
 public class Pickup : MonoBehaviour
 {
+    // Get reference to buttons, player, the gun controller, and the ui
     [SerializeField]
     public Image[] icon; public GameObject[] buttons;
     public GameObject player;
     public GunController gc;
     public UI ui;
 
+    // Standing and Equipped as originally false
     bool standing = false;
     bool equipped = false;
-    Sprite newestItemIcon;
+    // Visual representation of the guns in inverntory
     SpriteRenderer sr;
-    private void OnTriggerEnter2D(Collider2D collider) {
-        if (this.gameObject.transform.parent == null) {
-            Debug.Log("changing standing");
-            standing = true;
-        }
-    }
-    /*private void OnTriggerStay2D(Collider2D collider) {
-        if (Input.GetKey(KeyCode.E) && standing) {
-            Transform t = player.transform.Find("center");
-            if (collider.gameObject.CompareTag("Player")) {
-                for (int i = 0; i < 2; i++) {
-                    if (!icon[i].gameObject.activeSelf) {
-                        icon[i].gameObject.SetActive(true);
-                        sr = this.gameObject.GetComponent<SpriteRenderer>();
-                        icon[i].sprite = sr.sprite;
-                        Debug.Log(icon[i]);
-                        Debug.Log("test");
-                        buttons[i].gameObject.GetComponent<Image>().color = Color.green;
-                        break;
-                    }
-                }
-                if (icon[0].gameObject.activeSelf == false) {
-                    icon[0].gameObject.SetActive(true);
-                    sr = this.gameObject.GetComponent<SpriteRenderer>();
-                    icon[0].sprite = sr.sprite;
-                    buttons[0].gameObject.GetComponent<Image>().color = Color.green;
-                } else if (icon[1].gameObject.activeSelf == false) {
-                    for (int i = 0; i < t.childCount; i++) {
-                        if (t.GetChild(i).gameObject.tag == "Weapon") {
-                            if (t.GetChild(i).gameObject.activeSelf) {
-                                t.GetChild(i).gameObject.SetActive(false);
-                                sr = this.gameObject.GetComponent<SpriteRenderer>();
-                                icon[1].sprite = sr.sprite;
-                                icon[1].gameObject.SetActive(true);
-                                buttons[1].GetComponent<Image>().color = Color.green;
-                                buttons[0].GetComponent<Image>().color = Color.white;
-                            } else {
-                                Destroy(t.GetChild(i).gameObject);
-                            }
-                        }
-                    }
-                } else if (icon[1].gameObject.activeSelf && icon[0].gameObject.activeSelf) {
-                    for (int i = 0; i < t.childCount; i++) {
-                        if (t.GetChild(i).gameObject.tag == "Weapon") {
-                            if (t.GetChild(i).gameObject.activeSelf) {
-                                Destroy(t.GetChild(i).gameObject);
-                            }
-                        }
-                    }
-                    for (int i = 0; i < 2; i++) {
-                        if (buttons[i].GetComponent<Image>().color == Color.green) {
-                            buttons[i].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = this.gameObject.GetComponent<SpriteRenderer>().sprite;
-                        }
-                    }
-                }
-                this.transform.parent = t;
-                equipped = true;
-                gc.PickedUp();
-                ui.Change(gc.bulletCount, gc.bulletCountTotal);
-                /*if (t.localScale.x > 0) {
-                    this.transform.position = new Vector3(t.position.x - 0.4f, t.position.y, t.position.z);
-                } else {
-                    Vector3 flip = this.transform.localScale;
-                    flip.x *= -1;
-                    this.transform.localScale = flip;
-                    this.transform.position = new Vector3(t.position.x + 0.4f, t.position.y, t.position.z);
-                }
-            }
-        } else {
-            return;
-        }
-    }*/
-    private void OnTriggerExit2D(Collider2D collider) {
-        standing = false;
-    }
-    public bool Equipped() {
-        return equipped;
+
+    // ONLY for weapons that can be bought from the wall
+    WallGun wallGun;
+
+    void Start() {
+        if (transform.parent)   wallGun = transform.GetComponentInParent<WallGun>();
     }
 
     public void Update() {
-        if (this.gameObject.transform.parent == player.transform) {
-            return;
-        }
-        else if (Input.GetKey(KeyCode.E) && standing) {
+        // if the gun is already in the player's inventory, do nothing
+        if (this.gameObject.transform.parent == player.transform)   return;
+
+        // Else if the player presses the e key and the gun is able to be picked up
+        else if ((Input.GetKey(KeyCode.E) && standing) || (wallGun && Input.GetKeyUp(KeyCode.E) && wallGun.buy)) {
+            // Grab the center game object and the sprite of the gun
             Transform t = player.transform.Find("center");
             sr = this.gameObject.GetComponent<SpriteRenderer>();
+
             for (int i = 0; i < 2; i++) {
+                // If the icon on the ui is not active, then activate it, set its sprite to the gun sprite
+                // And change the color of the icon according to how many weapons the player currently has 
                 if (!icon[i].gameObject.activeSelf) {
                     icon[i].gameObject.SetActive(true);
                     icon[i].sprite = sr.sprite;
+                    // if player has 0 weapons in inventory, make icon 1's color green
                     buttons[i].gameObject.GetComponent<Image>().color = Color.green;
+                    //  Else make icon 2's color green, and icon 1's color white
                     if (i == 1) {
                         buttons[0].gameObject.GetComponent<Image>().color = Color.white;
                     }
                     break;
                 }
             }
+            
+            // Make the icon's sprite the sprite of the gun according to which icon is green
             if (buttons[0].gameObject.GetComponent<Image>().color == Color.green) {
                 icon[0].sprite = sr.sprite;
             } else if (buttons[1].gameObject.GetComponent<Image>().color == Color.green) {
                 icon[1].sprite = sr.sprite;
             }
+
+            // If the player has more 2 guns, destroy the gun that was picked up first than the others
+            // The player should always have only 2 guns
             if (t.childCount > 0) {
                 for (int i = 0; i < t.childCount; i++) {
                     if (t.GetChild(i).gameObject.activeSelf) {
@@ -127,18 +70,18 @@ public class Pickup : MonoBehaviour
                     }
                 }
             }
+
+            // Make the parent of the gun the center game object found in the player
             this.transform.parent = t;
+            // Set equipped and standing values
             equipped = true;
             standing = false;
+            // Set proper position and location of the gun according to its name
             if (this.transform.name == "Pistol")
             {
                 this.transform.localPosition = new Vector3(-0.268f, -0.077f, 0);
                 this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 180);
                 
-                // if (t.localScale.x < 0)
-                //     this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
-                // else
-                //     this.transform.localScale = new Vector3(this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
             }
             else if (this.transform.name == "Sniper")
             {
@@ -147,61 +90,34 @@ public class Pickup : MonoBehaviour
 
                 if (t.childCount > 1)
                     this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y + 180, 180);
-                // if (t.localScale.x > 0)
-                //     this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
             }
             else if (this.transform.name == "Rifle")
             {
                 this.transform.localPosition = new Vector3(-0.1f, -0.05f, 0f);
                 this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 180);
-                // if (t.localScale.x > 0)
-                //     this.transform.localScale = new Vector3(-this.transform.localScale.x, this.transform.localScale.y, this.transform.localScale.z);
             }
+            
+            // Reinitialize all the variables of the gun that was picked up in the gun controller script
             gc.PickedUp();
+            // Change the ui to reflect the bullets of the new gun that was picked up, and equipped
             ui.Change(gc.bulletCount, gc.bulletCountTotal);
-            /*if (icon[0].gameObject.activeSelf == false) {
-                icon[0].gameObject.SetActive(true);
-                sr = this.gameObject.GetComponent<SpriteRenderer>();
-                icon[0].sprite = sr.sprite;
-                buttons[0].gameObject.GetComponent<Image>().color = Color.green;
-            } else if (icon[1].gameObject.activeSelf == false) {
-                for (int i = 0; i < t.childCount; i++) {
-                    if (t.GetChild(i).gameObject.tag == "Weapon") {
-                        if (t.GetChild(i).gameObject.activeSelf) {
-                            t.GetChild(i).gameObject.SetActive(false);
-                            sr = this.gameObject.GetComponent<SpriteRenderer>();
-                            icon[1].sprite = sr.sprite;
-                            icon[1].gameObject.SetActive(true);
-                            buttons[1].GetComponent<Image>().color = Color.green;
-                            buttons[0].GetComponent<Image>().color = Color.white;
-                        } else {
-                            Destroy(t.GetChild(i).gameObject);
-                        }
-                    }
-                }
-            } else if (icon[1].gameObject.activeSelf && icon[0].gameObject.activeSelf) {
-                for (int i = 0; i < t.childCount; i++) {
-                    if (t.GetChild(i).gameObject.tag == "Weapon") {
-                        if (t.GetChild(i).gameObject.activeSelf) {
-                            Destroy(t.GetChild(i).gameObject);
-                        }
-                    }
-                }
-                for (int i = 0; i < 2; i++) {
-                    if (buttons[i].GetComponent<Image>().color == Color.green) {
-                        buttons[i].transform.GetChild(0).gameObject.GetComponent<Image>().sprite = this.gameObject.GetComponent<SpriteRenderer>().sprite;
-                    }
-                }
-            }*/
-            /*if (t.localScale.x > 0) {
-                this.transform.position = new Vector3(t.position.x - 0.4f, t.position.y, t.position.z);
-            } else {
-                Vector3 flip = this.transform.localScale;
-                flip.x *= -1;
-                this.transform.localScale = flip;
-                this.transform.position = new Vector3(t.position.x + 0.4f, t.position.y, t.position.z);
-            }*/
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collider) {
+        // If the gun has no parent, make it able to be picked up
+        if (this.gameObject.transform.parent == null) {
+            standing = true;
+        }
+    }
+    
+    private void OnTriggerExit2D(Collider2D collider) {
+        // After the player leaves it area, make it unable to be picked up
+        standing = false;
+    }
+
+    public bool Equipped() {
+        return equipped;
     }
 }
 

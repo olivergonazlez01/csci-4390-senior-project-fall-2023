@@ -6,11 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
+    // Controls the sppeed of the character
     private const float SPEED = 5.0f;
+    // Controls velocity of character
     private Vector2 _velocity = Vector2.zero;
+    // Controls animator of character
     public Animator animator;
     public SpriteRenderer pawl;
+    
     [SerializeField] AudioSource hit;
+
+    // Reference to variables
     public Health GUI;
     GameObject center;
     GameObject gun;
@@ -18,45 +24,34 @@ public class Player : MonoBehaviour
     Transform availableYarn;
     UI ui;
 
-    // PLayer has 3 chances of getting hit by the zombies before dying
+    // PLayer has 2 chances of getting hit by the zombies before dying
     public byte health = 2;
+    // Timer for auto regeneration
     public float autoRegenTimer = 0.0f;
     public bool autoRegen = false;
+    // Timer for protection against instantanious zombie hits
     public float safeTimer = 0.0f;
     public bool safeTime = false;
 
-    // Start is called before the first frame update
     void Start()
     {
+        // Initialize the variables
         ui = GameObject.Find("/UI Controller").GetComponent<UI>();
-
         center = transform.Find("center").gameObject;
         availableGrenades = transform.Find("Bombs/Grenades");
         availableYarn = transform.Find("Bombs/Yarns");
     }
 
-    // Update is called once per frame
     void Update()
-    {
+    {  
+        // Always make the center follow the player
         center.transform.localPosition = new Vector2(-0.01f, -0.15f);
         
-        // Checks if the player has ran out of health, and ends the game if it has (FOR NOW)
-        if (health == 0)
-        {
-            // quit either from the editor or from a built application
-            // #if UNITY_EDITOR
-            //     // Display how long the player was alive
-            //     UnityEditor.EditorApplication.isPlaying = false;
-            // #else
-            //     //Application.Quit();
-            //     SceneManager.LoadScene("Menu");
-            // #endif
-            SceneManager.LoadScene("Menu");
-        }
+        // Checks if the player has ran out of health, and returns player to main menu screen
+        if (health == 0)    SceneManager.LoadScene("Menu");
 
         // safeTime makes sure the player a downtime to the zombies' hits
-        if(safeTime)
-            safeTimer += Time.deltaTime;
+        if(safeTime)    safeTimer += Time.deltaTime;
 
         // Checks if the safetimer is out of time, and turns of the safeTime
         if (safeTimer >= 1.5f)
@@ -66,18 +61,12 @@ public class Player : MonoBehaviour
         }
 
         // Checks if autoRegen can be started
-        if (health < 2)
-        {
-            autoRegen = true;
-        }
+        if (health < 2) autoRegen = true;
 
         // Begins autoRegenTimer
-        if (autoRegen)
-        {
-            autoRegenTimer += Time.deltaTime;
-        }
-
-        // Increments health by one
+        if (autoRegen)  autoRegenTimer += Time.deltaTime;
+        
+        // Increments health by one if timer reaches certain time, and timer is reset
         if (autoRegenTimer >= 5.0f)
         {
             health++;
@@ -88,6 +77,8 @@ public class Player : MonoBehaviour
         // Checks if the player has grenades and balls of yarn to throw
         if (Input.GetKeyDown(KeyCode.F))
         {
+            // If player has available grenades, grab the first one, set it to active, drop it 
+            // At the player's position, and update the ui to show that the player one less grenade 
             if (availableGrenades.childCount > 0)
             {
                 Transform temp = availableGrenades.GetChild(0);
@@ -99,11 +90,15 @@ public class Player : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.C))
         {
+            // If player has available yarn, grab the first one, set it to active, drop it 
+            // At the player's position, and update the ui to show that the player one less yarn 
             if (availableYarn.childCount > 0)
             {
                 Transform temp = availableYarn.GetChild(0);
                 temp.gameObject.SetActive(true);
                 temp.parent = null;
+                // Because the zombies are attracted to game objects with the "player" tag andthe ball of yarns
+                // Attracts the zommbies, the yarn's tag becomes "player", and the player's tag becomes "Hidden Player"
                 temp.transform.tag = "Player";
                 transform.tag = "Hidden Player";
                 ui.yarnUI();
@@ -111,10 +106,10 @@ public class Player : MonoBehaviour
             }
         }
 
-        // if (transform.parent.parent.localScale.x > 0)   transform.parent.localScale = new Vector3 (-1, 1, 1);
-            // else    transform.parent.localScale = new Vector3 (1, 1, 1);
+        // If the player presses the d key, the sprite will face towards the right
+        // And if the player presses the a key, the sprite will face towards the left
         if (transform.localScale.x > 0) center.transform.localScale = new Vector3 (-1, 1, 1);
-        else center.transform.localScale = new Vector3 (1, 1, 1);
+        else    center.transform.localScale = new Vector3 (1, 1, 1);
 
 
         // convert user input into a movement direction (could use Unity axis for this)
@@ -146,6 +141,13 @@ public class Player : MonoBehaviour
             safeTime = true;
 
             collision.collider.GetComponent<Zombie>().attack();
+            StartCoroutine(Damage());
         }
+    }
+
+    IEnumerator Damage() {
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(0.05f);
+        this.gameObject.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
