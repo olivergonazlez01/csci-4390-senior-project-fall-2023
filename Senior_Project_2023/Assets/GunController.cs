@@ -183,14 +183,17 @@ public class GunController : MonoBehaviour
                 {
                     case "Pistol":
                         zombieScript.health -= 20;
+                        zombieScript.pushBack(50.0f);
                     break;
 
                     case "Rifle":
                         zombieScript.health -= 40;
+                        zombieScript.pushBack(100.0f);
                     break;
 
                     case "Sniper":
                         zombieScript.health -= 80;
+                        zombieScript.pushBack(150.0f);
                     break;
                 }
             }
