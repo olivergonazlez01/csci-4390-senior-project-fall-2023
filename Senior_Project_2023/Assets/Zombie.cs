@@ -27,8 +27,11 @@ public class Zombie : Pathfinding_entity
     Vector3 dropPosition;
 
     public void attack() {
-        Debug.Log("here");
-        setTarget(null);
+        StartCoroutine(Attacking());
+    }
+
+    public void pushBack(float pushForce) {
+        setEntitySpeed(-pushForce);
     }
 
     // Start is called before the first frame update
@@ -40,6 +43,7 @@ public class Zombie : Pathfinding_entity
         // Set the variables
         Player = GameObject.Find("pawl");
         setTarget(Player.transform);
+        setEntitySpeed(SPEED);
         health = (short) Math.Ceiling((double) (100 * healthMultiplier));
         gameController = GameObject.Find("Game Controller");
         controller = gameController.GetComponentInChildren<MainController>();
@@ -144,29 +148,40 @@ public class Zombie : Pathfinding_entity
             }
         }
 
-        // Follow player around the map no matter the distance
-        setEntitySpeed(SPEED);
-        /*if (isMoving()) {
-            //Debug.Log("true");
+        if (isMoving()) {
+            // Follow player around the map no matter the distance
+            // Make sure the zombie follows the game object with the player tag (NEEDED FOR THE YARN BOMBS)
+            GameObject playerTag = GameObject.FindGameObjectWithTag("Player");
+            Player = playerTag;
+            setTarget(Player.transform);
+            setEntitySpeed(SPEED);
+
             animator.SetFloat("speed", getDirection().magnitude);
             if (getDirection().x > 0) {
                 zombie.flipX = true;
             } else {
                 zombie.flipX = false;
             }
-        }*/
-        // Make sure the zombie follows the game object with the player tag (NEEDED FOR THE YARN BOMBS)
+        } else {
+            //Debug.Log("not moving lol");
+        }
+        
+        //  Vector2 dir = Player.transform.position - transform.position;
+        //  _velocity = dir.normalized * SPEED;
+        //  animator.SetFloat("speed", dir.magnitude);
+        //  if (dir.x > 0) {
+        //      zombie.flipX = true;
+        //  } else if (dir.x < 0) {
+        //      zombie.flipX = false;
+        //  }
+        //  transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
+    }
+
+    IEnumerator Attacking() {
+        setTarget(null);
+        yield return new WaitForSeconds(3.0f);
         GameObject playerTag = GameObject.FindGameObjectWithTag("Player");
         Player = playerTag;
-        
-         Vector2 dir = Player.transform.position - transform.position;
-         _velocity = dir.normalized * SPEED;
-         animator.SetFloat("speed", dir.magnitude);
-         if (dir.x > 0) {
-             zombie.flipX = true;
-         } else if (dir.x < 0) {
-             zombie.flipX = false;
-         }
-         transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
+        setTarget(Player.transform);
     }
 }

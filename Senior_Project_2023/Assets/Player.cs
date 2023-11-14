@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
     }
 
     // Check if the player has hit by the zombie
-    void OnCollisionEnter2D(Collision2D collision)
+    void OnCollisionStay2D(Collision2D collision)
     {
         if (collision.collider.tag == "Zombie" && !safeTime)
         {
