@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GunController : MonoBehaviour
 {
+    //multiplier
+    private int multiplier = 2;
     // References to the rigid body in the center game object, the camera, the ui, and position of the mouse
     Rigidbody2D rb;
     Camera cam;
@@ -179,6 +181,7 @@ public class GunController : MonoBehaviour
             else
             {
                 // Deal the damage to each zombie according the name of each gun
+                PointsManager.increase(multiplier);
                 switch(gunName)
                 {
                     case "Pistol":
