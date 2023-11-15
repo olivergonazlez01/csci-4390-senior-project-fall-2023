@@ -29,6 +29,7 @@ public class UI : MonoBehaviour
     public Text points;
     public Text bulletInClip;
     public Text bulletTotal;
+    public GameObject reloading;
 
     // Initializes the round, points and bullets
     byte roundCount = 1;
@@ -59,6 +60,8 @@ public class UI : MonoBehaviour
         yarn1 = BombTab.transform.Find("Yarn1").gameObject;
         yarn2 = BombTab.transform.Find("Yarn2").gameObject;
 
+        reloading = canvas.transform.Find("Reloading").gameObject;
+
         round.text = roundCount.ToString();
         zombCount.text = controller.zombiesLeft.ToString();
         points.text = pointsCount.ToString();
@@ -82,6 +85,24 @@ public class UI : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Tab))
             BombTab.SetActive(false);
+    }
+
+    public void Reloading(int progress) {
+        switch (progress) {
+            case 1:
+                reloading.gameObject.SetActive(true);
+                break;
+            case 2:
+                reloading.GetComponent<Text>().text = "Reloading..";
+                break;
+            case 3:
+                reloading.GetComponent<Text>().text = "Reloading.";
+                break;
+            case 4:
+                reloading.GetComponent<Text>().text = "Reloading...";
+                reloading.gameObject.SetActive(false);
+                break;
+        }
     }
 
     // USE THIS FUNCTION WHEN WANTING TO UPDATE THE BULLETS IN THE UI

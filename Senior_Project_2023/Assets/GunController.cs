@@ -147,8 +147,13 @@ public class GunController : MonoBehaviour
         buttons[0].enabled = false;
         buttons[1].enabled = false;
         // Make the player wait for some time
-        yield return new WaitForSeconds(2);
-
+        ui.Reloading(1);
+        yield return new WaitForSeconds(0.5f);
+        ui.Reloading(2);
+        yield return new WaitForSeconds(0.5f);
+        ui.Reloading(3);
+        yield return new WaitForSeconds(0.5f);
+        ui.Reloading(4);
         // Decrement number of bullets outside the clip and increase bullets in clip proportional to
         // The number of bullets in clip at time of reloading
         while (bulletCount < magazine && bulletCountTotal > 0) {
