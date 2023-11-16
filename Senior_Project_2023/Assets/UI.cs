@@ -30,6 +30,7 @@ public class UI : MonoBehaviour
     public Text bulletInClip;
     public Text bulletTotal;
     public Text errorMessages;
+    public GameObject reloading;
 
     // Initializes the round, points and bullets
     byte roundCount = 1;
@@ -61,6 +62,8 @@ public class UI : MonoBehaviour
         grenade2 = BombTab.transform.Find("Grenade2").gameObject;
         yarn1 = BombTab.transform.Find("Yarn1").gameObject;
         yarn2 = BombTab.transform.Find("Yarn2").gameObject;
+
+        reloading = canvas.transform.Find("Reloading").gameObject;
 
         round.text = roundCount.ToString();
         zombCount.text = controller.zombiesLeft.ToString();
@@ -94,6 +97,24 @@ public class UI : MonoBehaviour
         {
             showMessage = false;
             errorMessages.text = "";
+        }
+    }
+
+    public void Reloading(int progress) {
+        switch (progress) {
+            case 1:
+                reloading.gameObject.SetActive(true);
+                break;
+            case 2:
+                reloading.GetComponent<Text>().text = "Reloading..";
+                break;
+            case 3:
+                reloading.GetComponent<Text>().text = "Reloading.";
+                break;
+            case 4:
+                reloading.GetComponent<Text>().text = "Reloading...";
+                reloading.gameObject.SetActive(false);
+                break;
         }
     }
 
