@@ -29,6 +29,7 @@ public class UI : MonoBehaviour
     public Text points;
     public Text bulletInClip;
     public Text bulletTotal;
+    public Text errorMessages;
     public GameObject reloading;
 
     // Initializes the round, points and bullets
@@ -36,6 +37,8 @@ public class UI : MonoBehaviour
     ushort pointsCount = 500;
     byte bulletClipCount = 0;
     ushort bulletTotalCount = 0;
+    float messageTimer = 0;
+    bool showMessage = false;
 
     // References to the game controller and player
     public MainController controller;
@@ -67,6 +70,7 @@ public class UI : MonoBehaviour
         points.text = pointsCount.ToString();
         bulletInClip.text = bulletClipCount.ToString();
         bulletTotal.text = bulletTotalCount.ToString();
+        errorMessages.text = "";
     }
 
     void Update()
@@ -85,6 +89,15 @@ public class UI : MonoBehaviour
 
         if (Input.GetKeyUp(KeyCode.Tab))
             BombTab.SetActive(false);
+
+        if (showMessage)
+            messageTimer -= Time.deltaTime;
+        
+        if (showMessage && messageTimer <= 0)
+        {
+            showMessage = false;
+            errorMessages.text = "";
+        }
     }
 
     public void Reloading(int progress) {
@@ -152,5 +165,12 @@ public class UI : MonoBehaviour
             if(yarn2.activeSelf)    yarn2.SetActive(false);
             else    yarn1.SetActive(false);
         }
+    }
+    // USE THIS FUNCTION WHEN WANTING TO CHANGE THE ERROR MESSAGE
+    public void changeMessage(string message)
+    {
+        messageTimer = 2.0f;
+        showMessage = true;
+        errorMessages.text = message;
     }
 }

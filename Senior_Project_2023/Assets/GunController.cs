@@ -41,6 +41,7 @@ public class GunController : MonoBehaviour
     
     // Checks if the player has the instakill powerup active at the time of damaging zombies
     Powerup ikpu_Controller;
+    Powerup dppu_Controller;
 
     // Checks if the player is reloading their gun
     private bool isReloading = false;
@@ -57,6 +58,7 @@ public class GunController : MonoBehaviour
         ui = GameObject.Find("/UI Controller").GetComponent<UI>();
         gunPoint = transform.Find("GunPoint");
         ikpu_Controller = GameObject.Find("/Insta-Kill").GetComponent<Powerup>();
+        dppu_Controller = GameObject.Find("/Double Points").GetComponent<Powerup>();
     }
 
     void Update()
@@ -179,14 +181,14 @@ public class GunController : MonoBehaviour
         {
             hit.PlayOneShot(hit.clip);
             // If the insta kill powerup is active, instantly kill the zombies
-            if (ikpu_Controller.ik_Active)
-            {
-                zombieScript.health = 0;
-            }
+            if (ikpu_Controller.ik_Active)    zombieScript.health = 0;
             else
             {
+                // Increase the player's points according to the multiplier
+                if (dppu_Controller.dp_Active)    PointsManager.increase(multiplier * 2);
+                else    PointsManager.increase(multiplier);
+
                 // Deal the damage to each zombie according the name of each gun
-                PointsManager.increase(multiplier);
                 switch(gunName)
                 {
                     case "Pistol":
