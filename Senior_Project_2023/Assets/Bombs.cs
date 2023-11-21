@@ -20,6 +20,12 @@ public class Bombs : MonoBehaviour
 
     // Once bombs explode, they are put inside this game object for easy access in max ammo powerup
     GameObject bombCollection;
+
+    // Animator for explosion and yarn
+    public Animator explosion;
+
+
+    bool unravel = false;
  
     void Start()
     {
@@ -36,24 +42,31 @@ public class Bombs : MonoBehaviour
     {
         // Countdown the timer
         if (countdown > 0)
+        {
+            if (transform.name == "Yarn" && !unravel)
+            {
+                unravel = true;
+                explosion.Play("Yarn unravel");
+                StartCoroutine(UnravelYarn());
+            }
             countdown -= Time.deltaTime;
+        }
 
         // When countdown reaches 0, for each zombie in the list, deal them damage
         if (countdown < 0)
         {
+            explosion.Play("Bigger Explosion");
+            StartCoroutine(waitForExplosion());
+
             foreach (Transform zombie in zombies)
                 Damage(zombie);
 
             // Clear list 
             zombies.Clear();
-            // Move grenade off the map like how we do with the zombies and powerups
-            transform.position = new Vector3(-0.38f, -30.08f, 0);
             // Move grenade game object to be inside the bomb collection game object
             transform.parent = bombCollection.transform;
             // Reset countdown for multiple usage
             countdown = 3.0f;
-            // Turn off game object
-            transform.gameObject.SetActive(false);
             // Reset player's tag back to player because the ball of yarn messes with it
             player.transform.tag = "Player";
         }
@@ -80,5 +93,23 @@ public class Bombs : MonoBehaviour
         Zombie zombieScript = zombie.GetComponent<Zombie>();
         if (zombieScript != null)
             zombieScript.health -= 100;
+    }
+
+
+    IEnumerator waitForExplosion()
+    {
+        // Wait for the explosion animation to finish
+        yield return new WaitWhile(() => explosion.GetCurrentAnimatorStateInfo(0).normalizedTime <= 1.0f);
+
+        // Move grenade off the map like how we do with the zombies and powerups
+        transform.position = new Vector3(-0.38f, -30.08f, 0);
+        // Turn off game object
+        transform.gameObject.SetActive(false);
+    }
+
+
+    IEnumerator UnravelYarn()
+    {
+        yield return new WaitWhile(() => explosion.GetCurrentAnimatorStateInfo(0).normalizedTime <= 3.0f);
     }
 }
