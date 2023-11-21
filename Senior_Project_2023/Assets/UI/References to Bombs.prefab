@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7087199319005761745}
   - component: {fileID: 3035300476560652726}
   - component: {fileID: 1677508264252314305}
+  - component: {fileID: 448741942750708564}
   m_Layer: 0
   m_Name: Yarn
   m_TagString: Untagged
@@ -27,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1044308589955346768}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.192772, y: -123.96279, z: 0}
+  m_LocalPosition: {x: -49.693, y: -125.151, z: 0}
   m_LocalScale: {x: 0.9356725, y: 0.9356725, z: 0.9356725}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 2107528392, guid: 656b8007d52ab2b4e91fde104d82fcad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,6 +99,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b485264cf72ce49a645fd1ef2ba1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 448741942750708564}
+  yarn: {fileID: 0}
 --- !u!58 &1677508264252314305
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -114,6 +117,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.5
+--- !u!95 &448741942750708564
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1044308589955346768}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dac46297f60bdc9459105f6aaa9a1b3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &6967852863379206809
 GameObject:
   m_ObjectHideFlags: 0
@@ -166,6 +189,7 @@ GameObject:
   - component: {fileID: 662202559731786906}
   - component: {fileID: 4051446994780518011}
   - component: {fileID: 857907523603713418}
+  - component: {fileID: 6812332076931942120}
   m_Layer: 0
   m_Name: Grenade
   m_TagString: Untagged
@@ -181,7 +205,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8060059721686287817}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.192772, y: -123.96279, z: 0}
+  m_LocalPosition: {x: -48.218, y: -125.108, z: 0}
   m_LocalScale: {x: 0.9356725, y: 0.9356725, z: 0.9356725}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -229,7 +253,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1374ac98cae28084e8be262d76ee7756, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -252,6 +276,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b485264cf72ce49a645fd1ef2ba1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 6812332076931942120}
+  yarn: {fileID: 0}
 --- !u!58 &857907523603713418
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -268,6 +294,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.5
+--- !u!95 &6812332076931942120
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8060059721686287817}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dac46297f60bdc9459105f6aaa9a1b3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &8438638194864202387
 GameObject:
   m_ObjectHideFlags: 0
@@ -280,6 +326,7 @@ GameObject:
   - component: {fileID: 5952624667700109410}
   - component: {fileID: 7729598768988845809}
   - component: {fileID: 2067718948336524713}
+  - component: {fileID: 2741215265601055131}
   m_Layer: 0
   m_Name: Yarn
   m_TagString: Untagged
@@ -295,7 +342,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8438638194864202387}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.192772, y: -123.96279, z: 0}
+  m_LocalPosition: {x: -49.676, y: -123.96279, z: 0}
   m_LocalScale: {x: 0.9356725, y: 0.9356725, z: 0.9356725}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -343,7 +390,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 2107528392, guid: 656b8007d52ab2b4e91fde104d82fcad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -366,6 +413,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b485264cf72ce49a645fd1ef2ba1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 2741215265601055131}
+  yarn: {fileID: 0}
 --- !u!58 &2067718948336524713
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -382,6 +431,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.5
+--- !u!95 &2741215265601055131
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8438638194864202387}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dac46297f60bdc9459105f6aaa9a1b3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &8615897237002491826
 GameObject:
   m_ObjectHideFlags: 0
@@ -394,6 +463,7 @@ GameObject:
   - component: {fileID: 2503723193139421464}
   - component: {fileID: 7496231612031895899}
   - component: {fileID: 8053973066888981140}
+  - component: {fileID: 4431057846990213800}
   m_Layer: 0
   m_Name: Grenade
   m_TagString: Untagged
@@ -409,7 +479,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8615897237002491826}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -48.192772, y: -123.96279, z: 0}
+  m_LocalPosition: {x: -48.192772, y: -123.962, z: 0}
   m_LocalScale: {x: 0.9356725, y: 0.9356725, z: 0.9356725}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -457,7 +527,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1374ac98cae28084e8be262d76ee7756, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -480,6 +550,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b485264cf72ce49a645fd1ef2ba1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 4431057846990213800}
+  yarn: {fileID: 0}
 --- !u!58 &8053973066888981140
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -496,3 +568,23 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.5
+--- !u!95 &4431057846990213800
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8615897237002491826}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dac46297f60bdc9459105f6aaa9a1b3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
