@@ -160,12 +160,12 @@ public class Spitter : Pathfinding_entity
             }
         }
 
-        // Behavior
+        // Behavior Tree 
         if (isAttacking) {
             if (attackTimer <= 0.0f) {
                 // start new attack
-                Spit s = transform.Find("spit").GetComponent<Spit>();
-                s.shoot();
+                Spit s = transform.GetChild(0).GetComponent<Spit>();
+                s.shoot(Player.transform);
                 attackTimer = ATTACK_INTERVAL;
             }
             attackTimer -= Time.deltaTime;
@@ -192,8 +192,6 @@ public class Spitter : Pathfinding_entity
     IEnumerator Attacking() {
         setTarget(null);
         yield return new WaitForSeconds(3.0f);
-        GameObject playerTag = GameObject.FindGameObjectWithTag("Player");
-        Player = playerTag;
         setTarget(Player.transform);
     }
 }
