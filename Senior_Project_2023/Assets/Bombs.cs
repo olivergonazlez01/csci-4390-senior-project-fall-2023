@@ -24,8 +24,9 @@ public class Bombs : MonoBehaviour
     // Animator for explosion and yarn
     public Animator explosion;
 
-
+    // Vairables to set animations
     bool unravel = false;
+    bool grenadeAnim = false;
  
     void Start()
     {
@@ -47,6 +48,12 @@ public class Bombs : MonoBehaviour
             {
                 unravel = true;
                 explosion.Play("Yarn unravel");
+                StartCoroutine(UnravelYarn());
+            }
+            else if (transform.name == "Grenade" && !grenadeAnim)
+            {
+                grenadeAnim = true;
+                explosion.Play("Grenade State");
                 StartCoroutine(UnravelYarn());
             }
             countdown -= Time.deltaTime;
@@ -112,4 +119,9 @@ public class Bombs : MonoBehaviour
     {
         yield return new WaitWhile(() => explosion.GetCurrentAnimatorStateInfo(0).normalizedTime <= 3.0f);
     }
+
+    // IEnumerator GrenadeAnimation()
+    // {
+    //     yield return new WaitWhile(() => explosion.GetCurrentAnimatorStateInfo(0).normalizedTime <= 3.0f);
+    // }
 }

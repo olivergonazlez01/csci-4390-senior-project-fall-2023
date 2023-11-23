@@ -100,7 +100,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 448741942750708564}
-  yarn: {fileID: 0}
 --- !u!58 &1677508264252314305
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -253,7 +252,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1374ac98cae28084e8be262d76ee7756, type: 3}
+  m_Sprite: {fileID: -1706638160, guid: 1374ac98cae28084e8be262d76ee7756, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -277,7 +276,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 6812332076931942120}
-  yarn: {fileID: 0}
 --- !u!58 &857907523603713418
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -414,7 +412,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 2741215265601055131}
-  yarn: {fileID: 0}
 --- !u!58 &2067718948336524713
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -527,7 +524,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1374ac98cae28084e8be262d76ee7756, type: 3}
+  m_Sprite: {fileID: -1706638160, guid: 1374ac98cae28084e8be262d76ee7756, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -551,7 +548,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   explosion: {fileID: 4431057846990213800}
-  yarn: {fileID: 0}
 --- !u!58 &8053973066888981140
 CircleCollider2D:
   m_ObjectHideFlags: 0
