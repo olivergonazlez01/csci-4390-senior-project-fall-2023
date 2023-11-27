@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         center.transform.localPosition = new Vector2(-0.01f, -0.15f);
         
         // Checks if the player has ran out of health, and returns player to main menu screen
-        if (health == 0)    SceneManager.LoadScene("Menu");
+        if (health == 0)    SceneManager.LoadScene("Game Over");
 
         // safeTime makes sure the player a downtime to the zombies' hits
         if(safeTime)    safeTimer += Time.deltaTime;
