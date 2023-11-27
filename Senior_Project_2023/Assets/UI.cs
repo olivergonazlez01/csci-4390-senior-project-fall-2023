@@ -24,6 +24,8 @@ public class UI : MonoBehaviour
     GameObject yarn2;
 
     // References to the round, zombie count, points, and bullets text objects
+    public Text Intro_1;
+    public Text Intro_2;
     public Text round;
     public Text zombCount;
     public Text points;
@@ -39,6 +41,8 @@ public class UI : MonoBehaviour
     ushort bulletTotalCount = 0;
     float messageTimer = 0;
     bool showMessage = false;
+    bool intro = true;
+    float introTimer = 3.0f;
 
     // References to the game controller and player
     public MainController controller;
@@ -64,6 +68,8 @@ public class UI : MonoBehaviour
         yarn2 = BombTab.transform.Find("Yarn2").gameObject;
 
         reloading = canvas.transform.Find("Reloading").gameObject;
+        Intro_1 = canvas.transform.Find("Intro Text").GetComponent<Text>();
+        Intro_2 = canvas.transform.Find("Intro Text 2").GetComponent<Text>();
 
         round.text = roundCount.ToString();
         zombCount.text = controller.zombiesLeft.ToString();
@@ -90,13 +96,27 @@ public class UI : MonoBehaviour
         if (Input.GetKeyUp(KeyCode.Tab))
             BombTab.SetActive(false);
 
+        // Timers for time controlled error and intro messages
         if (showMessage)
             messageTimer -= Time.deltaTime;
+
+        if (intro)
+            introTimer -= Time.deltaTime;
         
+        // Turn off error and intro messages
         if (showMessage && messageTimer <= 0)
         {
             showMessage = false;
             errorMessages.text = "";
+        }
+
+        if (intro && introTimer <= 0)
+        {
+            Intro_1.text = "";
+            Intro_2.text = "";
+
+            Intro_1.gameObject.SetActive(false);
+            Intro_2.gameObject.SetActive(false);
         }
     }
 

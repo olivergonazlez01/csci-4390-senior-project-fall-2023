@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Farm_Demo.unity
     guid: efc7c622249d01c49a827f2159917c1c
+  - enabled: 1
+    path: Assets/Scenes/Game Over.unity
+    guid: afdb5982c4591bb468c9d743fadec4bb
   m_configObjects: {}
