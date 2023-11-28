@@ -77,7 +77,7 @@ public class Powerup : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
         // If the powerup collides with the player
-        if (col.transform.tag == "Player") 
+        if (col.transform.name == "pawl") 
         {
             switch(transform.name)
             {

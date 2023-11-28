@@ -8,7 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Menu.unity
     guid: 59916da69adfe98449ef7cd69cecfdd9
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/SampleScene.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Farm_Demo.unity
     guid: efc7c622249d01c49a827f2159917c1c
+  - enabled: 1
+    path: Assets/Scenes/Game Over.unity
+    guid: afdb5982c4591bb468c9d743fadec4bb
   m_configObjects: {}

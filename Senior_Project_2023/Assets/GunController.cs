@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GunController : MonoBehaviour
 {
+    //multiplier
+    private int multiplier = 2;
     // References to the rigid body in the center game object, the camera, the ui, and position of the mouse
     Rigidbody2D rb;
     Camera cam;
@@ -39,6 +41,7 @@ public class GunController : MonoBehaviour
     
     // Checks if the player has the instakill powerup active at the time of damaging zombies
     Powerup ikpu_Controller;
+    Powerup dppu_Controller;
 
     // Checks if the player is reloading their gun
     private bool isReloading = false;
@@ -55,6 +58,7 @@ public class GunController : MonoBehaviour
         ui = GameObject.Find("/UI Controller").GetComponent<UI>();
         gunPoint = transform.Find("GunPoint");
         ikpu_Controller = GameObject.Find("/Insta-Kill").GetComponent<Powerup>();
+        dppu_Controller = GameObject.Find("/Double Points").GetComponent<Powerup>();
     }
 
     void Update()
@@ -147,8 +151,13 @@ public class GunController : MonoBehaviour
         buttons[0].enabled = false;
         buttons[1].enabled = false;
         // Make the player wait for some time
-        yield return new WaitForSeconds(2);
-
+        ui.Reloading(1);
+        yield return new WaitForSeconds(0.5f);
+        ui.Reloading(2);
+        yield return new WaitForSeconds(0.5f);
+        ui.Reloading(3);
+        yield return new WaitForSeconds(0.5f);
+        ui.Reloading(4);
         // Decrement number of bullets outside the clip and increase bullets in clip proportional to
         // The number of bullets in clip at time of reloading
         while (bulletCount < magazine && bulletCountTotal > 0) {
@@ -172,12 +181,13 @@ public class GunController : MonoBehaviour
         {
             hit.PlayOneShot(hit.clip);
             // If the insta kill powerup is active, instantly kill the zombies
-            if (ikpu_Controller.ik_Active)
-            {
-                zombieScript.health = 0;
-            }
+            if (ikpu_Controller.ik_Active)    zombieScript.health = 0;
             else
             {
+                // Increase the player's points according to the multiplier
+                if (dppu_Controller.dp_Active)    PointsManager.increase(multiplier * 2);
+                else    PointsManager.increase(multiplier);
+
                 // Deal the damage to each zombie according the name of each gun
                 switch(gunName)
                 {

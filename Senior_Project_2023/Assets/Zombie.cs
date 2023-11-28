@@ -6,6 +6,9 @@ using UnityEngine;
 
 public class Zombie : Pathfinding_entity
 {
+    //multiplier
+    int multiplier = 1;
+
     // Sets the speed and velocity of the zombies
     private const float SPEED = 3.0f;
     private Vector2 _velocity = Vector2.zero;
@@ -53,7 +56,8 @@ public class Zombie : Pathfinding_entity
     {
         // If a zombie's health reaches 0, decide if the zombie will drop a powerup, and return it to the  spawner
         if (health <= 0)
-        {            
+        {
+            PointsManager.PointValue += 100 * multiplier;
             // Grabs position of the zombie
             dropPosition = transform.position;
 

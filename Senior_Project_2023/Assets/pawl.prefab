@@ -78,6 +78,7 @@ GameObject:
   - component: {fileID: 3274585377449642700}
   - component: {fileID: 7746831903556912284}
   - component: {fileID: 6898190059631332341}
+  - component: {fileID: 7216382322293667332}
   m_Layer: 0
   m_Name: Grenade
   m_TagString: Untagged
@@ -93,7 +94,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2637938445102840756}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.38, y: -30.079998, z: 0}
+  m_LocalPosition: {x: 3.26, y: -30.079998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -141,7 +142,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -1706638160, guid: 1374ac98cae28084e8be262d76ee7756, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -164,6 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b485264cf72ce49a645fd1ef2ba1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 7216382322293667332}
 --- !u!58 &6898190059631332341
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -180,6 +182,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.5
+--- !u!95 &7216382322293667332
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2637938445102840756}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dac46297f60bdc9459105f6aaa9a1b3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &3438254375005938156
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,6 +214,7 @@ GameObject:
   - component: {fileID: 515697693388478297}
   - component: {fileID: 3636900475688860417}
   - component: {fileID: 243898062019038517}
+  - component: {fileID: 6203926481653264731}
   m_Layer: 0
   m_Name: Grenade
   m_TagString: Untagged
@@ -207,7 +230,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3438254375005938156}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.38, y: -30.079998, z: 0}
+  m_LocalPosition: {x: 3.23, y: -31.33, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -255,7 +278,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: -1706638160, guid: 1374ac98cae28084e8be262d76ee7756, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -278,6 +301,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b485264cf72ce49a645fd1ef2ba1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 6203926481653264731}
 --- !u!58 &243898062019038517
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -294,6 +318,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.5
+--- !u!95 &6203926481653264731
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3438254375005938156}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dac46297f60bdc9459105f6aaa9a1b3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &4871362990109848942
 GameObject:
   m_ObjectHideFlags: 0
@@ -306,6 +350,7 @@ GameObject:
   - component: {fileID: 726856669235549283}
   - component: {fileID: 6912380212331010976}
   - component: {fileID: 2601090108620817818}
+  - component: {fileID: 8287909491011178527}
   m_Layer: 0
   m_Name: Yarn
   m_TagString: Untagged
@@ -321,7 +366,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4871362990109848942}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.38, y: -30.079998, z: 0}
+  m_LocalPosition: {x: 6.72, y: -31.36, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -369,7 +414,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 2107528392, guid: 656b8007d52ab2b4e91fde104d82fcad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -392,6 +437,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b485264cf72ce49a645fd1ef2ba1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 8287909491011178527}
 --- !u!58 &2601090108620817818
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -408,6 +454,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.5
+--- !u!95 &8287909491011178527
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4871362990109848942}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dac46297f60bdc9459105f6aaa9a1b3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &7546866095124739648
 GameObject:
   m_ObjectHideFlags: 0
@@ -453,6 +519,7 @@ GameObject:
   - component: {fileID: 340745140712246264}
   - component: {fileID: 5567958323019344021}
   - component: {fileID: 6894773875498651947}
+  - component: {fileID: 7550111729834337042}
   m_Layer: 0
   m_Name: Yarn
   m_TagString: Untagged
@@ -468,7 +535,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7652212954050564938}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.38, y: -30.079998, z: 0}
+  m_LocalPosition: {x: 6.72, y: -30.079998, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -516,7 +583,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
+  m_Sprite: {fileID: 2107528392, guid: 656b8007d52ab2b4e91fde104d82fcad, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -539,6 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30b485264cf72ce49a645fd1ef2ba1c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  explosion: {fileID: 7550111729834337042}
 --- !u!58 &6894773875498651947
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -555,6 +623,26 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 3.5
+--- !u!95 &7550111729834337042
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7652212954050564938}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dac46297f60bdc9459105f6aaa9a1b3d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
 --- !u!1 &8608839696981509645
 GameObject:
   m_ObjectHideFlags: 0
