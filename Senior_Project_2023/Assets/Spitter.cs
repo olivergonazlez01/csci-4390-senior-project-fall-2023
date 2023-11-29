@@ -11,7 +11,6 @@ public class Spitter : Pathfinding_entity
     
     // Sets the health and multiplier (will change per round) of the zombies
     public float healthMultiplier = 1;
-    public short health;
 
     // References to the player, zombie sprite and animator, game controller, and spawner
     public GameObject Player;
@@ -40,10 +39,6 @@ public class Spitter : Pathfinding_entity
         GameObject playerTag = GameObject.FindGameObjectWithTag("Player");
         Player = playerTag;
         setTarget(Player.transform);
-    }
-
-    public void pushBack(float pushForce) {
-        setEntitySpeed(-pushForce);
     }
 
     // Start is called before the first frame update
@@ -187,11 +182,5 @@ public class Spitter : Pathfinding_entity
             //Debug.Log("not moving lol");
         }
     
-    }
-
-    IEnumerator Attacking() {
-        setTarget(null);
-        yield return new WaitForSeconds(3.0f);
-        setTarget(Player.transform);
     }
 }

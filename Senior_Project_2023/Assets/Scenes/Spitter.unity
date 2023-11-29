@@ -1499,6 +1499,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 588522416}
     - target: {fileID: 756500765576337860, guid: 6670f401692bcad48b8e9839cae91edc, type: 3}
+      propertyPath: Intro_1
+      value: 
+      objectReference: {fileID: 1783683797}
+    - target: {fileID: 756500765576337860, guid: 6670f401692bcad48b8e9839cae91edc, type: 3}
+      propertyPath: Intro_2
+      value: 
+      objectReference: {fileID: 1185760527}
+    - target: {fileID: 756500765576337860, guid: 6670f401692bcad48b8e9839cae91edc, type: 3}
       propertyPath: zombCount
       value: 
       objectReference: {fileID: 588522417}
@@ -1518,6 +1526,10 @@ PrefabInstance:
       propertyPath: bulletInClip
       value: 
       objectReference: {fileID: 588522415}
+    - target: {fileID: 756500765576337860, guid: 6670f401692bcad48b8e9839cae91edc, type: 3}
+      propertyPath: errorMessages
+      value: 
+      objectReference: {fileID: 914367898}
     - target: {fileID: 756500765576337861, guid: 6670f401692bcad48b8e9839cae91edc, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -2648,6 +2660,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3081028438894917623, guid: e99ff29340f9e85429c0c54617c64408, type: 3}
   m_PrefabInstance: {fileID: 704474691}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &914367898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7802592580960172464, guid: 6845fa46aec4ba8498dad96424640ece, type: 3}
+  m_PrefabInstance: {fileID: 588522413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &932524027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2999,9 +3022,9 @@ GameObject:
   - component: {fileID: 1086902165}
   - component: {fileID: 1086902167}
   - component: {fileID: 1086902166}
-  m_Layer: 7
+  m_Layer: 2
   m_Name: Awareness
-  m_TagString: Untagged
+  m_TagString: Awareness
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3147,6 +3170,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3081028438894917623, guid: e99ff29340f9e85429c0c54617c64408, type: 3}
   m_PrefabInstance: {fileID: 1487119059}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1185760527 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7480017376527666502, guid: 6845fa46aec4ba8498dad96424640ece, type: 3}
+  m_PrefabInstance: {fileID: 588522413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1187212314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4959,7 +4993,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1721214199}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.2, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -5200,6 +5234,17 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: e99ff29340f9e85429c0c54617c64408, type: 3}
+--- !u!114 &1783683797 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8713526219390291259, guid: 6845fa46aec4ba8498dad96424640ece, type: 3}
+  m_PrefabInstance: {fileID: 588522413}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1819408178 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3081028438894917623, guid: e99ff29340f9e85429c0c54617c64408, type: 3}
@@ -6394,8 +6439,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43a3600c7acc27a4da1333fdeea770a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthMultiplier: 1
   health: 100
+  healthMultiplier: 1
   Player: {fileID: 0}
   zombie: {fileID: 2146460334}
   animator: {fileID: 2146460339}
@@ -6638,8 +6683,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c036482d98fbb07489b890572d704a21, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  healthMultiplier: 1
   health: 100
+  healthMultiplier: 1
   Player: {fileID: 0}
   zombie: {fileID: 7406828133123658510}
   animator: {fileID: 7406828133123658515}

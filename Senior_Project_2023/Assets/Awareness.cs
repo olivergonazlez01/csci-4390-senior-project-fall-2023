@@ -31,7 +31,6 @@ public class Awareness : MonoBehaviour
                 parentScript.attack();
             } else {
                 // move closer to player until line of sight is made
-                Debug.Log(hit.collider);
                 parentScript.chase();
             }
         }
@@ -41,6 +40,8 @@ public class Awareness : MonoBehaviour
         // player is too far, chase them
         if (collision.tag == "Player") {
             Spitter parent = GetComponentInParent<Spitter>();
+            // check if parent is still active
+            if (parent == null) return;
             parent.chase();
         }
     }

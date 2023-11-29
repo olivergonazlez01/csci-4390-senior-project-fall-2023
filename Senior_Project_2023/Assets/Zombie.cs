@@ -15,7 +15,6 @@ public class Zombie : Pathfinding_entity
     
     // Sets the health and multiplier (will change per round) of the zombies
     public float healthMultiplier = 1;
-    public short health;
 
     // References to the player, zombie sprite and animator, game controller, and spawner
     public GameObject Player;
@@ -31,10 +30,6 @@ public class Zombie : Pathfinding_entity
 
     public void attack() {
         StartCoroutine(Attacking());
-    }
-
-    public void pushBack(float pushForce) {
-        setEntitySpeed(-pushForce);
     }
 
     // Start is called before the first frame update

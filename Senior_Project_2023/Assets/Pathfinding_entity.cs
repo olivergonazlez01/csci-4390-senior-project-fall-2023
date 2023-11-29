@@ -8,6 +8,7 @@ public class Pathfinding_entity : MonoBehaviour
 
     private Transform _target = null;
     private float _speed = 0.0f;
+    public short health;
     private Vector2 _dir = Vector2.zero;
     // path iterator
     private int i = 0;
@@ -22,14 +23,34 @@ public class Pathfinding_entity : MonoBehaviour
         _speed = speed;
     }
 
+    // call this method to deal a certain amount of damage to entity
+    // send -1 to instantly kill zombie
+    public void Damage_Zombie(short damage_dealt) {
+        if (damage_dealt < 0) {
+            health = 0;
+        } else {
+            health -= damage_dealt;
+        }
+    }
+
+    // call this method to return current direction entity is heading
+    public Vector2 getDirection() {
+        return _dir;
+    }
+
+    // call this method to determine how far back to push the zombie after being shot
+    // pushForce will be divided by 100 and zombie will teleport a short distance opposite
+    // of the direction the bullet hit them
+    public void pushBack(float pushForce, Vector3 gunPoint) {
+        Vector3 pushDirection = -(transform.position - gunPoint).normalized;
+        pushDirection *= pushForce / 100.0f;
+        transform.position = new Vector3(transform.position.x - pushDirection.x, transform.position.y - pushDirection.y, 0.0f);
+    }
+
     // Start is called before the first frame update
     protected virtual void Start()
     {
         path = new UnityEngine.AI.NavMeshPath();
-    }
-
-    public Vector2 getDirection() {
-        return _dir;
     }
 
     // returns true if the entity is moving, false otherwise
