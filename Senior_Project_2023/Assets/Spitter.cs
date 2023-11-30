@@ -14,6 +14,7 @@ public class Spitter : Pathfinding_entity
 
     // References to the player, zombie sprite and animator, game controller, and spawner
     public GameObject Player;
+    [SerializeField] AudioSource spitSound;
     public SpriteRenderer zombie;
     public Animator animator;
     public GameObject gameController;
@@ -159,6 +160,7 @@ public class Spitter : Pathfinding_entity
         if (isAttacking) {
             if (attackTimer <= 0.0f) {
                 // start new attack
+                spitSound.PlayOneShot(spitSound.clip);
                 Spit s = transform.GetChild(0).GetComponent<Spit>();
                 s.shoot(Player.transform);
                 attackTimer = ATTACK_INTERVAL;
