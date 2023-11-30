@@ -131,6 +131,16 @@ public class Player : MonoBehaviour
         transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
     }
 
+    // call this function from other scripts to deal damage to the player (if safeTime is not active)
+    public void Damage_Player() {
+        if (!safeTime) {
+            hit.PlayOneShot(hit.clip);
+            health--;
+            safeTime = true;
+            StartCoroutine(Damage());
+        }
+    }
+
     // Check if the player has hit by the zombie
     void OnCollisionStay2D(Collision2D collision)
     {

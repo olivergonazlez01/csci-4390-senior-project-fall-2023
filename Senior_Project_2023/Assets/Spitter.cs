@@ -4,20 +4,17 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Zombie : Pathfinding_entity
+public class Spitter : Pathfinding_entity
 {
-    //multiplier
-    int multiplier = 1;
-
     // Sets the speed and velocity of the zombies
     private const float SPEED = 3.0f;
-    private Vector2 _velocity = Vector2.zero;
     
     // Sets the health and multiplier (will change per round) of the zombies
     public float healthMultiplier = 1;
 
     // References to the player, zombie sprite and animator, game controller, and spawner
     public GameObject Player;
+    [SerializeField] AudioSource spitSound;
     public SpriteRenderer zombie;
     public Animator animator;
     public GameObject gameController;
@@ -28,8 +25,21 @@ public class Zombie : Pathfinding_entity
     public Transform PUTemp;
     Vector3 dropPosition;
 
+    // Variables for attacking behavior
+    bool isAttacking = false;
+    public float ATTACK_INTERVAL = 3.0f;
+    private float attackTimer = 0.0f;
+
     public void attack() {
-        StartCoroutine(Attacking());
+        isAttacking = true;
+        setTarget(null);
+    }
+
+    public void chase() {
+        isAttacking = false;
+        GameObject playerTag = GameObject.FindGameObjectWithTag("Player");
+        Player = playerTag;
+        setTarget(Player.transform);
     }
 
     // Start is called before the first frame update
@@ -51,8 +61,7 @@ public class Zombie : Pathfinding_entity
     {
         // If a zombie's health reaches 0, decide if the zombie will drop a powerup, and return it to the  spawner
         if (health <= 0)
-        {
-            PointsManager.PointValue += 100 * multiplier;
+        {            
             // Grabs position of the zombie
             dropPosition = transform.position;
 
@@ -147,7 +156,17 @@ public class Zombie : Pathfinding_entity
             }
         }
 
-        if (isMoving()) {
+        // Behavior Tree 
+        if (isAttacking) {
+            if (attackTimer <= 0.0f) {
+                // start new attack
+                spitSound.PlayOneShot(spitSound.clip);
+                Spit s = transform.GetChild(0).GetComponent<Spit>();
+                s.shoot(Player.transform);
+                attackTimer = ATTACK_INTERVAL;
+            }
+            attackTimer -= Time.deltaTime;
+        } else if (isMoving()) {
             // Follow player around the map no matter the distance
             // Make sure the zombie follows the game object with the player tag (NEEDED FOR THE YARN BOMBS)
             GameObject playerTag = GameObject.FindGameObjectWithTag("Player");
@@ -164,23 +183,6 @@ public class Zombie : Pathfinding_entity
         } else {
             //Debug.Log("not moving lol");
         }
-        
-        //  Vector2 dir = Player.transform.position - transform.position;
-        //  _velocity = dir.normalized * SPEED;
-        //  animator.SetFloat("speed", dir.magnitude);
-        //  if (dir.x > 0) {
-        //      zombie.flipX = true;
-        //  } else if (dir.x < 0) {
-        //      zombie.flipX = false;
-        //  }
-        //  transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
-    }
-
-    IEnumerator Attacking() {
-        setTarget(null);
-        yield return new WaitForSeconds(3.0f);
-        GameObject playerTag = GameObject.FindGameObjectWithTag("Player");
-        Player = playerTag;
-        setTarget(Player.transform);
+    
     }
 }

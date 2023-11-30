@@ -11,6 +11,7 @@ TagManager:
   - Weapon
   - Item_Inv
   - Hidden Player
+  - Wall
   layers:
   - Default
   - TransparentFX
@@ -21,7 +22,7 @@ TagManager:
   - Interactable
   - Zombie
   - Player
-  - 
+  - Wall
   - 
   - 
   - 

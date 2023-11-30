@@ -175,38 +175,79 @@ public class GunController : MonoBehaviour
 
     void Damage(Transform zombie)
     {
-        Zombie zombieScript = zombie.GetComponent<Zombie>();
-        // Check if the parameter variable has the zombie script
-        if (zombieScript != null)
-        {
-            hit.PlayOneShot(hit.clip);
-            // If the insta kill powerup is active, instantly kill the zombies
-            if (ikpu_Controller.ik_Active)    zombieScript.health = 0;
-            else
+        // try to load corresponding enemy script
+        Pathfinding_entity zombieScript = zombie.GetComponent<Pathfinding_entity>();
+        if (zombieScript == null ) return;
+
+        // play hit sound effect
+        hit.PlayOneShot(hit.clip);
+
+        // if the insta kill powerup is active, instantly kill the zombie
+        // accomplish this by sending a negative number as damage to assign health to zero
+        if (ikpu_Controller.ik_Active) {
+            zombieScript.Damage_Zombie(-1);
+        } else {
+            // checks if double points is active
+            if (dppu_Controller.dp_Active) {
+                PointsManager.increase(multiplier * 2);
+            } else {
+                PointsManager.increase(multiplier);
+            }
+
+            // determine which gun is being used
+            // use the following functions to deal a certain amount of damage to zombie
+            // and determine how far each should push it back, depending on gunPoint direction
+            switch(gunName) 
             {
-                // Increase the player's points according to the multiplier
-                if (dppu_Controller.dp_Active)    PointsManager.increase(multiplier * 2);
-                else    PointsManager.increase(multiplier);
+                case "Pistol":
+                    zombieScript.Damage_Zombie(20);
+                    zombieScript.pushBack(30.0f, gunPoint.position);
+                break;
+                
+                case "Rifle":
+                    zombieScript.Damage_Zombie(40);
+                    zombieScript.pushBack(60.0f, gunPoint.position);
+                break;
 
-                // Deal the damage to each zombie according the name of each gun
-                switch(gunName)
-                {
-                    case "Pistol":
-                        zombieScript.health -= 20;
-                        zombieScript.pushBack(50.0f);
-                    break;
-
-                    case "Rifle":
-                        zombieScript.health -= 40;
-                        zombieScript.pushBack(100.0f);
-                    break;
-
-                    case "Sniper":
-                        zombieScript.health -= 80;
-                        zombieScript.pushBack(150.0f);
-                    break;
-                }
+                case "Sniper":
+                    zombieScript.Damage_Zombie(80);
+                    zombieScript.pushBack(90.0f, gunPoint.position);
+                break;
             }
         }
+
+        // Zombie zombieScript = zombie.GetComponent<Zombie>();
+        // // Check if the parameter variable has the zombie script
+        // if (zombieScript != null)
+        // {
+        //     hit.PlayOneShot(hit.clip);
+        //     // If the insta kill powerup is active, instantly kill the zombies
+        //     if (ikpu_Controller.ik_Active)    zombieScript.health = 0;
+        //     else
+        //     {
+        //         // Increase the player's points according to the multiplier
+        //         if (dppu_Controller.dp_Active)    PointsManager.increase(multiplier * 2);
+        //         else    PointsManager.increase(multiplier);
+
+        //         // Deal the damage to each zombie according the name of each gun
+        //         switch(gunName)
+        //         {
+        //             case "Pistol":
+        //                 zombieScript.health -= 20;
+        //                 zombieScript.pushBack(50.0f);
+        //             break;
+
+        //             case "Rifle":
+        //                 zombieScript.health -= 40;
+        //                 zombieScript.pushBack(100.0f);
+        //             break;
+
+        //             case "Sniper":
+        //                 zombieScript.health -= 80;
+        //                 zombieScript.pushBack(150.0f);
+        //             break;
+        //         }
+        //     }
+        // }
     }
 }
