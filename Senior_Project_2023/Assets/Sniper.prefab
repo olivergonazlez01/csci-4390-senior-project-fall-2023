@@ -69,7 +69,7 @@ Transform:
   m_Children:
   - {fileID: 601862192359957655}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &601862193861972279
 SpriteRenderer:
@@ -140,6 +140,7 @@ MonoBehaviour:
   gunClick: {fileID: 601862193861973708}
   emptyGun: {fileID: 601862193861973707}
   hit: {fileID: 601862193861973706}
+  buttons: []
   pickedUp: {fileID: 601862193861972276}
   magazine: 10
   bulletCount: 10
