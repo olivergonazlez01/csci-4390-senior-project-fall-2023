@@ -199,6 +199,11 @@ PrefabInstance:
     m_RemovedComponents: []
     m_AddedGameObjects: []
   m_SourcePrefab: {fileID: 100100000, guid: e99ff29340f9e85429c0c54617c64408, type: 3}
+--- !u!95 &31182053 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 4880387968874328569, guid: 55da3985ecd99274182b53abd5096631, type: 3}
+  m_PrefabInstance: {fileID: 1694306534}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &48426041 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3081028438894917623, guid: e99ff29340f9e85429c0c54617c64408, type: 3}
@@ -4807,6 +4812,10 @@ PrefabInstance:
     serializedVersion: 2
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8450716997689360748, guid: 55da3985ecd99274182b53abd5096631, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 31182053}
     - target: {fileID: 3081028438894917621, guid: 55da3985ecd99274182b53abd5096631, type: 3}
       propertyPath: m_Name
       value: Spitter
