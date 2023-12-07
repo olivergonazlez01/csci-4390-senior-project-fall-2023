@@ -15,7 +15,11 @@ public class GunController : MonoBehaviour
 
     // Reference to the gunpoint at the tip of the gun, and a bullet trail that will be created when shooting
     Transform gunPoint;
+    Transform gunPoint_2;
+    Transform gunPoint_3;
     [SerializeField] Transform bulletTrail;
+    [SerializeField] Transform bulletTrail_2;
+    [SerializeField] Transform bulletTrail_3;
 
     // Audio for gunshots, gunclicks for reloading, empty gun, and zombie hit
     [SerializeField] AudioSource gunshot;
@@ -35,6 +39,9 @@ public class GunController : MonoBehaviour
     public byte magazine;
     public byte bulletCount;
     public ushort bulletCountTotal;
+
+    // Keeps time of the automatic shooting
+    float timer = 0f;
 
     // Checks if the gun is rotate so that it is always upright
     bool rotated = false;
@@ -58,6 +65,13 @@ public class GunController : MonoBehaviour
         gunPoint = transform.Find("GunPoint");
         ikpu_Controller = GameObject.Find("/Insta-Kill").GetComponent<Powerup>();
         dppu_Controller = GameObject.Find("/Double Points").GetComponent<Powerup>();
+
+        // If the player picked up the shotgun, it will initialize the other gunpoint variables
+        if (transform.name == "Shotgun")
+        {
+            gunPoint_2 = transform.Find("GunPoint (1)");
+            gunPoint_3 = transform.Find("GunPoint (2)");
+        }
     }
 
     void Update()
@@ -67,11 +81,26 @@ public class GunController : MonoBehaviour
             // If r key is pressed and reloading is not happening, reload
             if (Input.GetKeyDown(KeyCode.R) && !isReloading)    StartCoroutine(Reload());
             // If left click and not realoding, if gun has ammo, shoot
-            if (Input.GetMouseButtonDown(0) && !isReloading)
+            if (transform.name == "Rifle" && Input.GetMouseButton(0) && !isReloading)
+            {
+                if (timer <= 0)
+                {
+                    gunshot.PlayOneShot(gunshot.clip);
+                    Shoot();
+                    timer = 0.10f;
+                }
+                else
+                    timer -= Time.deltaTime;
+            }
+            else if (Input.GetMouseButtonDown(0) && !isReloading)
             {
                 if (bulletCount > 0) {
                     gunshot.PlayOneShot(gunshot.clip);
-                    Shoot();
+                    if (transform.name == "Shotgun")
+                        MultiShoot();
+                    else
+                        Shoot();
+
                 } 
                 else  emptyGun.PlayOneShot(emptyGun.clip);
             }
@@ -124,7 +153,7 @@ public class GunController : MonoBehaviour
         if (hit.collider != null)
         {
             trailScript.SetTargetPosition(hit.point);
-            if (hit.transform != null)  Damage(hit.transform);
+            if (hit.transform != null)  Damage(hit.transform, gunPoint);
         }
         // Else make the end position a location away from the map
         else
@@ -140,6 +169,105 @@ public class GunController : MonoBehaviour
         if (gunName == "Sniper") {
             StartCoroutine(Cooldown());
         }
+    }
+
+    void MultiShoot()
+    {
+        float angle = 0.0872665f;
+        Vector2 direction_2 = new Vector2(Mathf.Cos(Mathf.Atan(-transform.right.y / -transform.right.x) + angle), Mathf.Sin(Mathf.Atan(-transform.right.y / -transform.right.x) + angle));
+        Vector2 direction_3 = new Vector2(Mathf.Cos(Mathf.Atan(-transform.right.y / -transform.right.x) - angle), Mathf.Sin(Mathf.Atan(-transform.right.y / -transform.right.x) - angle));
+
+        if (transform.localRotation.y < 0)
+        {
+            direction_2 = new Vector2(-Mathf.Cos(Mathf.Atan(-transform.right.y / -transform.right.x) + angle), -Mathf.Sin(Mathf.Atan(-transform.right.y / -transform.right.x) + angle));
+            direction_3 = new Vector2(-Mathf.Cos(Mathf.Atan(-transform.right.y / -transform.right.x) - angle), -Mathf.Sin(Mathf.Atan(-transform.right.y / -transform.right.x) - angle));
+        }
+        // Decrease the number of bullets the gun has, and throw a raycast in the direction of the mouse position
+        bulletCount--;
+        // Only return a non-null hit if the raycast collided with a zombie
+        RaycastHit2D hit = Physics2D.Raycast
+        (
+            gunPoint.position,
+            -transform.right,
+            LayerMask.GetMask("Zombie")
+        );
+        RaycastHit2D hit_2 = Physics2D.Raycast
+        (
+            gunPoint_2.position,
+            direction_2,
+            LayerMask.GetMask("Zombie")
+        );
+        RaycastHit2D hit_3 = Physics2D.Raycast
+        (
+            gunPoint_3.position,
+            direction_3,
+            LayerMask.GetMask("Zombie")
+        );
+
+        // Instantiate a bullet trail
+        var trail = Instantiate
+        (
+            bulletTrail,
+            gunPoint.position,
+            transform.rotation
+        );
+        var trailScript = trail.GetComponent<BulletTrail>();
+        var trail_2 = Instantiate
+        (
+            bulletTrail_2,
+            gunPoint_2.position,
+            transform.rotation
+        );
+        var trailScript_2 = trail_2.GetComponent<BulletTrail>();
+        var trail_3 = Instantiate
+        (
+            bulletTrail_3,
+            gunPoint_3.position,
+            transform.rotation
+        );
+        var trailScript_3 = trail_3.GetComponent<BulletTrail>();
+
+
+        // if the collider hits something, set the target position of the bullet trail that hit, and check for damage 
+        if (hit.collider != null)
+        {
+            trailScript.SetTargetPosition(hit.point);
+            if (hit.transform != null)  Damage(hit.transform, gunPoint);
+        }
+        // Else make the end position a location away from the map
+        else
+        {
+            var endPosition = gunPoint.position + -transform.right * 100;
+            trailScript.SetTargetPosition(endPosition);
+        }
+        if (hit_2.collider != null)
+        {
+            trailScript_2.SetTargetPosition(hit_2.point);
+            if (hit_2.transform != null) Damage(hit_2.transform, gunPoint_2);
+        }
+        else
+        {
+            var endPosition = gunPoint_2.position + -transform.right * 100;
+            trailScript_2.SetTargetPosition(endPosition);
+        }
+        if (hit_3.collider != null)
+        {
+            trailScript_3.SetTargetPosition(hit_3.point);
+            if (hit_3.transform != null) Damage(hit_3.transform, gunPoint_3);
+        }
+        else
+        {
+            var endPosition = gunPoint_3.position + -transform.right * 100;
+            trailScript_3.SetTargetPosition(endPosition);
+        }
+
+        // If clip is empty, reload
+        if (bulletCount == 0)   StartCoroutine(Reload());
+        // Change UI to show that player has shot a bullet
+        ui.Change(bulletCount, bulletCountTotal);
+        // if (gunName == "Sniper") {
+        //     StartCoroutine(Cooldown());
+        // }
     }
 
     IEnumerator Cooldown() {
@@ -181,7 +309,7 @@ public class GunController : MonoBehaviour
         isReloading = false;
     }
 
-    void Damage(Transform zombie)
+    void Damage(Transform zombie, Transform currentGunPoint)
     {
         // try to load corresponding enemy script
         Pathfinding_entity zombieScript = zombie.GetComponent<Pathfinding_entity>();
@@ -209,17 +337,22 @@ public class GunController : MonoBehaviour
             {
                 case "Pistol":
                     zombieScript.Damage_Zombie(20);
-                    zombieScript.pushBack(30.0f, gunPoint.position);
+                    zombieScript.pushBack(30.0f, currentGunPoint.position);
                 break;
                 
                 case "Rifle":
                     zombieScript.Damage_Zombie(40);
-                    zombieScript.pushBack(60.0f, gunPoint.position);
+                    zombieScript.pushBack(60.0f, currentGunPoint.position);
                 break;
 
                 case "Sniper":
                     zombieScript.Damage_Zombie(80);
-                    zombieScript.pushBack(90.0f, gunPoint.position);
+                    zombieScript.pushBack(90.0f, currentGunPoint.position);
+                break;
+
+                case "Shotgun":
+                    zombieScript.Damage_Zombie(40);
+                    zombieScript.pushBack(50.0f, currentGunPoint.position);
                 break;
             }
         }
