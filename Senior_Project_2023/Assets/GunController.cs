@@ -50,7 +50,6 @@ public class GunController : MonoBehaviour
     {
         // Get the name of the gun so that it can know how much damage to deal 
         gunName = transform.name;
-
         // Initialize variables
         rb = transform.parent.GetComponent<Rigidbody2D>();
         cam = transform.parent.parent.GetComponentInChildren<Camera>();
@@ -138,6 +137,15 @@ public class GunController : MonoBehaviour
         if (bulletCount == 0)   StartCoroutine(Reload());
         // Change UI to show that player has shot a bullet
         ui.Change(bulletCount, bulletCountTotal);
+        if (gunName == "Sniper") {
+            StartCoroutine(Cooldown());
+        }
+    }
+
+    IEnumerator Cooldown() {
+        isReloading = true;
+        yield return new WaitForSeconds(1.25f);
+        isReloading = false;
     }
 
     IEnumerator Reload()
