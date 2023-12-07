@@ -7,7 +7,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: zombie walk
+  m_Name: spitter walk
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -21,7 +21,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 5d87c30420c3c4325b57509a12c5c038, type: 2}
+  m_Motion: {fileID: 7400000, guid: aeb384a46b3cdbb4c86ab0039cf1c5af, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
@@ -137,7 +137,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: zombie idle
+  m_Name: spitter idle
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -151,7 +151,7 @@ AnimatorState:
   m_MirrorParameterActive: 0
   m_CycleOffsetParameterActive: 0
   m_TimeParameterActive: 0
-  m_Motion: {fileID: 7400000, guid: 9e295dbdf9e804fa383685d323536a02, type: 2}
+  m_Motion: {fileID: 7400000, guid: 4fc27caf7e672f64dad337dfe0cb837b, type: 2}
   m_Tag: 
   m_SpeedParameter: 
   m_MirrorParameter: 
