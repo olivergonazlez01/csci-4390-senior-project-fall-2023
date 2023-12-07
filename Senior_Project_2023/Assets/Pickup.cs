@@ -95,8 +95,9 @@ public class Pickup : MonoBehaviour
 
                 // Make the parent of the gun the center game object found in the player
                 this.transform.parent = t;
-                // Set equipped and standing values
+                // Set equipped and standing values, turn off popup if active
                 equipped = true;
+                Interact.turn_off();
                 standing = false;
                 // Set proper position and location of the gun according to its name
                 if (this.transform.name == "Pistol")
@@ -131,14 +132,22 @@ public class Pickup : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collider) {
         // If the gun has no parent, make it able to be picked up
-        if (this.gameObject.transform.parent == null) {
+        if (this.gameObject.transform.parent == null && collider.tag == "Player" && !equipped) {
             standing = true;
+
+            // static function to turn on popup for player
+            Interact.turn_on();
         }
     }
     
     private void OnTriggerExit2D(Collider2D collider) {
-        // After the player leaves it area, make it unable to be picked up
-        standing = false;
+        if(collider.tag == "Player" && !equipped) {
+            // After the player leaves it area, make it unable to be picked up
+            standing = false;
+
+            // static funciton to turn off popup for player
+            Interact.turn_off();
+        }
     }
 
     public bool Equipped() {
