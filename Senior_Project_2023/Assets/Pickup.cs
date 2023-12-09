@@ -49,6 +49,16 @@ public class Pickup : MonoBehaviour
                         canBuy = false;
                     }
                 }
+                else if (this.transform.name == "Shotgun")
+                {
+                    if (PointsManager.PointValue >= 2000)
+                        PointsManager.PointValue -= 2000;
+                    else
+                    {
+                        ui.changeMessage("Not enough points");
+                        canBuy = false;
+                    }
+                }
             }
 
             if (canBuy)
@@ -116,7 +126,12 @@ public class Pickup : MonoBehaviour
                 }
                 else if (this.transform.name == "Rifle")
                 {
-                    this.transform.localPosition = new Vector3(-0.1f, -0.05f, 0f);
+                    this.transform.localPosition = new Vector3(-0.1f, -0.05f, 0);
+                    this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 180);
+                }
+                else if (this.transform.name == "Shotgun")
+                {
+                    this.transform.localPosition = new Vector3(-0.324f, -0.039f, 0);
                     this.transform.localRotation = Quaternion.Euler(transform.localEulerAngles.x, transform.localEulerAngles.y, 180);
                 }
                 

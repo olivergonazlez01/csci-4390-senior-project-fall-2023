@@ -107,15 +107,15 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spitter sprite sheet_0
+      name: spitter sprite sheet_4
       rect:
         serializedVersion: 2
-        x: 17
+        x: 18
         y: 114
         width: 33
         height: 74
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -128,7 +128,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spitter sprite sheet_1
+      name: sapitter sprite sheet_3
       rect:
         serializedVersion: 2
         x: 78
@@ -136,7 +136,7 @@ TextureImporter:
         width: 30
         height: 74
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -157,7 +157,7 @@ TextureImporter:
         width: 31
         height: 73
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -170,7 +170,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spitter sprite sheet_3
+      name: spitter sprite sheet_1
       rect:
         serializedVersion: 2
         x: 208
@@ -178,7 +178,7 @@ TextureImporter:
         width: 31
         height: 74
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -191,7 +191,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spitter sprite sheet_4
+      name: spitter sprite sheet_0
       rect:
         serializedVersion: 2
         x: 272
@@ -199,7 +199,7 @@ TextureImporter:
         width: 32
         height: 75
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -216,11 +216,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 17
-        y: 13
+        y: 14
         width: 30
         height: 75
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -236,12 +236,12 @@ TextureImporter:
       name: spitter sprite sheet_6
       rect:
         serializedVersion: 2
-        x: 78
-        y: 13
+        x: 76
+        y: 12
         width: 32
         height: 75
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -264,13 +264,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      spitter sprite sheet_5: -673803275
-      spitter sprite sheet_4: 1895643112
-      spitter sprite sheet_1: -855901501
-      spitter sprite sheet_6: 571506686
-      spitter sprite sheet_2: 216391586
-      spitter sprite sheet_0: -1422200878
-      spitter sprite sheet_3: -1965938929
+      spitter sprite sheet_4: -1422200878
+      spitter sprite sheet_1: -1965938929
+      sapitter sprite sheet_3: -855901501
+      spitter sprite sheet_6: -1422200878
+      spitter sprite sheet_2: -673803275
+      spitter sprite sheet_5: 571506686
+      spitter sprite sheet_0: -1965938929
   spritePackingTag: 
   pSDRemoveMatte: 0
   userData: 

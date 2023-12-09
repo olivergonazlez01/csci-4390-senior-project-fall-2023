@@ -289,7 +289,7 @@ MonoBehaviour:
   Player: {fileID: 8608839697936356332, guid: 10ed2ada6eeceb348a873a8c04ee8924, type: 3}
   spitSound: {fileID: -8914703764870349328}
   zombie: {fileID: 3081028438894917622}
-  animator: {fileID: 0}
+  animator: {fileID: 4880387968874328569}
   gameController: {fileID: 8213561049010917942, guid: a317e1cbd2a739b4d8619ee29a32199e, type: 3}
   spawner: {fileID: 5267447905013200905, guid: 562a7421d95a23a4db22d5e2e9d1f1cb, type: 3}
   PUTemp: {fileID: 0}
