@@ -150,8 +150,8 @@ public class Pickup : MonoBehaviour
         if (this.gameObject.transform.parent == null && collider.tag == "Player" && !equipped) {
             standing = true;
 
-            // static function to turn on popup for player
-            Interact.turn_on();
+            // static function to turn on popup for player. Return false if the player cannot pick it up
+            Interact.turn_on(true);
         }
     }
     

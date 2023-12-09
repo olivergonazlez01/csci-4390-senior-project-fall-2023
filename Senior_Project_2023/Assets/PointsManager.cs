@@ -24,4 +24,10 @@ public class PointsManager : MonoBehaviour
     {
         PointValue += 10 * multiplier;
     }
+
+    public static void decrease(int deducted)
+    {
+        PointValue -= deducted;
+        if (PointValue < 0) PointValue = 0;
+    }
 }
