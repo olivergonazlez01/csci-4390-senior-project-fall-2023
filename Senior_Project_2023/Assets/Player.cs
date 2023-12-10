@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         if (autoRegen)  autoRegenTimer += Time.deltaTime;
         
         // Increments health by one if timer reaches certain time, and timer is reset
-        if (autoRegenTimer >= 1.0f)
+        if (autoRegenTimer >= 5.0f)
         {
             health++;
             autoRegen = false;
