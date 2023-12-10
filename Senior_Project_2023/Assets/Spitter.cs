@@ -20,6 +20,7 @@ public class Spitter : Pathfinding_entity
     public GameObject gameController;
     MainController controller;
     public GameObject spawner;
+    private Transform spitterSpawner;
 
     // Variables for powerup drops
     public Transform PUTemp;
@@ -65,12 +66,15 @@ public class Spitter : Pathfinding_entity
             // Grabs position of the zombie
             dropPosition = transform.position;
 
-            // Remove it from the list of active zombies and update the game controller
+            // Remove it from the list of active zombies and update the game controller, play zombie death sound
             controller.activeZombies.Remove(transform.gameObject);
             controller.zombiesLeft--;
+            soundController.playDeath();
+
             // Set the location and parent of the zombie to the spawner and turn off zombie
             spawner = GameObject.Find("Zombie Spawner");
-            transform.SetParent(spawner.transform);
+            spitterSpawner = spawner.transform.GetChild(2);
+            transform.SetParent(spitterSpawner.transform);
             transform.localPosition = new Vector2(0, 0);
             transform.gameObject.SetActive(false);
             
@@ -175,13 +179,15 @@ public class Spitter : Pathfinding_entity
             setEntitySpeed(SPEED);
 
             animator.SetFloat("speed", getDirection().magnitude);
-            if (getDirection().x > 0) {
-                zombie.flipX = true;
-            } else {
-                zombie.flipX = false;
-            }
         } else {
             //Debug.Log("not moving lol");
+        }
+
+        // make sure zombie is always facing player
+        if ((Player.transform.position - transform.position).x > 0) {
+            zombie.flipX = true;
+        } else {
+            zombie.flipX = false;
         }
     
     }

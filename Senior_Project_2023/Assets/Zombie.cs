@@ -23,6 +23,7 @@ public class Zombie : Pathfinding_entity
     public GameObject gameController;
     MainController controller;
     public GameObject spawner;
+    private Transform zombieSpawner;
 
     // Variables for powerup drops
     public Transform PUTemp;
@@ -56,12 +57,20 @@ public class Zombie : Pathfinding_entity
             // Grabs position of the zombie
             dropPosition = transform.position;
 
-            // Remove it from the list of active zombies and update the game controller
+            // Remove it from the list of active zombies and update the game controller, play death sound
             controller.activeZombies.Remove(transform.gameObject);
             controller.zombiesLeft--;
+            soundController.playDeath();
+
+            // Stop all coroutines and setTarget to player for next time it is active
+            StopAllCoroutines();
+            GameObject realPlayer = GameObject.Find("pawl");
+            setTarget(realPlayer.transform);
+            
             // Set the location and parent of the zombie to the spawner and turn off zombie
             spawner = GameObject.Find("Zombie Spawner");
-            transform.SetParent(spawner.transform);
+            zombieSpawner = spawner.transform.GetChild(1);
+            transform.SetParent(zombieSpawner.transform);
             transform.localPosition = new Vector2(0, 0);
             transform.gameObject.SetActive(false);
             
@@ -174,6 +183,16 @@ public class Zombie : Pathfinding_entity
         //      zombie.flipX = false;
         //  }
         //  transform.position = transform.position + (Vector3)(_velocity * Time.deltaTime);
+    }
+
+    // Check if the player has hit by the zombie
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.collider.name == "pawl")
+        {
+            collision.collider.GetComponent<Player>().Damage_Player();
+            StartCoroutine(Attacking());
+        }
     }
 
     IEnumerator Attacking() {

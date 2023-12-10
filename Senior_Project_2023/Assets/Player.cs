@@ -67,7 +67,7 @@ public class Player : MonoBehaviour
         if (autoRegen)  autoRegenTimer += Time.deltaTime;
         
         // Increments health by one if timer reaches certain time, and timer is reset
-        if (autoRegenTimer >= 5.0f)
+        if (autoRegenTimer >= 1.0f)
         {
             health++;
             autoRegen = false;
@@ -141,19 +141,19 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Check if the player has hit by the zombie
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Zombie" && !safeTime)
-        {
-            hit.PlayOneShot(hit.clip);
-            health--;
-            safeTime = true;
+    // // Check if the player has hit by the zombie
+    // void OnCollisionStay2D(Collision2D collision)
+    // {
+    //     if (collision.collider.tag == "Zombie" && !safeTime)
+    //     {
+    //         hit.PlayOneShot(hit.clip);
+    //         health--;
+    //         safeTime = true;
 
-            collision.collider.GetComponent<Zombie>().attack();
-            StartCoroutine(Damage());
-        }
-    }
+    //         collision.collider.GetComponent<Zombie>().attack();
+    //         StartCoroutine(Damage());
+    //     }
+    // }
 
     IEnumerator Damage() {
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;

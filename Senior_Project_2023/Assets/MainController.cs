@@ -20,6 +20,12 @@ public class MainController : MonoBehaviour
     // Reference to the spawner
     public GameObject spawner;
     // Keeps track of the zombies that are active in the round
+    private Transform graves;
+    private Transform zombieSpawner;
+    private Transform spitterSpawner;
+    // 3 zombies : 1 spitter
+    private const byte RATIO = 3;
+    private byte zombieRatio = RATIO;
     public List<GameObject> activeZombies = new List<GameObject>();
     // The possible locations zombies can spawn
     public float[,] spawnAreas = new float[4,2] 
@@ -30,6 +36,9 @@ public class MainController : MonoBehaviour
         // Initialize variables
         _spawnTimer = SPAWN_INTERVAL;
         spawner = GameObject.Find("Zombie Spawner");
+        graves = spawner.transform.GetChild(0);
+        zombieSpawner = spawner.transform.GetChild(1);
+        spitterSpawner = spawner.transform.GetChild(2);
         zombiesLeft = roundZomCount;
     }
 
@@ -41,21 +50,50 @@ public class MainController : MonoBehaviour
         if (spawning)   _spawnTimer -= Time.deltaTime;
 
         // If timer reaches 0, the spawner still has children, and the max number of zombies still has not been reached
-        if (_spawnTimer <= 0 && spawner.transform.childCount > 0 && zomSpawned <= roundZomCount)
+        if (_spawnTimer <= 0 && zomSpawned <= roundZomCount)
         {
+            Transform newZombie = zombieRatio > 0 ? zombieSpawner.GetChild(0) : spitterSpawner.GetChild(0);
+            if (zombieRatio > 0) {
+                zombieRatio -= 1;
+            } else {
+                zombieRatio = RATIO;
+            }
+            Pathfinding_entity newScript = newZombie.GetComponent<Pathfinding_entity>();
+            newScript.health = (short)(100 + (round -1) * 20);
+            //Zombie zombieScript;
+            //Spitter spitterScript;
+            // if (zombieRatio > 0) {
+            //     //spawn zombie
+            //     //newZombie = zombieSpawner.GetChild(0);
+            //     zombieScript = newZombie.GetComponent<Zombie>();
+            //     zombieScript.health = (short)(100 + (round - 1) * 20);
+            //     //newZombie.SetParent(null);
+            //     //activeZombies.Add(newZombie.gameObject);
+
+            //     //int rand = Random.Range(0, graves.childCount);
+            //     //newZombie.transform.position = graves.GetChild(rand).transform.position;
+            //     //newZombie.gameObject.SetActive(true);
+            //     //zomSpawned++;
+            //     //_spawnTimer = SPAWN_INTERVAL;
+            //     zombieRatio -= 1;
+            // } else {
+            //     //spawn spitter
+            //     spitterScript.health
+            //     zombieRatio = RATIO;
+            // }
+        
             // Grab the first zombie in spawner and grab its zombie script
-            Transform childZombie = spawner.transform.GetChild(0);
-            Zombie zombieScript = childZombie.GetComponent<Zombie>();
+            
             // Set the zombie's health according to the round
-            zombieScript.health = (short)(100 + (round - 1) * 20);
+            
             // Set the parent to nothing and add to the list of active zombies
-            childZombie.SetParent(null);
-            activeZombies.Add(childZombie.gameObject);
+            newZombie.SetParent(null);
+            activeZombies.Add(newZombie.gameObject);
 
             // Choose a random spawn area to spawn the chosen zombie and activate the game object in the chosen location
-            int rand = Random.Range(0, 3);
-            childZombie.transform.position = new Vector2(spawnAreas[rand, 0], spawnAreas[rand, 1]);
-            childZombie.gameObject.SetActive(true);
+            int rand = Random.Range(0, graves.childCount);
+            newZombie.transform.position = graves.GetChild(rand).transform.position;
+            newZombie.gameObject.SetActive(true);
             
             // Increase the number of zombies spawned and reset timer
             zomSpawned++;
@@ -70,6 +108,7 @@ public class MainController : MonoBehaviour
             roundZomCount += 3;
             zombiesLeft = roundZomCount;
             zomSpawned = 0;
+            zombieRatio = RATIO;
             
             spawning = true;
             _spawnTimer = SPAWN_INTERVAL;

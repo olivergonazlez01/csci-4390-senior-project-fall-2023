@@ -44,6 +44,9 @@ public class Obstacle : MonoBehaviour
             case "Tilemap_O3":
                 cost = 300;
                 break;
+            case "Tilemap_O4":
+                cost = 400;
+                break;
             default: 
                 cost = int.MaxValue;
                 break;
@@ -61,6 +64,7 @@ public class Obstacle : MonoBehaviour
                     Interact.turn_off();
                     Cost_Popup.hide_price();
                     PointsManager.decrease(cost);
+                    Obstacle_sounds.playSound();
                     transform.parent.gameObject.SetActive(false);
                 } else {
                     //error message

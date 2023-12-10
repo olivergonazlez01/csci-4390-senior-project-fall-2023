@@ -97,9 +97,9 @@ public class Bombs : MonoBehaviour
     void Damage(Transform zombie)
     {
         // Make sure each the parameter variable has the zombiescript, and decrease its health
-        Zombie zombieScript = zombie.GetComponent<Zombie>();
+        Pathfinding_entity zombieScript = zombie.GetComponent<Pathfinding_entity>();
         if (zombieScript != null)
-            zombieScript.health -= 100;
+            zombieScript.Damage_Zombie(100);
     }
 
 
