@@ -24,6 +24,9 @@ public class Bombs : MonoBehaviour
     // Animator for explosion and yarn
     public Animator explosion;
 
+    // Reference to sound 
+    public SFX_Controller soundController;
+
     // Vairables to set animations
     bool unravel = false;
     bool grenadeAnim = false;
@@ -34,7 +37,7 @@ public class Bombs : MonoBehaviour
         player = GameObject.Find("pawl").GetComponent<Player>();
         ui = GameObject.Find("/UI Controller").GetComponent<UI>();
         bombCollection = GameObject.Find("References to Bombs");
-
+        soundController = GameObject.Find("SFX_Controller").transform.GetComponent<SFX_Controller>();
         // After instantiating, turn off game object so that countdown does not start
         transform.gameObject.SetActive(false);
     }
@@ -63,6 +66,7 @@ public class Bombs : MonoBehaviour
         if (countdown < 0)
         {
             explosion.Play("Bigger Explosion");
+            soundController.playExplosion();
             StartCoroutine(waitForExplosion());
 
             foreach (Transform zombie in zombies)
