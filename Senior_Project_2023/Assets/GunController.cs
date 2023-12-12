@@ -5,8 +5,9 @@ using UnityEngine;
 using UnityEngine.UI;
 public class GunController : MonoBehaviour
 {
-    //multiplier
+    //multipliers
     private int multiplier = 2;
+    private int dmgmultiplier;
     // References to the rigid body in the center game object, the camera, the ui, and position of the mouse
     Rigidbody2D rb;
     Camera cam;
@@ -39,6 +40,7 @@ public class GunController : MonoBehaviour
     public byte magazine;
     public byte bulletCount;
     public ushort bulletCountTotal;
+    public ushort bulletCountTotalInitial;
 
     // Keeps time of the automatic shooting
     float timer = 0f;
@@ -55,7 +57,8 @@ public class GunController : MonoBehaviour
 
     public void PickedUp()
     {
-        // Get the name of the gun so that it can know how much damage to deal 
+        // Get the name of the gun so that it can know how much damage to deal
+        bulletCountTotalInitial =  bulletCountTotal;
         gunName = transform.name;
         // Initialize variables
         rb = transform.parent.GetComponent<Rigidbody2D>();
@@ -336,22 +339,21 @@ public class GunController : MonoBehaviour
             switch(gunName) 
             {
                 case "Pistol":
-                    zombieScript.Damage_Zombie(20);
-                    zombieScript.pushBack(30.0f, currentGunPoint.position);
+                    zombieScript.Damage_Zombie((short)(20*PawAPunch.pMult));
+                    zombieScript.pushBack(30.0f, gunPoint.position);
                 break;
                 
                 case "Rifle":
-                    zombieScript.Damage_Zombie(40);
-                    zombieScript.pushBack(60.0f, currentGunPoint.position);
+                    zombieScript.Damage_Zombie((short)(40*PawAPunch.arMult));
+                    zombieScript.pushBack(60.0f, gunPoint.position);
                 break;
 
                 case "Sniper":
-                    zombieScript.Damage_Zombie(80);
-                    zombieScript.pushBack(90.0f, currentGunPoint.position);
+                    zombieScript.Damage_Zombie((short)(80*PawAPunch.snipMult));
+                    zombieScript.pushBack(90.0f, gunPoint.position);
                 break;
-
                 case "Shotgun":
-                    zombieScript.Damage_Zombie(40);
+                    zombieScript.Damage_Zombie(short(40*PawAPunch.shotMult));
                     zombieScript.pushBack(50.0f, currentGunPoint.position);
                 break;
             }
