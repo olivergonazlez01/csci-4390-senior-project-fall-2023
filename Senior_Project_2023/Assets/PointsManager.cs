@@ -10,8 +10,8 @@ public class PointsManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Points.text = "Balls";
-        PointValue = 0;
+        Points.text = "dummytext_";
+        PointValue = 5000000;
     }
 
     // Update is called once per frame
