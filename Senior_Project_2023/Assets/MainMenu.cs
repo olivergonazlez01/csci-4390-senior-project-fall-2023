@@ -5,6 +5,8 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField] public AudioSource soundtrack;
+
    public void PlayGame()
     {
         // Load  the scene with the given name
