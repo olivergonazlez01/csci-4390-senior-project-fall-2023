@@ -41,7 +41,10 @@ public class Pickup : MonoBehaviour
                 else if (this.transform.name == "Sniper") 
                 {
                     if (PointsManager.PointValue >= 2250)
+                    {
                         PointsManager.PointValue -= 2250;
+                        wallGun.gameObject.SetActive(false);
+                    }
                     else
                     {
                         ui.changeMessage("Not enough points");
@@ -51,7 +54,10 @@ public class Pickup : MonoBehaviour
                 else if (this.transform.name == "Rifle")
                 {
                     if (PointsManager.PointValue >= 1500)
+                    {
                         PointsManager.PointValue -= 1500;
+                        wallGun.gameObject.SetActive(false);
+                    }
                     else
                     {
                         ui.changeMessage("Not enough points");
@@ -61,7 +67,10 @@ public class Pickup : MonoBehaviour
                 else if (this.transform.name == "Shotgun")
                 {
                     if (PointsManager.PointValue >= 2000)
+                    {
                         PointsManager.PointValue -= 2000;
+                        wallGun.gameObject.SetActive(false);
+                    }
                     else
                     {
                         ui.changeMessage("Not enough points");
