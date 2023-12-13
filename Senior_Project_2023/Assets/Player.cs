@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         // Always make the center follow the player
         center.transform.localPosition = new Vector2(-0.01f, -0.15f);
         
-        // Checks if the player has ran out of health, and returns player to main menu screen
+        // Checks if the player has ran out of health, and returns player to game over screen
         if (health == 0)    SceneManager.LoadScene("Game Over");
 
         // safeTime makes sure the player a downtime to the zombies' hits
@@ -74,6 +74,19 @@ public class Player : MonoBehaviour
             health++;
             autoRegen = false;
             autoRegenTimer = 0.0f;
+        }
+
+        // Checks if the player pressed the escape key
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (UI.isPaused)
+            {
+                ui.Resume();
+            }
+            else
+            {
+                ui.Pause();
+            }
         }
 
         // Checks if the player has grenades and balls of yarn to throw
@@ -110,8 +123,8 @@ public class Player : MonoBehaviour
 
         // If the player presses the d key, the sprite will face towards the right
         // And if the player presses the a key, the sprite will face towards the left
-        if (transform.localScale.x > 0) center.transform.localScale = new Vector3 (-1, 1, 1);
-        else    center.transform.localScale = new Vector3 (1, 1, 1);
+            if (transform.localScale.x > 0) center.transform.localScale = new Vector3 (-1, 1, 1);
+            else    center.transform.localScale = new Vector3 (1, 1, 1);
 
 
         // convert user input into a movement direction (could use Unity axis for this)
