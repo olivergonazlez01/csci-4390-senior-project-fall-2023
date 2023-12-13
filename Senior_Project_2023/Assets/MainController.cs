@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class MainController : MonoBehaviour
@@ -52,39 +53,23 @@ public class MainController : MonoBehaviour
         // If timer reaches 0, the spawner still has children, and the max number of zombies still has not been reached
         if (_spawnTimer <= 0 && zomSpawned <= roundZomCount)
         {
+            //ensure there is enough zombies in the pool before spawning
+            if (zombieSpawner.childCount <= 0 || spitterSpawner.childCount <= 0) {
+                _spawnTimer = SPAWN_INTERVAL;
+                return;
+            }
+
+            // Grab the first zombie or spitter in spawner and grab its zombie script
             Transform newZombie = zombieRatio > 0 ? zombieSpawner.GetChild(0) : spitterSpawner.GetChild(0);
             if (zombieRatio > 0) {
                 zombieRatio -= 1;
             } else {
                 zombieRatio = RATIO;
             }
+
+            // Set the zombie's health according to the round
             Pathfinding_entity newScript = newZombie.GetComponent<Pathfinding_entity>();
             newScript.health = (short)(100 + (round -1) * 20);
-            //Zombie zombieScript;
-            //Spitter spitterScript;
-            // if (zombieRatio > 0) {
-            //     //spawn zombie
-            //     //newZombie = zombieSpawner.GetChild(0);
-            //     zombieScript = newZombie.GetComponent<Zombie>();
-            //     zombieScript.health = (short)(100 + (round - 1) * 20);
-            //     //newZombie.SetParent(null);
-            //     //activeZombies.Add(newZombie.gameObject);
-
-            //     //int rand = Random.Range(0, graves.childCount);
-            //     //newZombie.transform.position = graves.GetChild(rand).transform.position;
-            //     //newZombie.gameObject.SetActive(true);
-            //     //zomSpawned++;
-            //     //_spawnTimer = SPAWN_INTERVAL;
-            //     zombieRatio -= 1;
-            // } else {
-            //     //spawn spitter
-            //     spitterScript.health
-            //     zombieRatio = RATIO;
-            // }
-        
-            // Grab the first zombie in spawner and grab its zombie script
-            
-            // Set the zombie's health according to the round
             
             // Set the parent to nothing and add to the list of active zombies
             newZombie.SetParent(null);
@@ -105,6 +90,7 @@ public class MainController : MonoBehaviour
         if (zombiesLeft == 0)
         {
             round++;
+            //if (round % 2 == 0) StartCoroutine(HoardRound());
             roundZomCount += 3;
             zombiesLeft = roundZomCount;
             zomSpawned = 0;
@@ -114,4 +100,31 @@ public class MainController : MonoBehaviour
             _spawnTimer = SPAWN_INTERVAL;
         }
     }
+
+    // // spawns a zombie at each grave every 3 rounds
+    // IEnumerator HoardRound() {
+    //     if (zombieSpawner.childCount < 10) {
+    //         yield return 0;
+    //     } else {
+    //         for (int i = 0; i < graves.childCount; i++) {
+    //             Debug.Log("here");
+    //             // step 1
+    //             Transform newZombie = zombieSpawner.GetChild(0);
+
+    //             // step 2
+    //             Pathfinding_entity newScript = newZombie.GetComponent<Pathfinding_entity>();
+    //             newScript.health = (short)(100 + (round -1) * 20);
+
+    //             // step 3
+    //             newZombie.SetParent(null);
+    //             activeZombies.Add(newZombie.gameObject);
+
+    //             // step 4
+    //             newZombie.transform.position = graves.GetChild(i).transform.position;
+    //             newZombie.gameObject.SetActive(true);
+    //         }
+    //     }
+        
+    //     yield return 0;
+    // }
 }

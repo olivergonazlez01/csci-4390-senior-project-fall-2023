@@ -9,6 +9,7 @@ public class Pathfinding_entity : MonoBehaviour
     private Transform _target = null;
     private float _speed = 0.0f;
     public short health;
+    public bool specialZombie = false;
     public SFX_Controller soundController;
     private Vector2 _dir = Vector2.zero;
     // path iterator
@@ -53,6 +54,7 @@ public class Pathfinding_entity : MonoBehaviour
     {
         path = new UnityEngine.AI.NavMeshPath();
         soundController = GameObject.Find("SFX_Controller").transform.GetComponent<SFX_Controller>();
+        if (transform.GetComponent<SpriteRenderer>().color != Color.white) specialZombie = true;
     }
 
     // returns true if the entity is moving, false otherwise

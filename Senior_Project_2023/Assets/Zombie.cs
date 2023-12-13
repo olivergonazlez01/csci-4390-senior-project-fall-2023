@@ -59,7 +59,7 @@ public class Zombie : Pathfinding_entity
 
             // Remove it from the list of active zombies and update the game controller, play death sound
             controller.activeZombies.Remove(transform.gameObject);
-            controller.zombiesLeft--;
+            if(!specialZombie) controller.zombiesLeft--;
             soundController.playDeath();
 
             // Stop all coroutines and setTarget to player for next time it is active

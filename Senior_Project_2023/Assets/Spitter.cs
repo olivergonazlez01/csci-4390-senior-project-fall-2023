@@ -68,7 +68,7 @@ public class Spitter : Pathfinding_entity
 
             // Remove it from the list of active zombies and update the game controller, play zombie death sound
             controller.activeZombies.Remove(transform.gameObject);
-            controller.zombiesLeft--;
+            if(!specialZombie) controller.zombiesLeft--;
             soundController.playDeath();
 
             // Set the location and parent of the zombie to the spawner and turn off zombie
