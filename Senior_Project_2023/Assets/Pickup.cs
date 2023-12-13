@@ -38,7 +38,16 @@ public class Pickup : MonoBehaviour
             if (wallGun && wallGun.buy) 
             {
                 if (this.transform.name == "Pistol") {}
-                else if (this.transform.name == "Sniper") {}
+                else if (this.transform.name == "Sniper") 
+                {
+                    if (PointsManager.PointValue >= 2250)
+                        PointsManager.PointValue -= 2250;
+                    else
+                    {
+                        ui.changeMessage("Not enough points");
+                        canBuy = false;
+                    }
+                }
                 else if (this.transform.name == "Rifle")
                 {
                     if (PointsManager.PointValue >= 1500)
