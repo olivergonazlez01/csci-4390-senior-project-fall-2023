@@ -8,7 +8,7 @@ public class GameOver : MonoBehaviour
     public void PlayGameAgain()
     {
         // Load the scene with the given name
-        SceneManager.LoadScene("Wall Guns");
+        SceneManager.LoadScene("TESTING");
     }
 
     public void QuitGame() {

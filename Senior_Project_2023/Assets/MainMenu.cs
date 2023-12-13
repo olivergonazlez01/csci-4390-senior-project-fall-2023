@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
    public void PlayGame()
     {
         // Load  the scene with the given name
-        SceneManager.LoadScene("Zombie_AI");
+        SceneManager.LoadScene("TESTING");
     }
 
     public void QuitGame() {

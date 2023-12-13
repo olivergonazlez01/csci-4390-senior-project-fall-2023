@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 // TO UPDATE THE VALUES OF THE TEXT OBJECTS IN THE UI IN ANOTHER SCRIPT, CREATE A FUNCTION THAT CHANGES THE VALUES
 // AND CALL THE FUNCTION IN THAT OTHER SCRIPT
@@ -44,6 +45,14 @@ public class UI : MonoBehaviour
     bool intro = true;
     float introTimer = 3.0f;
 
+    // Initializes pause menu variables
+    public static bool isPaused = false;
+    GameObject pauseMenuImage;
+    GameObject resumeBtn;
+    GameObject mainMenuBtn;
+    GameObject instructions;
+    GameObject popupCanvas;
+
     // References to the game controller and player
     public MainController controller;
     public Player playerInfo;
@@ -71,12 +80,24 @@ public class UI : MonoBehaviour
         Intro_1 = canvas.transform.Find("Intro Text").GetComponent<Text>();
         Intro_2 = canvas.transform.Find("Intro Text 2").GetComponent<Text>();
 
+        pauseMenuImage = canvas.transform.Find("Pause Menu").gameObject;
+        resumeBtn = canvas.transform.Find("Resume Button").gameObject;
+        mainMenuBtn = canvas.transform.Find("Main Menu Button").gameObject;
+        instructions = canvas.transform.Find("Instructions").gameObject;
+        popupCanvas = transform.Find("/Popup_Canvas").gameObject;
+
         round.text = roundCount.ToString();
         zombCount.text = controller.zombiesLeft.ToString();
         points.text = pointsCount.ToString();
         bulletInClip.text = bulletClipCount.ToString();
         bulletTotal.text = bulletTotalCount.ToString();
         errorMessages.text = "";
+
+        pauseMenuImage.SetActive(false);
+        resumeBtn.SetActive(false);
+        mainMenuBtn.SetActive(false);
+        instructions.SetActive(false);
+        
     }
 
     void Update()
@@ -192,5 +213,33 @@ public class UI : MonoBehaviour
         messageTimer = 2.0f;
         showMessage = true;
         errorMessages.text = message;
+    }
+
+    public void Resume()
+    {
+        pauseMenuImage.SetActive(false);
+        resumeBtn.SetActive(false);
+        mainMenuBtn.SetActive(false);
+        instructions.SetActive(false);
+        popupCanvas.SetActive(true);
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+
+    public void Pause()
+    {
+        pauseMenuImage.SetActive(true);
+        resumeBtn.SetActive(true);
+        mainMenuBtn.SetActive(true);
+        instructions.SetActive(true);
+        popupCanvas.SetActive(false);
+        Time.timeScale = 0f;
+        isPaused = true;
+    }
+
+    public void LoadMenu()
+    {
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("Menu");
     }
 }
