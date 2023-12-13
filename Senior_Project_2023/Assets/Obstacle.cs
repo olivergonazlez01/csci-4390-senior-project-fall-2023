@@ -38,16 +38,16 @@ public class Obstacle : MonoBehaviour
         parentName = transform.parent.name;
         switch (parentName) {
             case "Tilemap_O1":
-                cost = 100;
+                cost = 2000;
                 break;
             case "Tilemap_O2":
-                cost = 200;
+                cost = 1000;
                 break;
             case "Tilemap_O3":
-                cost = 300;
+                cost = 1000;
                 break;
             case "Tilemap_O4":
-                cost = 400;
+                cost = 1000;
                 break;
             default: 
                 cost = int.MaxValue;

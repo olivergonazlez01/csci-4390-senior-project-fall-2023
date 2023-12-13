@@ -40,9 +40,9 @@ public class Pickup : MonoBehaviour
                 if (this.transform.name == "Pistol") {}
                 else if (this.transform.name == "Sniper") 
                 {
-                    if (PointsManager.PointValue >= 2250)
+                    if (PointsManager.PointValue >= 2000)
                     {
-                        PointsManager.PointValue -= 2250;
+                        PointsManager.PointValue -= 2000;
                         wallGun.gameObject.SetActive(false);
                     }
                     else
@@ -53,9 +53,9 @@ public class Pickup : MonoBehaviour
                 }
                 else if (this.transform.name == "Rifle")
                 {
-                    if (PointsManager.PointValue >= 1500)
+                    if (PointsManager.PointValue >= 3500)
                     {
-                        PointsManager.PointValue -= 1500;
+                        PointsManager.PointValue -= 3500;
                         wallGun.gameObject.SetActive(false);
                     }
                     else
@@ -66,9 +66,9 @@ public class Pickup : MonoBehaviour
                 }
                 else if (this.transform.name == "Shotgun")
                 {
-                    if (PointsManager.PointValue >= 2000)
+                    if (PointsManager.PointValue >= 3000)
                     {
-                        PointsManager.PointValue -= 2000;
+                        PointsManager.PointValue -= 3000;
                         wallGun.gameObject.SetActive(false);
                     }
                     else

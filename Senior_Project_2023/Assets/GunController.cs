@@ -83,7 +83,7 @@ public class GunController : MonoBehaviour
     void Update()
     {
         // Check if the gun is equipped
-        if (pickedUp.Equipped()) {
+        if (pickedUp.Equipped() && !UI.isPaused) {
             // If r key is pressed and reloading is not happening, reload
             if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isCooldown)    StartCoroutine(Reload());
             // If left click and not realoding, if gun has ammo, shoot
@@ -353,12 +353,12 @@ public class GunController : MonoBehaviour
                 break;
                 
                 case "Rifle":
-                    zombieScript.Damage_Zombie((short)(40*PawAPunch.arMult));
+                    zombieScript.Damage_Zombie((short)(30*PawAPunch.arMult));
                     zombieScript.pushBack(60.0f, gunPoint.position);
                 break;
 
                 case "Sniper":
-                    zombieScript.Damage_Zombie((short)(80*PawAPunch.snipMult));
+                    zombieScript.Damage_Zombie((short)(150*PawAPunch.snipMult));
                     zombieScript.pushBack(90.0f, gunPoint.position);
                 break;
                 case "Shotgun":

@@ -43,7 +43,7 @@ public class Zombie : Pathfinding_entity
         Player = GameObject.Find("pawl");
         setTarget(Player.transform);
         setEntitySpeed(SPEED);
-        health = (short) Math.Ceiling((double) (100 * healthMultiplier));
+        health = specialZombie ? (short)500 : (short) Math.Ceiling((double) (100 * healthMultiplier));
         gameController = GameObject.Find("Game Controller");
         controller = gameController.GetComponentInChildren<MainController>();
     }
