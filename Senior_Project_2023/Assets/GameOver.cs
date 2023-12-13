@@ -8,7 +8,7 @@ public class GameOver : MonoBehaviour
     public void PlayGameAgain()
     {
         // Load the scene with the given name
-        SceneManager.LoadScene("TESTING");
+        SceneManager.LoadScene("Menu");
     }
 
     public void QuitGame() {

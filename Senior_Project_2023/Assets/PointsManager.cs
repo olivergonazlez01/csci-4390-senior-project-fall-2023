@@ -11,7 +11,7 @@ public class PointsManager : MonoBehaviour
     void Start()
     {
         Points.text = "dummytext_";
-        PointValue = 4500;
+        PointValue = 0;
     }
 
     // Update is called once per frame

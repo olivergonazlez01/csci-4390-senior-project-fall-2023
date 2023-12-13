@@ -14,15 +14,15 @@ public class WallGun : MonoBehaviour
         switch(name)
         {
             case "Sniper":
-                price = 1500;
+                price = 2000;
             break;
 
             case "Shotgun":
-                price =  2000;
+                price =  3000;
             break;
 
             case "Rifle":
-                price = 2250;
+                price = 3500;
             break;
         }
     }

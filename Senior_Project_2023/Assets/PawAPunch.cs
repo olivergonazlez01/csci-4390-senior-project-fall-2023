@@ -60,28 +60,32 @@ public class PawAPunch : MonoBehaviour
                         arMult += 2;
                         gunVariables.magazine += 30;
                         gunVariables.bulletCount = gunVariables.magazine;
-                        gunVariables.bulletCountTotal += (ushort)(0.5 * gunVariables.bulletCountTotalInitial);
+                        gunVariables.bulletCountTotalInitial += (ushort)(0.5 * gunVariables.bulletCountTotalInitial);
+                        gunVariables.bulletCountTotal = gunVariables.bulletCountTotalInitial;
                         break;
 
                         case "Sniper":
                         snipMult += 2;
                         gunVariables.magazine += 10;
                         gunVariables.bulletCount = gunVariables.magazine;
-                        gunVariables.bulletCountTotal += (ushort)(0.5 * gunVariables.bulletCountTotalInitial);
+                        gunVariables.bulletCountTotalInitial += (ushort)(0.5 * gunVariables.bulletCountTotalInitial);
+                        gunVariables.bulletCountTotal = gunVariables.bulletCountTotalInitial;
                         break;
 
                         case "Shotgun":
                         shotMult += 2;
                         gunVariables.magazine += 4;
                         gunVariables.bulletCount = gunVariables.magazine;
-                        gunVariables.bulletCountTotal += (ushort)(0.5 * gunVariables.bulletCountTotalInitial);
+                        gunVariables.bulletCountTotalInitial += (ushort)(0.5 * gunVariables.bulletCountTotalInitial);
+                        gunVariables.bulletCountTotal = gunVariables.bulletCountTotalInitial;
                         break;
 
                         case "Pistol":
                         pMult += 3;
                         gunVariables.magazine += 7;
                         gunVariables.bulletCount = gunVariables.magazine;
-                        gunVariables.bulletCountTotal += (ushort)(0.5 * gunVariables.bulletCountTotalInitial);
+                        gunVariables.bulletCountTotalInitial += (ushort)(0.5 * gunVariables.bulletCountTotalInitial);
+                        gunVariables.bulletCountTotal = gunVariables.bulletCountTotalInitial;
                         break;
                     }
                     ui.Change(gunVariables.bulletCount,gunVariables.bulletCountTotal);

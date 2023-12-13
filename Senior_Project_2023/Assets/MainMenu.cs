@@ -8,7 +8,7 @@ public class MainMenu : MonoBehaviour
    public void PlayGame()
     {
         // Load  the scene with the given name
-        SceneManager.LoadScene("Gun_Placement");
+        SceneManager.LoadScene("Final_Demo");
     }
 
     public void QuitGame() {

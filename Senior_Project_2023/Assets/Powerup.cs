@@ -105,13 +105,23 @@ public class Powerup : MonoBehaviour
                             switch(center.transform.GetChild(i).name)
                             {
                                 case "Pistol":
-                                    gun.bulletCount = 7;
-                                    gun.bulletCountTotal = 150;
+                                    gun.bulletCount = gun.magazine;
+                                    gun.bulletCountTotal = gun.bulletCountTotalInitial;
                                     break;
                                 
                                 case "Rifle":
-                                    gun.bulletCount = 30;
-                                    gun.bulletCountTotal = 300;
+                                    gun.bulletCount = gun.magazine;
+                                    gun.bulletCountTotal = gun.bulletCountTotalInitial;
+                                    break;
+
+                                case "Shotgun":
+                                    gun.bulletCount = gun.magazine;
+                                    gun.bulletCountTotal = gun.bulletCountTotalInitial;
+                                    break;
+
+                                case "Sniper":
+                                    gun.bulletCount = gun.magazine;
+                                    gun.bulletCountTotal = gun.bulletCountTotalInitial;
                                     break;
                             }
                             // Update the ui to show the new ammo amount for the gun the player is currently using
