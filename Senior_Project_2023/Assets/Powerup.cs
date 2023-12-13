@@ -23,6 +23,7 @@ public class Powerup : MonoBehaviour
     MainController controller;
     UI ui;
     GameObject references;
+    SFX_Controller soundControl;
 
     void Start()
     {
@@ -31,6 +32,7 @@ public class Powerup : MonoBehaviour
         controller = gameController.GetComponentInChildren<MainController>();
         ui = GameObject.Find("/UI Controller").GetComponent<UI>();
         references = GameObject.Find("References to Bombs").gameObject;
+        soundControl = GameObject.Find("SFX_Controller").transform.GetComponent<SFX_Controller>();
     }
 
     void Update()
@@ -79,6 +81,7 @@ public class Powerup : MonoBehaviour
         // If the powerup collides with the player
         if (col.transform.name == "pawl") 
         {
+            soundControl.playPickup();
             switch(transform.name)
             {
                 // If the player collides with the insta kill powerup
@@ -152,8 +155,9 @@ public class Powerup : MonoBehaviour
                     // For every zombie in the round that is active, kill them
                     foreach (GameObject i in controller.activeZombies)
                     {
-                        Zombie zombie = i.GetComponent<Zombie>();
-                        zombie.health = 0;
+                        // Zombie zombie = i.GetComponent<Zombie>();
+                        // zombie.health = 0;
+                        i.GetComponent<Pathfinding_entity>().Damage_Zombie(-1);
                     }
                     Debug.Log("Nuke");
                 break;

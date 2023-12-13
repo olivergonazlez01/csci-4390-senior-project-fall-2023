@@ -38,7 +38,7 @@ public class Spit : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Player") {
+        if (collision.name == "pawl") {
             // Deal Damage to Player and reset spit 
             collision.GetComponent<Player>().Damage_Player();
             gameObject.SetActive(false);

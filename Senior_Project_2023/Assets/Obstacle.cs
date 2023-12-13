@@ -15,6 +15,7 @@ public class Obstacle : MonoBehaviour
     private bool check = false;
     private string parentName;
     private int cost;
+    public SFX_Controller soundController;
 
     void OnTriggerEnter2D (Collider2D collider) {
         if (collider.transform.name == "pawl") {
@@ -33,6 +34,7 @@ public class Obstacle : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        soundController = GameObject.Find("SFX_Controller").transform.GetComponent<SFX_Controller>();
         parentName = transform.parent.name;
         switch (parentName) {
             case "Tilemap_O1":
@@ -43,6 +45,9 @@ public class Obstacle : MonoBehaviour
                 break;
             case "Tilemap_O3":
                 cost = 300;
+                break;
+            case "Tilemap_O4":
+                cost = 400;
                 break;
             default: 
                 cost = int.MaxValue;
@@ -60,6 +65,7 @@ public class Obstacle : MonoBehaviour
                 if (isAffordable()) {
                     Interact.turn_off();
                     Cost_Popup.hide_price();
+                    soundController.playUnlock();
                     PointsManager.decrease(cost);
                     transform.parent.gameObject.SetActive(false);
                 } else {

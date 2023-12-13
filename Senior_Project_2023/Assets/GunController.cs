@@ -55,6 +55,9 @@ public class GunController : MonoBehaviour
     // Checks if the player is reloading their gun
     private bool isReloading = false;
 
+    // Checks if the player is in cooldown
+    private bool isCooldown = false;
+
     public void PickedUp()
     {
         // Get the name of the gun so that it can know how much damage to deal
@@ -82,7 +85,7 @@ public class GunController : MonoBehaviour
         // Check if the gun is equipped
         if (pickedUp.Equipped()) {
             // If r key is pressed and reloading is not happening, reload
-            if (Input.GetKeyDown(KeyCode.R) && !isReloading)    StartCoroutine(Reload());
+            if (Input.GetKeyDown(KeyCode.R) && !isReloading && !isCooldown)    StartCoroutine(Reload());
             // If left click and not realoding, if gun has ammo, shoot
             if (transform.name == "Rifle" && Input.GetMouseButton(0) && !isReloading)
             {
@@ -95,7 +98,7 @@ public class GunController : MonoBehaviour
                 else
                     timer -= Time.deltaTime;
             }
-            else if (Input.GetMouseButtonDown(0) && !isReloading)
+            else if (Input.GetMouseButtonDown(0) && !isReloading && !isCooldown)
             {
                 if (bulletCount > 0) {
                     gunshot.PlayOneShot(gunshot.clip);
@@ -169,7 +172,7 @@ public class GunController : MonoBehaviour
         if (bulletCount == 0)   StartCoroutine(Reload());
         // Change UI to show that player has shot a bullet
         ui.Change(bulletCount, bulletCountTotal);
-        if (gunName == "Sniper") {
+        if (gunName == "Sniper" && !isCooldown) {
             StartCoroutine(Cooldown());
         }
     }
@@ -274,9 +277,15 @@ public class GunController : MonoBehaviour
     }
 
     IEnumerator Cooldown() {
-        isReloading = true;
+        isCooldown = true;
+        buttons[0].enabled = false;
+        buttons[1].enabled = false;
+        Debug.Log("enter");
         yield return new WaitForSeconds(1.25f);
-        isReloading = false;
+        isCooldown = false;
+        buttons[0].enabled = true;
+        buttons[1].enabled = true;
+        Debug.Log("exit");
     }
 
     IEnumerator Reload()
@@ -353,7 +362,7 @@ public class GunController : MonoBehaviour
                     zombieScript.pushBack(90.0f, gunPoint.position);
                 break;
                 case "Shotgun":
-                    zombieScript.Damage_Zombie(short(40*PawAPunch.shotMult));
+                    zombieScript.Damage_Zombie((short)(40*PawAPunch.shotMult));
                     zombieScript.pushBack(50.0f, currentGunPoint.position);
                 break;
             }

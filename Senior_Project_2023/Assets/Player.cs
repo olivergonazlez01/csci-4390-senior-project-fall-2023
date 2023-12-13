@@ -8,6 +8,8 @@ public class Player : MonoBehaviour
 {
     // Controls the sppeed of the character
     private const float SPEED = 5.0f;
+    private const float SLOW_SPEED = 2.0f;
+    private bool isSlowed = false;
     // Controls velocity of character
     private Vector2 _velocity = Vector2.zero;
     // Controls animator of character
@@ -120,7 +122,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.S)) dir += Vector2.down;
 
         // set velocity based on movement direction
-        _velocity = dir.normalized * SPEED;
+        _velocity = dir.normalized * (isSlowed ? SLOW_SPEED : SPEED);
         animator.SetFloat("speed", dir.magnitude);
         if (Input.GetAxisRaw("Horizontal") > 0) {
             pawl.transform.localScale = new Vector3(-1, 1, 1);
@@ -141,19 +143,24 @@ public class Player : MonoBehaviour
         }
     }
 
-    // Check if the player has hit by the zombie
-    void OnCollisionStay2D(Collision2D collision)
-    {
-        if (collision.collider.tag == "Zombie" && !safeTime)
-        {
-            hit.PlayOneShot(hit.clip);
-            health--;
-            safeTime = true;
-
-            collision.collider.GetComponent<Zombie>().attack();
-            StartCoroutine(Damage());
-        }
+    // call this function from other scripts to slow the player down
+    public void Slow_Player(bool isSlow) {
+        isSlowed = isSlow;
     }
+
+    // // Check if the player has hit by the zombie
+    // void OnCollisionStay2D(Collision2D collision)
+    // {
+    //     if (collision.collider.tag == "Zombie" && !safeTime)
+    //     {
+    //         hit.PlayOneShot(hit.clip);
+    //         health--;
+    //         safeTime = true;
+
+    //         collision.collider.GetComponent<Zombie>().attack();
+    //         StartCoroutine(Damage());
+    //     }
+    // }
 
     IEnumerator Damage() {
         this.gameObject.GetComponent<SpriteRenderer>().color = Color.red;
