@@ -10,11 +10,11 @@ public class WallGun : MonoBehaviour
     
     void Start()
     {
-        string name =transform.GetChild(0).name;
+        string name = transform.GetChild(0).name;
         switch(name)
         {
             case "Sniper":
-                price = 2250;
+                price = 1500;
             break;
 
             case "Shotgun":
@@ -22,7 +22,7 @@ public class WallGun : MonoBehaviour
             break;
 
             case "Rifle":
-                price = 1500;
+                price = 2250;
             break;
         }
     }
@@ -39,8 +39,8 @@ public class WallGun : MonoBehaviour
         if (col.transform.name == "pawl") 
         {
             buy = true;
-            Interact.turn_on(true);
-            Cost_Popup.show_price(price, true);
+            Interact.turn_on(isAffordable());
+            Cost_Popup.show_price(price, isAffordable());
         }
     }
 
@@ -52,5 +52,9 @@ public class WallGun : MonoBehaviour
             Interact.turn_off();
             Cost_Popup.hide_price();
         }
+    }
+
+    bool isAffordable() {
+        return PointsManager.PointValue >= price;
     }
 }
